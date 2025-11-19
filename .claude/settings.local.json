@@ -1,7 +1,7 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mkdir:*)"
+      "Bash(\"/c/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform EditMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog.txt\")"
     ],
     "deny": [],
     "ask": []

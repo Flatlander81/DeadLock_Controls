@@ -148,11 +148,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0885c932ec532c4b86de7a576e1630b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
+  verboseLogging: 0
   mainCamera: {fileID: 128275918}
+  orbitCamera: {fileID: 0}
   shipLayer:
     serializedVersion: 2
     m_Bits: 64
   alternateSelectKey: 59
+  focusCameraKey: 102
   elevationSensitivity: 1
   rotationSensitivity: 90
   groundPlaneY: 0
@@ -182,6 +185,7 @@ GameObject:
   - component: {fileID: 128275920}
   - component: {fileID: 128275918}
   - component: {fileID: 128275919}
+  - component: {fileID: 128275921}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -263,6 +267,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: 0, z: 0}
+--- !u!114 &128275921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128275917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce85dc48ccf0154d926b3cc7669ea16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OrbitCamera
+  orbitSpeed: 5
+  zoomSpeed: 10
+  minZoomDistance: 5
+  maxZoomDistance: 50
+  focusTransitionSpeed: 5
+  panSpeed: 0.5
+  keyboardPanSpeed: 10
+  keyboardOrbitSpeed: 90
+  keyboardZoomSpeed: 15
+  minVerticalAngle: -80
+  maxVerticalAngle: 80
+--- !u!1 &407231244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 418500905758017333, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+  m_PrefabInstance: {fileID: 2028007303158497430}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &407231251
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407231244}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: fda1734681298d842b0fefa638d2091c, type: 3}
 --- !u!1 &462327267
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,16 +374,16 @@ GameObject:
   - component: {fileID: 672031173}
   - component: {fileID: 672031172}
   - component: {fileID: 672031171}
-  - component: {fileID: 672031170}
   - component: {fileID: 672031169}
   - component: {fileID: 672031168}
+  - component: {fileID: 672031174}
   m_Layer: 6
   m_Name: Ship_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &672031168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,9 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2998ba3a59947143a97f880eb91b14a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Ship
+  verboseLogging: 0
   minMoveDistance: 5
   maxMoveDistance: 20
   maxTurnAngle: 45
+  executionRotationSpeed: 270
   arcHeight: 0.3
   straightStartLength: 3
   pathColor: {r: 0, g: 1, b: 1, a: 1}
@@ -378,27 +434,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &672031170
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 672031167}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &672031171
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -470,6 +505,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &672031174
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 672031167}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1736283760
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,7 +632,7 @@ Transform:
   m_GameObject: {fileID: 1736283760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.21, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -679,6 +735,74 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1001 &2028007303158497430
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 418500905758017333, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_Name
+      value: Scifi_Ship_Cruiser-FBX
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758017333, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 418500905758186261, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1763458790794001754, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      propertyPath: projectionPrefab
+      value: 
+      objectReference: {fileID: 4073926637834751331, guid: 9e1b834f8b3177942addfcc545455f1d, type: 3}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 418500905758017333, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 407231251}
+  m_SourcePrefab: {fileID: 100100000, guid: ac1049fcd4b3fe44b9f4acd2995554e8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -689,3 +813,4 @@ SceneRoots:
   - {fileID: 462327269}
   - {fileID: 49150788}
   - {fileID: 1736283764}
+  - {fileID: 2028007303158497430}

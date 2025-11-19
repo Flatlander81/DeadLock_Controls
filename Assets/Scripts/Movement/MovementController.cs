@@ -16,10 +16,15 @@ public class MovementController : MonoBehaviour
         Rotation
     }
 
+    [Header("Debug Settings")]
+    [SerializeField] private bool verboseLogging = false;
+
     [Header("Configuration")]
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private OrbitCamera orbitCamera;
     [SerializeField] private LayerMask shipLayer;
     [SerializeField] private KeyCode alternateSelectKey = KeyCode.Semicolon;
+    [SerializeField] private KeyCode focusCameraKey = KeyCode.F;
     [SerializeField] private float elevationSensitivity = 1f;
     [SerializeField] private float rotationSensitivity = 90f;
 
@@ -49,6 +54,11 @@ public class MovementController : MonoBehaviour
         if (mainCamera == null)
         {
             Debug.LogError("MovementController: No camera found! Please assign a camera.");
+        }
+
+        if (orbitCamera == null && mainCamera != null)
+        {
+            orbitCamera = mainCamera.GetComponent<OrbitCamera>();
         }
     }
 
@@ -122,6 +132,13 @@ public class MovementController : MonoBehaviour
             adjustmentMode = AdjustmentMode.Elevation;
             Debug.Log("Entered Elevation adjustment mode (alternate key)");
         }
+
+        // F key to focus camera on selected ship
+        if (Input.GetKeyDown(focusCameraKey) && selectedShip != null && orbitCamera != null)
+        {
+            orbitCamera.FocusOn(selectedShip.transform);
+            Debug.Log($"Camera focused on {selectedShip.gameObject.name}");
+        }
     }
 
     /// <summary>
@@ -145,7 +162,10 @@ public class MovementController : MonoBehaviour
             isDraggingProjection = true;
             dragStartMousePos = Input.mousePosition;
 
-            Debug.Log($"Started dragging {selectedShip.gameObject.name} projection");
+            if (verboseLogging)
+            {
+                Debug.Log($"Started dragging {selectedShip.gameObject.name} projection");
+            }
 
             // Keep the collider for now, remove it after drag
             return true;
@@ -337,6 +357,12 @@ public class MovementController : MonoBehaviour
         selectedShip = ship;
         selectedShip.Select();
         adjustmentMode = AdjustmentMode.None;
+
+        // Automatically focus camera on newly selected ship
+        if (orbitCamera != null)
+        {
+            orbitCamera.FocusOn(ship.transform);
+        }
     }
 
     /// <summary>
@@ -358,7 +384,7 @@ public class MovementController : MonoBehaviour
     private void OnGUI()
     {
         // Movement controls help text (top-left)
-        GUILayout.BeginArea(new Rect(10, 10, 300, 200));
+        GUILayout.BeginArea(new Rect(10, 10, 300, 240));
         GUILayout.Box("Movement Controls");
         GUILayout.Label("Click ship to select");
         GUILayout.Label("Drag projection to move");
@@ -368,6 +394,14 @@ public class MovementController : MonoBehaviour
         GUILayout.Label("Arrow Keys - Adjust rotation");
         GUILayout.Label("Enter/Space - Confirm");
         GUILayout.Label("Esc - Cancel adjustment");
+        GUILayout.Label("");
+        GUILayout.Label("Camera Controls:");
+        GUILayout.Label("Shift+Drag - Orbit camera");
+        GUILayout.Label("Ctrl+Drag - Pan camera");
+        GUILayout.Label("Q/E - Orbit left/right");
+        GUILayout.Label("WASD - Pan camera");
+        GUILayout.Label("R/F - Zoom in/out");
+        GUILayout.Label("Scroll - Zoom");
         GUILayout.EndArea();
 
         // Current adjustment mode indicator

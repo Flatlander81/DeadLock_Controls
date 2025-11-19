@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4021666c029f33748a4969af26971575
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 10254
+  packageName: SciFi Spaceships Fleet
+  packageVersion: V3
+  assetPath: Assets/Meshes/Materials/SciFi_Cruiser.mat
+  uploadId: 32072

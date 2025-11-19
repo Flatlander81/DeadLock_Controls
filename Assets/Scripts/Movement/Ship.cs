@@ -6,10 +6,14 @@ using UnityEngine;
 /// </summary>
 public class Ship : MonoBehaviour
 {
+    [Header("Debug Settings")]
+    [SerializeField] private bool verboseLogging = false;
+
     [Header("Movement Statistics")]
     [SerializeField] private float minMoveDistance = 5f;
     [SerializeField] private float maxMoveDistance = 20f;
     [SerializeField] private float maxTurnAngle = 45f;
+    [SerializeField] private float executionRotationSpeed = 270f; // Degrees per second during movement execution
 
     [Header("Path Settings")]
     [SerializeField] private float arcHeight = 0.3f; // How much to arc the path (0.3 = 30% of distance)
@@ -54,7 +58,8 @@ public class Ship : MonoBehaviour
     }
 
     /// <summary>
-    /// Update loop handles smooth movement execution following a cubic Bezier arc.
+    /// Update handles smooth movement execution following a cubic Bezier arc.
+    /// Using Update instead of FixedUpdate ensures smooth visual rendering.
     /// </summary>
     private void Update()
     {
@@ -78,11 +83,18 @@ public class Ship : MonoBehaviour
                 tangent = (PlannedPosition - newPosition).normalized;
             }
 
-            // Apply position and rotation
+            // Apply position
             transform.position = newPosition;
+
+            // Apply rotation with smooth interpolation
             if (tangent.sqrMagnitude > 0.001f)
             {
-                transform.rotation = Quaternion.LookRotation(tangent);
+                Quaternion targetRotation = Quaternion.LookRotation(tangent);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRotation,
+                    executionRotationSpeed * Time.deltaTime
+                );
             }
 
             // End execution when complete
@@ -119,6 +131,22 @@ public class Ship : MonoBehaviour
         if (projectionPrefab != null)
         {
             projectionObject = Instantiate(projectionPrefab, transform.position, transform.rotation);
+
+            // Get the renderer from the prefab
+            projectionRenderer = projectionObject.GetComponent<Renderer>();
+
+            // If materials aren't assigned in inspector, use the prefab's material
+            if (normalProjectionMaterial == null && projectionRenderer != null)
+            {
+                normalProjectionMaterial = projectionRenderer.material;
+            }
+
+            // Create collision material if not assigned
+            if (collisionProjectionMaterial == null && normalProjectionMaterial != null)
+            {
+                collisionProjectionMaterial = new Material(normalProjectionMaterial);
+                collisionProjectionMaterial.color = new Color(1f, 0f, 0f, 0.5f); // Red with alpha
+            }
         }
         else
         {
@@ -156,9 +184,9 @@ public class Ship : MonoBehaviour
             }
 
             projectionObject.transform.localScale = transform.localScale * 0.9f;
+            projectionRenderer = projectionObject.GetComponent<Renderer>();
         }
 
-        projectionRenderer = projectionObject.GetComponent<Renderer>();
         // Don't set to Ignore Raycast - we need to be able to click on it!
         // projectionObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         projectionObject.SetActive(false);
@@ -233,25 +261,26 @@ public class Ship : MonoBehaviour
             distance = minMoveDistance;
         }
 
-        // Check if turn angle exceeds 180 degrees - if so, clamp it
-        Vector3 currentForward = transform.forward;
-        Vector3 targetForward = targetRot * Vector3.forward;
-        float turnAngle = Vector3.Angle(currentForward, targetForward);
-
-        if (turnAngle > 180f)
-        {
-            // Clamp to 180 degrees maximum turn
-            targetRot = Quaternion.RotateTowards(transform.rotation, targetRot, 180f);
-            Debug.LogWarning($"{gameObject.name}: Turn angle {turnAngle:F1}° exceeds 180°, clamping to 180°");
-        }
-
-        // Clamp rotation using RotateTowards with max turn angle
-        PlannedRotation = Quaternion.RotateTowards(transform.rotation, targetRot, maxTurnAngle);
         PlannedPosition = targetPos;
         HasPlannedMove = true;
 
-        // Calculate Bezier arc control point
+        // Calculate Bezier arc control point first
         CalculateArcControlPoint();
+
+        // Calculate the final rotation based on the Bezier curve's end tangent
+        // This ensures the ship ends up facing the direction it's actually moving
+        Vector3 nearEnd = CubicBezier(transform.position, startControlPoint, arcControlPoint, PlannedPosition, 0.99f);
+        Vector3 endTangent = (PlannedPosition - nearEnd).normalized;
+
+        if (endTangent.sqrMagnitude > 0.001f)
+        {
+            PlannedRotation = Quaternion.LookRotation(endTangent);
+        }
+        else
+        {
+            // Fallback to target rotation if we can't calculate tangent
+            PlannedRotation = targetRot;
+        }
 
         // Create path visualization
         CreatePathLineRenderer();
@@ -292,52 +321,56 @@ public class Ship : MonoBehaviour
         // Second control point: offset perpendicular to create the arc
         arcControlPoint = midpoint + perpendicular * Mathf.Sign(signedAngle) * offsetAmount;
 
-        Debug.Log($"{gameObject.name}: Cubic Bezier with straightStart={straightStartLength:F1}u, arc offset={offsetAmount:F2}u, turn={signedAngle:F1}°");
+        // Optional verbose logging (disabled by default for performance)
+        if (verboseLogging)
+        {
+            Debug.Log($"{gameObject.name}: Cubic Bezier with straightStart={straightStartLength:F1}u, arc offset={offsetAmount:F2}u, turn={signedAngle:F1}°");
+        }
     }
 
     /// <summary>
-    /// Creates a LineRenderer that visualizes the cubic Bezier arc path.
+    /// Creates or updates the LineRenderer that visualizes the cubic Bezier arc path.
+    /// Optimized to reuse existing LineRenderer instead of recreating every frame.
     /// </summary>
     private void CreatePathLineRenderer()
     {
-        // Clean up old line renderer
-        if (pathLineRenderer != null)
+        // Create LineRenderer if it doesn't exist
+        if (pathLineRenderer == null)
         {
-            Destroy(pathLineRenderer.gameObject);
-        }
+            GameObject lineObj = new GameObject($"Path_{gameObject.name}");
+            pathLineRenderer = lineObj.AddComponent<LineRenderer>();
 
-        GameObject lineObj = new GameObject($"Path_{gameObject.name}");
-        pathLineRenderer = lineObj.AddComponent<LineRenderer>();
+            // Try multiple shaders for compatibility across render pipelines
+            Material lineMaterial = null;
+            string[] shaderNames = { "Universal Render Pipeline/Unlit", "Unlit/Color", "Sprites/Default", "Standard" };
 
-        // Try multiple shaders for compatibility across render pipelines
-        Material lineMaterial = null;
-        string[] shaderNames = { "Universal Render Pipeline/Unlit", "Unlit/Color", "Sprites/Default", "Standard" };
-
-        foreach (string shaderName in shaderNames)
-        {
-            Shader shader = Shader.Find(shaderName);
-            if (shader != null)
+            foreach (string shaderName in shaderNames)
             {
-                lineMaterial = new Material(shader);
-                break;
+                Shader shader = Shader.Find(shaderName);
+                if (shader != null)
+                {
+                    lineMaterial = new Material(shader);
+                    break;
+                }
             }
+
+            if (lineMaterial == null)
+            {
+                lineMaterial = new Material(Shader.Find("Standard"));
+            }
+
+            // Configure LineRenderer (only once during creation)
+            pathLineRenderer.material = lineMaterial;
+            pathLineRenderer.startColor = pathColor;
+            pathLineRenderer.endColor = pathColor;
+            pathLineRenderer.startWidth = 0.3f;
+            pathLineRenderer.endWidth = 0.3f;
+            pathLineRenderer.useWorldSpace = true;
         }
 
-        if (lineMaterial == null)
-        {
-            lineMaterial = new Material(Shader.Find("Standard"));
-        }
-
-        // Configure LineRenderer
-        pathLineRenderer.material = lineMaterial;
-        pathLineRenderer.startColor = pathColor;
-        pathLineRenderer.endColor = pathColor;
-        pathLineRenderer.startWidth = 0.3f;
-        pathLineRenderer.endWidth = 0.3f;
-        pathLineRenderer.useWorldSpace = true;
-
-        // Sample cubic Bezier curve
-        int curveResolution = 50;
+        // Update the path curve (this happens every frame during drag, must be fast)
+        // Reduced from 50 to 20 points for better performance - still looks smooth
+        int curveResolution = 20;
         pathLineRenderer.positionCount = curveResolution + 1;
 
         for (int i = 0; i <= curveResolution; i++)
