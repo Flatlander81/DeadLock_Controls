@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -100,7 +101,40 @@ public class TurnManager : MonoBehaviour
             ship.ExecuteMove();
         }
 
+        // Execute all queued abilities
+        StartCoroutine(ExecuteAllAbilities());
+
         Debug.Log($"Simulation Phase started. Duration: {simulationDuration}s");
+    }
+
+    /// <summary>
+    /// Execute all queued abilities on all ships.
+    /// </summary>
+    private IEnumerator ExecuteAllAbilities()
+    {
+        // Execute abilities on all ships in parallel
+        List<Coroutine> abilityCoroutines = new List<Coroutine>();
+
+        foreach (Ship ship in allShips)
+        {
+            if (ship != null && ship.gameObject.activeSelf && ship.AbilitySystem != null)
+            {
+                Coroutine coroutine = StartCoroutine(ship.AbilitySystem.ExecuteQueuedAbilities());
+                abilityCoroutines.Add(coroutine);
+            }
+        }
+
+        // Wait for all abilities to complete
+        foreach (Coroutine coroutine in abilityCoroutines)
+        {
+            yield return coroutine;
+        }
+
+        Debug.Log("All abilities executed");
+
+        // TODO: Weapon firing will be triggered by Track C (Targeting System)
+        // Track C will call WeaponManager.FireGroup() or FireAlphaStrike() based on player input
+        // For now, weapon cooldowns will tick at end of turn like abilities
     }
 
     /// <summary>
@@ -148,17 +182,52 @@ public class TurnManager : MonoBehaviour
     /// <summary>
     /// Ends the Simulation Phase and returns to Command Phase.
     /// Resets all ships for new turn planning.
+    /// Applies heat cooling, shield regeneration, and heat damage.
     /// </summary>
     private void EndSimulation()
     {
         Debug.Log("Ending Simulation Phase...");
+
+        // Apply end-of-turn effects for all ships
+        foreach (Ship ship in allShips)
+        {
+            if (ship != null && ship.gameObject.activeSelf)
+            {
+                // Tick ability cooldowns
+                if (ship.AbilitySystem != null)
+                {
+                    ship.AbilitySystem.TickAllCooldowns();
+                }
+
+                // Tick weapon cooldowns
+                if (ship.WeaponManager != null)
+                {
+                    ship.WeaponManager.TickAllCooldowns();
+                }
+
+                // Apply passive cooling
+                if (ship.HeatManager != null)
+                {
+                    ship.HeatManager.ApplyPassiveCooling();
+                }
+
+                // Regenerate shields
+                ship.RegenerateShields();
+
+                // Apply heat damage (must be after cooling)
+                ship.ApplyHeatDamage();
+            }
+        }
 
         CurrentPhase = Phase.Command;
 
         // Reset all ships for new turn
         foreach (Ship ship in allShips)
         {
-            ship.ResetPlannedMove();
+            if (ship != null && ship.gameObject.activeSelf)
+            {
+                ship.ResetPlannedMove();
+            }
         }
 
         Debug.Log("Returned to Command Phase. Ready for new turn.");

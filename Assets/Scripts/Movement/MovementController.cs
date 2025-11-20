@@ -9,7 +9,7 @@ public class MovementController : MonoBehaviour
     /// <summary>
     /// Adjustment mode enumeration for movement fine-tuning.
     /// </summary>
-    private enum AdjustmentMode
+    public enum AdjustmentMode
     {
         None,
         Elevation,
@@ -22,8 +22,11 @@ public class MovementController : MonoBehaviour
     [Header("Configuration")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private OrbitCamera orbitCamera;
+    [SerializeField] private DebugUI debugUI;
+    [SerializeField] private TargetingController targetingController;
+    [SerializeField] private Ship playerShip; // Only this ship can be moved
     [SerializeField] private LayerMask shipLayer;
-    [SerializeField] private KeyCode alternateSelectKey = KeyCode.Semicolon;
+    [SerializeField] private KeyCode movementModeKey = KeyCode.M;
     [SerializeField] private KeyCode focusCameraKey = KeyCode.F;
     [SerializeField] private float elevationSensitivity = 1f;
     [SerializeField] private float rotationSensitivity = 90f;
@@ -33,6 +36,7 @@ public class MovementController : MonoBehaviour
 
     // State tracking
     private Ship selectedShip;
+    private bool isMovementModeActive = false;
     private bool isDraggingProjection = false;
     private Vector3 dragStartMousePos;
     private Vector3 projectionDragOffset;
@@ -41,8 +45,13 @@ public class MovementController : MonoBehaviour
     // Temporary collider for projection raycasting
     private BoxCollider tempProjectionCollider;
 
+    // Public accessors for DebugUI
+    public bool IsMovementModeActive => isMovementModeActive;
+    public AdjustmentMode CurrentAdjustmentMode => adjustmentMode;
+
     /// <summary>
     /// Initialize camera reference if not set.
+    /// Auto-select first ship found in scene.
     /// </summary>
     private void Start()
     {
@@ -60,6 +69,61 @@ public class MovementController : MonoBehaviour
         {
             orbitCamera = mainCamera.GetComponent<OrbitCamera>();
         }
+
+        // Find DebugUI if not assigned
+        if (debugUI == null)
+        {
+            debugUI = FindObjectOfType<DebugUI>();
+        }
+
+        // Set movement controller reference in DebugUI
+        if (debugUI != null)
+        {
+            debugUI.SetMovementController(this);
+        }
+
+        // Find TargetingController if not assigned
+        if (targetingController == null)
+        {
+            targetingController = FindObjectOfType<TargetingController>();
+        }
+
+        // Find player ship if not assigned (look for ship named "Hephaestus" or get from TargetingController)
+        if (playerShip == null && targetingController != null)
+        {
+            playerShip = targetingController.PlayerShip;
+        }
+
+        // If still not found, try to find by name
+        if (playerShip == null)
+        {
+            GameObject hephaestus = GameObject.Find("Hephaestus");
+            if (hephaestus != null)
+            {
+                playerShip = hephaestus.GetComponent<Ship>();
+            }
+        }
+
+        // Last resort: find first ship (but warn user)
+        if (playerShip == null)
+        {
+            playerShip = FindObjectOfType<Ship>();
+            if (playerShip != null)
+            {
+                Debug.LogWarning($"MovementController: Could not find 'Hephaestus', using {playerShip.gameObject.name} as player ship");
+            }
+        }
+
+        // Auto-select player ship only
+        if (playerShip != null)
+        {
+            SelectShip(playerShip);
+            Debug.Log($"Auto-selected player ship: {playerShip.gameObject.name}. Press M to enter movement mode.");
+        }
+        else
+        {
+            Debug.LogError("MovementController: No player ship found!");
+        }
     }
 
     /// <summary>
@@ -69,6 +133,27 @@ public class MovementController : MonoBehaviour
     {
         // Only process input during Command phase
         if (TurnManager.Instance == null || TurnManager.Instance.CurrentPhase != TurnManager.Phase.Command)
+        {
+            return;
+        }
+
+        // Toggle movement mode with M key
+        if (Input.GetKeyDown(movementModeKey))
+        {
+            ToggleMovementMode();
+        }
+
+        // Exit movement mode with Escape
+        if (isMovementModeActive && Input.GetKeyDown(KeyCode.Escape))
+        {
+            ExitMovementMode();
+        }
+
+        // Ability hotkeys work anytime during Command phase (not just in movement mode)
+        HandleAbilityHotkeys();
+
+        // Only handle movement input if movement mode is active
+        if (!isMovementModeActive)
         {
             return;
         }
@@ -93,44 +178,16 @@ public class MovementController : MonoBehaviour
     /// </summary>
     private void HandleSelection()
     {
-        // Left click to select ship or start dragging projection
+        // Left click to start dragging projection (ship already selected)
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
 
-            // First, try to hit a ship
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, shipLayer))
+            // Check if we're clicking on the projection
+            if (selectedShip != null && TryStartProjectionDrag(ray))
             {
-                Ship clickedShip = hit.collider.GetComponent<Ship>();
-                if (clickedShip != null)
-                {
-                    SelectShip(clickedShip);
-                    return;
-                }
+                return;
             }
-
-            // If a ship is selected, check if we're clicking on its projection
-            if (selectedShip != null)
-            {
-                if (TryStartProjectionDrag(ray))
-                {
-                    return;
-                }
-            }
-
-            // If we clicked nothing, deselect
-            if (selectedShip != null)
-            {
-                DeselectCurrentShip();
-            }
-        }
-
-        // Semicolon key to enter elevation mode directly
-        if (Input.GetKeyDown(alternateSelectKey) && selectedShip != null)
-        {
-            adjustmentMode = AdjustmentMode.Elevation;
-            Debug.Log("Entered Elevation adjustment mode (alternate key)");
         }
 
         // F key to focus camera on selected ship
@@ -138,6 +195,51 @@ public class MovementController : MonoBehaviour
         {
             orbitCamera.FocusOn(selectedShip.transform);
             Debug.Log($"Camera focused on {selectedShip.gameObject.name}");
+        }
+    }
+
+    /// <summary>
+    /// Handle ability activation hotkeys (1-6).
+    /// Keys 1-4 are also used for weapon groups when targeting enemies.
+    /// Priority: If enemy targeted, weapon groups take precedence.
+    /// </summary>
+    private void HandleAbilityHotkeys()
+    {
+        if (selectedShip == null || selectedShip.AbilitySystem == null) return;
+
+        // Check if we're currently targeting an enemy
+        // If so, let TargetingController handle keys 1-4 for weapon groups
+        bool isTargetingEnemy = targetingController != null && targetingController.CurrentTarget != null;
+
+        // Keys 1-4: Only handle if NOT targeting (otherwise weapon groups take priority)
+        if (!isTargetingEnemy)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                selectedShip.AbilitySystem.TryActivateAbilityByIndex(0);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                selectedShip.AbilitySystem.TryActivateAbilityByIndex(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                selectedShip.AbilitySystem.TryActivateAbilityByIndex(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                selectedShip.AbilitySystem.TryActivateAbilityByIndex(3);
+            }
+        }
+
+        // Keys 5-6: Always available for abilities (no conflict)
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            selectedShip.AbilitySystem.TryActivateAbilityByIndex(4);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            selectedShip.AbilitySystem.TryActivateAbilityByIndex(5);
         }
     }
 
@@ -345,20 +447,101 @@ public class MovementController : MonoBehaviour
     }
 
     /// <summary>
-    /// Selects a ship and deselects any previously selected ship.
+    /// Toggles movement mode on/off.
+    /// </summary>
+    public void ToggleMovementMode()
+    {
+        if (isMovementModeActive)
+        {
+            ExitMovementMode();
+        }
+        else
+        {
+            EnterMovementMode();
+        }
+    }
+
+    /// <summary>
+    /// Enters movement mode - shows projection and allows movement planning.
+    /// Only works for the player ship.
+    /// </summary>
+    private void EnterMovementMode()
+    {
+        if (selectedShip == null)
+        {
+            Debug.LogWarning("No ship selected to enter movement mode!");
+            return;
+        }
+
+        // Double-check we're only moving the player ship
+        if (selectedShip != playerShip)
+        {
+            Debug.LogWarning($"Cannot enter movement mode for {selectedShip.gameObject.name} - only player ship can be moved!");
+            return;
+        }
+
+        isMovementModeActive = true;
+        selectedShip.Select(); // Show projection
+        Debug.Log($"Movement mode activated for {selectedShip.gameObject.name}. Press M or ESC to exit.");
+    }
+
+    /// <summary>
+    /// Exits movement mode - hides projection but keeps ship selected.
+    /// </summary>
+    public void ExitMovementMode()
+    {
+        isMovementModeActive = false;
+        adjustmentMode = AdjustmentMode.None;
+
+        // Hide projection but keep ship selected
+        if (selectedShip != null)
+        {
+            GameObject projection = selectedShip.GetProjection();
+            if (projection != null && !selectedShip.HasPlannedMove)
+            {
+                projection.SetActive(false);
+            }
+        }
+
+        Debug.Log("Movement mode deactivated.");
+    }
+
+    /// <summary>
+    /// Selects a ship (does not show projection - use EnterMovementMode for that).
+    /// Only allows selecting the player ship for movement.
     /// </summary>
     private void SelectShip(Ship ship)
     {
-        if (selectedShip != null)
+        // IMPORTANT: Only allow selecting the player ship for movement control
+        if (ship != playerShip)
         {
-            selectedShip.Deselect();
+            if (verboseLogging)
+            {
+                Debug.Log($"MovementController: Cannot select {ship.gameObject.name} - only player ship can be moved");
+            }
+            return;
+        }
+
+        // Hide previous ship's projection if switching ships
+        if (selectedShip != null && selectedShip != ship)
+        {
+            GameObject oldProjection = selectedShip.GetProjection();
+            if (oldProjection != null && !selectedShip.HasPlannedMove)
+            {
+                oldProjection.SetActive(false);
+            }
         }
 
         selectedShip = ship;
-        selectedShip.Select();
         adjustmentMode = AdjustmentMode.None;
 
-        // Automatically focus camera on newly selected ship
+        // Update DebugUI to show this ship
+        if (debugUI != null)
+        {
+            debugUI.SetTargetShip(ship);
+        }
+
+        // Automatically focus camera on selected ship
         if (orbitCamera != null)
         {
             orbitCamera.FocusOn(ship.transform);
@@ -366,71 +549,20 @@ public class MovementController : MonoBehaviour
     }
 
     /// <summary>
-    /// Deselects the currently selected ship.
+    /// Hides projection but keeps ship selected (no longer deselects).
     /// </summary>
     private void DeselectCurrentShip()
     {
+        // Don't actually deselect - just hide projection
         if (selectedShip != null)
         {
-            selectedShip.Deselect();
-            selectedShip = null;
-        }
-        adjustmentMode = AdjustmentMode.None;
-    }
-
-    /// <summary>
-    /// Draws UI elements for controls and phase information.
-    /// </summary>
-    private void OnGUI()
-    {
-        // Movement controls help text (top-left)
-        GUILayout.BeginArea(new Rect(10, 10, 300, 240));
-        GUILayout.Box("Movement Controls");
-        GUILayout.Label("Click ship to select");
-        GUILayout.Label("Drag projection to move");
-        GUILayout.Label("E - Elevation mode");
-        GUILayout.Label("R - Rotation mode");
-        GUILayout.Label("Scroll - Adjust elevation");
-        GUILayout.Label("Arrow Keys - Adjust rotation");
-        GUILayout.Label("Enter/Space - Confirm");
-        GUILayout.Label("Esc - Cancel adjustment");
-        GUILayout.Label("");
-        GUILayout.Label("Camera Controls:");
-        GUILayout.Label("Shift+Drag - Orbit camera");
-        GUILayout.Label("Ctrl+Drag - Pan camera");
-        GUILayout.Label("Q/E - Orbit left/right");
-        GUILayout.Label("WASD - Pan camera");
-        GUILayout.Label("R/F - Zoom in/out");
-        GUILayout.Label("Scroll - Zoom");
-        GUILayout.EndArea();
-
-        // Current adjustment mode indicator
-        if (adjustmentMode != AdjustmentMode.None && selectedShip != null)
-        {
-            GUILayout.BeginArea(new Rect(10, 220, 300, 50));
-            GUILayout.Box($"Mode: {adjustmentMode}");
-            GUILayout.Label($"Ship: {selectedShip.gameObject.name}");
-            GUILayout.EndArea();
-        }
-
-        // Phase indicator (top-right)
-        if (TurnManager.Instance != null)
-        {
-            GUILayout.BeginArea(new Rect(Screen.width - 160, 10, 150, 60));
-            GUILayout.Box($"Phase: {TurnManager.Instance.CurrentPhase}");
-            GUILayout.EndArea();
-
-            // End Turn button (only visible during Command phase)
-            if (TurnManager.Instance.CurrentPhase == TurnManager.Phase.Command)
+            GameObject projection = selectedShip.GetProjection();
+            if (projection != null && !selectedShip.HasPlannedMove)
             {
-                GUILayout.BeginArea(new Rect(Screen.width - 160, 80, 150, 50));
-                if (GUILayout.Button("End Turn", GUILayout.Height(40)))
-                {
-                    TurnManager.Instance.EndCommandPhase();
-                    DeselectCurrentShip();
-                }
-                GUILayout.EndArea();
+                projection.SetActive(false);
             }
         }
+        adjustmentMode = AdjustmentMode.None;
+        isMovementModeActive = false;
     }
 }

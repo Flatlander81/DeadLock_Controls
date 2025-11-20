@@ -1,7 +1,29 @@
 {
   "permissions": {
     "allow": [
-      "Bash(\"/c/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform EditMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog.txt\")"
+      "Bash(\"/c/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform EditMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog.txt\")",
+      "Bash(mkdir:*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\":*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform EditMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_PlayMode.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Final.txt\")",
+      "Bash(findstr:*)",
+      "Bash(del:*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Final2.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Final3.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Final4.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Integration.txt\")",
+      "Bash(tasklist:*)",
+      "Bash(taskkill:*)",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"C:\\Repo\\DeadLock_Controls\\CompileCheck.log\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"C:\\Repo\\DeadLock_Controls\\CompileCheck_Final.log\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults_Weapons.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Weapons.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_WeaponFixes.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"C:\\Repo\\DeadLock_Controls\\CompileCheck_WeaponTester.log\")",
+      "Bash(powershell -Command \"Get-Content ''C:\\Repo\\DeadLock_Controls\\CompileCheck_WeaponTester.log'' | Select-Object -Last 20\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults_Projectiles.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Projectiles.txt\")",
+      "Bash(powershell -Command \"Stop-Process -Id 14504 -Force\")",
+      "Bash(powershell -Command:*)"
     ],
     "deny": [],
     "ask": []

@@ -25,10 +25,33 @@ public class Ship : MonoBehaviour
     [SerializeField] private Material normalProjectionMaterial;
     [SerializeField] private Material collisionProjectionMaterial;
 
+    [Header("Combat Properties")]
+    [SerializeField] private float maxHull = 500f;
+    [SerializeField] private float currentHull = 500f;
+    [SerializeField] private float maxShields = 200f;
+    [SerializeField] private float currentShields = 200f;
+    [SerializeField] private float shieldRegenRate = 20f;
+    [SerializeField] private HeatManager heatManager;
+
     // Private state
     private GameObject projectionObject;
     private Renderer projectionRenderer;
     private bool isSelected = false;
+
+    // Ability System
+    private AbilitySystem abilitySystem;
+
+    // Weapon System
+    private WeaponManager weaponManager;
+
+    // Movement constraint overrides (for abilities like Evasive Maneuver)
+    private bool movementConstraintsOverride = false;
+    private float overrideMaxTurnAngle = 45f;
+    private float overrideMaxMoveDistance = 20f;
+
+    // Weapon multipliers (for abilities like Overcharge Weapons)
+    private float weaponDamageMultiplier = 1.0f;
+    private float weaponHeatMultiplier = 1.0f;
 
     // Movement execution state
     private bool isExecutingMove = false;
@@ -46,7 +69,34 @@ public class Ship : MonoBehaviour
     public Vector3 PlannedPosition { get; private set; }
     public Quaternion PlannedRotation { get; private set; }
     public bool HasPlannedMove { get; private set; }
-    public float MaxTurnAngle => maxTurnAngle;
+    public float MaxTurnAngle { get => maxTurnAngle; set => maxTurnAngle = value; }
+    public float CurrentSpeed => isExecutingMove ? (Vector3.Distance(moveStartPosition, PlannedPosition) / moveDuration) : 0f;
+
+    // Combat properties (public access)
+    public float MaxHull => maxHull;
+    public float CurrentHull => currentHull;
+    public float MaxShields => maxShields;
+    public float CurrentShields { get => currentShields; set => currentShields = value; }
+    public float ShieldRegenRate => shieldRegenRate;
+    public HeatManager HeatManager => heatManager;
+    public bool IsDead => currentHull <= 0f;
+
+    // Ability system properties
+    public AbilitySystem AbilitySystem => abilitySystem;
+
+    // Weapon system properties
+    public WeaponManager WeaponManager => weaponManager;
+    public bool MovementConstraintsOverride => movementConstraintsOverride;
+    public float WeaponDamageMultiplier
+    {
+        get => weaponDamageMultiplier;
+        set => weaponDamageMultiplier = value;
+    }
+    public float WeaponHeatMultiplier
+    {
+        get => weaponHeatMultiplier;
+        set => weaponHeatMultiplier = value;
+    }
 
     /// <summary>
     /// Initialize the ship and create its projection.
@@ -55,11 +105,41 @@ public class Ship : MonoBehaviour
     {
         CreateProjection();
         ResetPlannedMove();
+
+        // Initialize combat stats
+        currentHull = maxHull;
+        currentShields = maxShields;
+
+        // Get HeatManager component if not assigned
+        if (heatManager == null)
+        {
+            heatManager = GetComponent<HeatManager>();
+            if (heatManager == null)
+            {
+                Debug.LogWarning($"{gameObject.name}: No HeatManager component found. Adding one automatically.");
+                heatManager = gameObject.AddComponent<HeatManager>();
+            }
+        }
+
+        // Get AbilitySystem component if not assigned
+        abilitySystem = GetComponent<AbilitySystem>();
+        if (abilitySystem == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: No AbilitySystem component found. Abilities will not be available.");
+        }
+
+        // Get WeaponManager component if not assigned
+        weaponManager = GetComponent<WeaponManager>();
+        if (weaponManager == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: No WeaponManager component found. Weapons will not be available.");
+        }
     }
 
     /// <summary>
     /// Update handles smooth movement execution following a cubic Bezier arc.
     /// Using Update instead of FixedUpdate ensures smooth visual rendering.
+    /// Heat penalties are applied during planning phase (reduced max distance).
     /// </summary>
     private void Update()
     {
@@ -238,6 +318,7 @@ public class Ship : MonoBehaviour
     /// <summary>
     /// Plans a movement for this ship, applying distance and rotation constraints.
     /// Calculates a Bezier arc control point for smooth curved movement.
+    /// Heat penalties reduce maximum movement range.
     /// </summary>
     /// <param name="targetPos">Desired target position</param>
     /// <param name="targetRot">Desired target rotation</param>
@@ -247,18 +328,30 @@ public class Ship : MonoBehaviour
         Vector3 moveVector = targetPos - transform.position;
         float distance = moveVector.magnitude;
 
-        // Clamp distance between min and max
-        if (distance > maxMoveDistance)
+        // Get movement constraints (may be overridden by abilities)
+        float effectiveMaxMoveDistance = movementConstraintsOverride ? overrideMaxMoveDistance : maxMoveDistance;
+        float effectiveMinMoveDistance = minMoveDistance;
+
+        // Apply heat speed penalties to movement range
+        if (heatManager != null)
         {
-            moveVector = moveVector.normalized * maxMoveDistance;
-            targetPos = transform.position + moveVector;
-            distance = maxMoveDistance;
+            HeatManager.HeatPenalties penalties = heatManager.GetPenalties();
+            effectiveMaxMoveDistance *= penalties.SpeedMultiplier;
+            effectiveMinMoveDistance *= penalties.SpeedMultiplier;
         }
-        else if (distance < minMoveDistance && distance > 0.01f)
+
+        // Clamp distance between min and max
+        if (distance > effectiveMaxMoveDistance)
         {
-            moveVector = moveVector.normalized * minMoveDistance;
+            moveVector = moveVector.normalized * effectiveMaxMoveDistance;
             targetPos = transform.position + moveVector;
-            distance = minMoveDistance;
+            distance = effectiveMaxMoveDistance;
+        }
+        else if (distance < effectiveMinMoveDistance && distance > 0.01f)
+        {
+            moveVector = moveVector.normalized * effectiveMinMoveDistance;
+            targetPos = transform.position + moveVector;
+            distance = effectiveMinMoveDistance;
         }
 
         PlannedPosition = targetPos;
@@ -429,11 +522,23 @@ public class Ship : MonoBehaviour
 
     /// <summary>
     /// Executes the planned movement by starting smooth animation following Bezier arc to planned position.
+    /// Hides projection and path spline during execution.
     /// </summary>
     public void ExecuteMove()
     {
         if (HasPlannedMove)
         {
+            // Hide projection and path spline during movement execution
+            if (projectionObject != null)
+            {
+                projectionObject.SetActive(false);
+            }
+
+            if (pathLineRenderer != null)
+            {
+                pathLineRenderer.gameObject.SetActive(false);
+            }
+
             // Store starting position and rotation for the arc
             moveStartPosition = transform.position;
             moveStartRotation = transform.rotation;
@@ -470,6 +575,37 @@ public class Ship : MonoBehaviour
 
         // Reset collision marking
         MarkCollision(false);
+
+        // Reset movement constraint overrides
+        ResetMovementConstraintsOverride();
+    }
+
+    /// <summary>
+    /// Set movement constraint override (used by abilities like Evasive Maneuver).
+    /// </summary>
+    /// <param name="enabled">Enable or disable override</param>
+    /// <param name="maxTurnAngle">Override max turn angle</param>
+    /// <param name="maxMoveDistance">Override max move distance</param>
+    public void SetMovementConstraintsOverride(bool enabled, float maxTurnAngle = 45f, float maxMoveDistance = 20f)
+    {
+        movementConstraintsOverride = enabled;
+        overrideMaxTurnAngle = maxTurnAngle;
+        overrideMaxMoveDistance = maxMoveDistance;
+
+        if (enabled)
+        {
+            Debug.Log($"{gameObject.name} movement constraints overridden: {maxTurnAngle}° turn, {maxMoveDistance}u move");
+        }
+    }
+
+    /// <summary>
+    /// Reset movement constraint override to default values.
+    /// </summary>
+    public void ResetMovementConstraintsOverride()
+    {
+        movementConstraintsOverride = false;
+        overrideMaxTurnAngle = maxTurnAngle;
+        overrideMaxMoveDistance = maxMoveDistance;
     }
 
     /// <summary>
@@ -519,5 +655,88 @@ public class Ship : MonoBehaviour
     public GameObject GetProjection()
     {
         return projectionObject;
+    }
+
+    // ==================== COMBAT METHODS ====================
+
+    /// <summary>
+    /// Applies damage to the ship. Shields absorb damage first, then hull.
+    /// </summary>
+    /// <param name="damage">Amount of damage to apply</param>
+    public void TakeDamage(float damage)
+    {
+        float remainingDamage = damage;
+
+        // Shields absorb damage first
+        if (currentShields > 0f)
+        {
+            float shieldDamage = Mathf.Min(currentShields, remainingDamage);
+            currentShields -= shieldDamage;
+            remainingDamage -= shieldDamage;
+            Debug.Log($"{gameObject.name} - Shields: {currentShields + shieldDamage:F1} → {currentShields:F1}");
+        }
+
+        // Remaining damage goes to hull
+        if (remainingDamage > 0f)
+        {
+            currentHull -= remainingDamage;
+            Debug.Log($"{gameObject.name} - Hull: {currentHull + remainingDamage:F1} → {currentHull:F1}");
+
+            // Check for death
+            if (IsDead)
+            {
+                currentHull = 0f;
+                Die();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Regenerates shields at the configured rate.
+    /// Called at the end of each turn.
+    /// </summary>
+    public void RegenerateShields()
+    {
+        if (currentShields < maxShields)
+        {
+            float previousShields = currentShields;
+            currentShields = Mathf.Min(maxShields, currentShields + shieldRegenRate);
+            Debug.Log($"{gameObject.name} - Shield regen: {previousShields:F1} → {currentShields:F1}");
+        }
+    }
+
+    /// <summary>
+    /// Applies hull damage from excessive heat.
+    /// Called at the end of each turn.
+    /// </summary>
+    public void ApplyHeatDamage()
+    {
+        if (heatManager == null) return;
+
+        HeatManager.HeatPenalties penalties = heatManager.GetPenalties();
+        if (penalties.HullDamagePerTurn > 0f)
+        {
+            float previousHull = currentHull;
+            currentHull -= penalties.HullDamagePerTurn;
+            Debug.LogWarning($"{gameObject.name} - Heat damage! Hull: {previousHull:F1} → {currentHull:F1} (Tier: {heatManager.GetCurrentTier()})");
+
+            // Check for death
+            if (IsDead)
+            {
+                currentHull = 0f;
+                Die();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Handles ship destruction.
+    /// </summary>
+    public void Die()
+    {
+        Debug.LogError($"{gameObject.name} has been destroyed!");
+        // TODO: Add death effects, animations, etc.
+        // For now, just disable the ship
+        gameObject.SetActive(false);
     }
 }

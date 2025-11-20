@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.unity.textmeshpro": "4.0.0",
+    "com.unity.ugui": "3.0.0",
+    "com.unity.test-framework": "2.0.1",
     "com.unity.multiplayer.center": "1.0.0",
     "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",

@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="45" result="Passed" total="45" passed="45" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:22Z" duration="8.1792276">
+  <test-suite type="TestSuite" id="1052" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="45" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:22Z" duration="8.179228" total="45" passed="45" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1050" name="PlayModeTests.dll" fullname="C:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="45" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:22Z" duration="8.173369" total="45" passed="45" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="44736" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1001" name="AbilitySystemTests" fullname="AbilitySystemTests" classname="AbilitySystemTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:16Z" duration="1.864332" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1002" name="Test_AbilityActivation" fullname="AbilitySystemTests.Test_AbilityActivation" methodname="Test_AbilityActivation" classname="AbilitySystemTests" runstate="Runnable" seed="1657844567" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.021329" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+]]></output>
+        </test-case>
+        <test-case id="1011" name="Test_AbilityActivationByIndex" fullname="AbilitySystemTests.Test_AbilityActivationByIndex" methodname="Test_AbilityActivationByIndex" classname="AbilitySystemTests" runstate="Runnable" seed="1060145698" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.002413" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 2 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+]]></output>
+        </test-case>
+        <test-case id="1004" name="Test_AbilityCannotActivateInsufficientHeat" fullname="AbilitySystemTests.Test_AbilityCannotActivateInsufficientHeat" methodname="Test_AbilityCannotActivateInsufficientHeat" classname="AbilitySystemTests" runstate="Runnable" seed="1631309279" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.006957" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 20.0 (Total with current: 20.0)
+TestShip - Heat committed. Current: 20.0, Tier: Safe
+TestShip - Planned heat: 20.0 (Total with current: 40.0)
+TestShip - Heat committed. Current: 40.0, Tier: Safe
+TestShip - Planned heat: 20.0 (Total with current: 60.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 60.0, Tier: Minor
+TestShip - Planned heat: 20.0 (Total with current: 80.0)
+TestShip - Heat tier changed: Minor → Moderate
+TestShip - Heat committed. Current: 80.0, Tier: Moderate
+TestShip - Planned heat: 20.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Moderate → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Planned heat: 20.0 (Total with current: 120.0)
+TestShip - Heat tier changed: Severe → Critical
+TestShip - Heat committed. Current: 120.0, Tier: Critical
+TestShip - Planned heat: 20.0 (Total with current: 140.0)
+TestShip - Heat committed. Current: 140.0, Tier: Critical
+TestShip - Planned heat: 20.0 (Total with current: 160.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 160.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 180.0)
+TestShip - Heat committed. Current: 180.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 200.0)
+TestShip - Heat committed. Current: 200.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 220.0)
+TestShip - Heat committed. Current: 220.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 240.0)
+TestShip - Heat committed. Current: 240.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 260.0)
+TestShip - Heat committed. Current: 260.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 280.0)
+TestShip - Heat committed. Current: 280.0, Tier: Catastrophic
+TestShip - Planned heat: 10.0 (Total with current: 290.0)
+TestShip - Heat committed. Current: 290.0, Tier: Catastrophic
+Shield Boost cannot be used (insufficient resources or conditions not met)
+]]></output>
+        </test-case>
+        <test-case id="1003" name="Test_AbilityCannotActivateOnCooldown" fullname="AbilitySystemTests.Test_AbilityCannotActivateOnCooldown" methodname="Test_AbilityCannotActivateOnCooldown" classname="AbilitySystemTests" runstate="Runnable" seed="240165424" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.002126" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+Emergency Cooling is on cooldown (3 turns remaining)
+]]></output>
+        </test-case>
+        <test-case id="1005" name="Test_AbilityCooldownTick" fullname="AbilitySystemTests.Test_AbilityCooldownTick" methodname="Test_AbilityCooldownTick" classname="AbilitySystemTests" runstate="Runnable" seed="1168841725" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.002185" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+Emergency Cooling cooldown finished
+]]></output>
+        </test-case>
+        <test-case id="1006" name="Test_AbilitySpinUp" fullname="AbilitySystemTests.Test_AbilitySpinUp" methodname="Test_AbilitySpinUp" classname="AbilitySystemTests" runstate="Runnable" seed="304862026" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.302036" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip executing 1 queued abilities...
+Emergency Cooling spinning up for 0.1s...
+Executing Emergency Cooling...
+TestShip - Instant cooling: -50.0. Heat: 0.0 → 0.0
+TestShip activated Emergency Cooling! Reduced heat by 50
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1013" name="Test_ClearQueue" fullname="AbilitySystemTests.Test_ClearQueue" methodname="Test_ClearQueue" classname="AbilitySystemTests" runstate="Runnable" seed="1893674673" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.002677" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 2 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip - Planned heat: 10.0 (Total with current: 10.0)
+Queued ability: Evasive Maneuver (Heat cost: 10)
+TestShip - Removed 10 planned heat. Remaining planned: 0.0
+]]></output>
+        </test-case>
+        <test-case id="1007" name="Test_EmergencyCooling" fullname="AbilitySystemTests.Test_EmergencyCooling" methodname="Test_EmergencyCooling" classname="AbilitySystemTests" runstate="Runnable" seed="512293101" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.301925" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 100.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Safe → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip executing 1 queued abilities...
+Emergency Cooling spinning up for 0.1s...
+Executing Emergency Cooling...
+TestShip - Heat tier changed: Severe → Safe
+TestShip - Instant cooling: -50.0. Heat: 100.0 → 50.0
+TestShip activated Emergency Cooling! Reduced heat by 50
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1009" name="Test_EvasiveManeuver" fullname="AbilitySystemTests.Test_EvasiveManeuver" methodname="Test_EvasiveManeuver" classname="AbilitySystemTests" runstate="Runnable" seed="1309246681" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.103336" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 10.0 (Total with current: 10.0)
+Queued ability: Evasive Maneuver (Heat cost: 10)
+TestShip executing 1 queued abilities...
+Executing Evasive Maneuver...
+TestShip activated Evasive Maneuver! Turn rate increased by 2x for 2 turns
+TestShip - Committed 10 heat. Current: 10.0, Planned remaining: 0.0, Tier: Safe
+TestShip Evasive Maneuver ended. Turn rate restored to normal.
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1014" name="Test_InvalidAbilityIndex" fullname="AbilitySystemTests.Test_InvalidAbilityIndex" methodname="Test_InvalidAbilityIndex" classname="AbilitySystemTests" runstate="Runnable" seed="1848503625" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:14Z" duration="0.001962" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+Ability index 99 out of range (0-0)
+]]></output>
+        </test-case>
+        <test-case id="1010" name="Test_MultipleAbilitiesQueue" fullname="AbilitySystemTests.Test_MultipleAbilitiesQueue" methodname="Test_MultipleAbilitiesQueue" classname="AbilitySystemTests" runstate="Runnable" seed="687216954" result="Passed" start-time="2025-11-20 03:39:14Z" end-time="2025-11-20 03:39:15Z" duration="0.401887" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 2 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip - Planned heat: 10.0 (Total with current: 10.0)
+Queued ability: Evasive Maneuver (Heat cost: 10)
+TestShip executing 2 queued abilities...
+Emergency Cooling spinning up for 0.1s...
+Executing Emergency Cooling...
+TestShip - Instant cooling: -50.0. Heat: 0.0 → 0.0
+TestShip activated Emergency Cooling! Reduced heat by 50
+Executing Evasive Maneuver...
+TestShip activated Evasive Maneuver! Turn rate increased by 2x for 2 turns
+TestShip - Committed 10 heat. Current: 10.0, Planned remaining: 0.0, Tier: Safe
+TestShip Evasive Maneuver ended. Turn rate restored to normal.
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1012" name="Test_PlannedHeatOnQueue" fullname="AbilitySystemTests.Test_PlannedHeatOnQueue" methodname="Test_PlannedHeatOnQueue" classname="AbilitySystemTests" runstate="Runnable" seed="932340221" result="Passed" start-time="2025-11-20 03:39:15Z" end-time="2025-11-20 03:39:15Z" duration="0.002184" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+]]></output>
+        </test-case>
+        <test-case id="1008" name="Test_ShieldBoost" fullname="AbilitySystemTests.Test_ShieldBoost" methodname="Test_ShieldBoost" classname="AbilitySystemTests" runstate="Runnable" seed="1921427867" result="Passed" start-time="2025-11-20 03:39:15Z" end-time="2025-11-20 03:39:16Z" duration="0.704642" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → 450.0
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip executing 1 queued abilities...
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 100/200
+TestShip - Committed 15 heat. Current: 15.0, Planned remaining: 0.0, Tier: Safe
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1015" name="HeatSystemTests" fullname="HeatSystemTests" classname="HeatSystemTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.034849" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1016" name="Test_HeatAccumulation" fullname="HeatSystemTests.Test_HeatAccumulation" methodname="Test_HeatAccumulation" classname="HeatSystemTests" runstate="Runnable" seed="1503527920" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002909" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 50.0 (Total with current: 50.0)
+TestShip - Heat committed. Current: 50.0, Tier: Safe
+✓ Test_HeatAccumulation passed
+]]></output>
+        </test-case>
+        <test-case id="1025" name="Test_HeatEvents" fullname="HeatSystemTests.Test_HeatEvents" methodname="Test_HeatEvents" classname="HeatSystemTests" runstate="Runnable" seed="1129134923" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.003247" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 50.0 (Total with current: 50.0)
+TestShip - Heat committed. Current: 50.0, Tier: Safe
+TestShip - Planned heat: 15.0 (Total with current: 65.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 65.0, Tier: Minor
+✓ Test_HeatEvents passed
+]]></output>
+        </test-case>
+        <test-case id="1019" name="Test_HeatPenalties" fullname="HeatSystemTests.Test_HeatPenalties" methodname="Test_HeatPenalties" classname="HeatSystemTests" runstate="Runnable" seed="1965023133" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002906" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 65.0 (Total with current: 65.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 65.0, Tier: Minor
+TestShip - Planned heat: 60.0 (Total with current: 125.0)
+TestShip - Heat tier changed: Minor → Critical
+TestShip - Heat committed. Current: 125.0, Tier: Critical
+TestShip - Planned heat: 30.0 (Total with current: 155.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 155.0, Tier: Catastrophic
+✓ Test_HeatPenalties passed
+]]></output>
+        </test-case>
+        <test-case id="1018" name="Test_HeatTiers" fullname="HeatSystemTests.Test_HeatTiers" methodname="Test_HeatTiers" classname="HeatSystemTests" runstate="Runnable" seed="1476320339" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.004775" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 30.0 (Total with current: 30.0)
+TestShip - Heat committed. Current: 30.0, Tier: Safe
+TestShip - Planned heat: 35.0 (Total with current: 65.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 65.0, Tier: Minor
+TestShip - Planned heat: 20.0 (Total with current: 85.0)
+TestShip - Heat tier changed: Minor → Moderate
+TestShip - Heat committed. Current: 85.0, Tier: Moderate
+TestShip - Planned heat: 20.0 (Total with current: 105.0)
+TestShip - Heat tier changed: Moderate → Severe
+TestShip - Heat committed. Current: 105.0, Tier: Severe
+TestShip - Planned heat: 20.0 (Total with current: 125.0)
+TestShip - Heat tier changed: Severe → Critical
+TestShip - Heat committed. Current: 125.0, Tier: Critical
+TestShip - Planned heat: 30.0 (Total with current: 155.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 155.0, Tier: Catastrophic
+✓ Test_HeatTiers passed
+]]></output>
+        </test-case>
+        <test-case id="1022" name="Test_HullDamageFromHeat" fullname="HeatSystemTests.Test_HullDamageFromHeat" methodname="Test_HullDamageFromHeat" classname="HeatSystemTests" runstate="Runnable" seed="1316387731" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002893" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 125.0 (Total with current: 125.0)
+TestShip - Heat tier changed: Safe → Critical
+TestShip - Heat committed. Current: 125.0, Tier: Critical
+TestShip - Heat damage! Hull: 500.0 → 495.0 (Tier: Critical)
+TestShip - Planned heat: 30.0 (Total with current: 155.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 155.0, Tier: Catastrophic
+TestShip - Heat damage! Hull: 495.0 → 475.0 (Tier: Catastrophic)
+✓ Test_HullDamageFromHeat passed
+]]></output>
+        </test-case>
+        <test-case id="1021" name="Test_InstantCooling" fullname="HeatSystemTests.Test_InstantCooling" methodname="Test_InstantCooling" classname="HeatSystemTests" runstate="Runnable" seed="2003310175" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002418" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 100.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Safe → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Heat tier changed: Severe → Safe
+TestShip - Instant cooling: -50.0. Heat: 100.0 → 50.0
+TestShip - Instant cooling: -100.0. Heat: 50.0 → 0.0
+✓ Test_InstantCooling passed
+]]></output>
+        </test-case>
+        <test-case id="1017" name="Test_PassiveCooling" fullname="HeatSystemTests.Test_PassiveCooling" methodname="Test_PassiveCooling" classname="HeatSystemTests" runstate="Runnable" seed="789843485" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002573" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 100.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Safe → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Heat tier changed: Severe → Moderate
+TestShip - Passive cooling applied. Heat: 100.0 → 80.0
+✓ Test_PassiveCooling passed
+]]></output>
+        </test-case>
+        <test-case id="1020" name="Test_PlannedHeat" fullname="HeatSystemTests.Test_PlannedHeat" methodname="Test_PlannedHeat" classname="HeatSystemTests" runstate="Runnable" seed="942588986" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002350" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Planned heat: 30.0 (Total with current: 30.0)
+TestShip - Planned heat: 50.0 (Total with current: 50.0)
+TestShip - Heat committed. Current: 50.0, Tier: Safe
+TestShip - Planned heat: 25.0 (Total with current: 75.0)
+TestShip - Planned heat cleared
+✓ Test_PlannedHeat passed
+]]></output>
+        </test-case>
+        <test-case id="1023" name="Test_ShieldRegeneration" fullname="HeatSystemTests.Test_ShieldRegeneration" methodname="Test_ShieldRegeneration" classname="HeatSystemTests" runstate="Runnable" seed="1717963218" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.003946" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Shields: 200.0 → 100.0
+TestShip - Shield regen: 100.0 → 120.0
+TestShip - Shield regen: 120.0 → 140.0
+TestShip - Shield regen: 140.0 → 160.0
+TestShip - Shield regen: 160.0 → 180.0
+TestShip - Shield regen: 180.0 → 200.0
+✓ Test_ShieldRegeneration passed
+]]></output>
+        </test-case>
+        <test-case id="1024" name="Test_ShipDeath" fullname="HeatSystemTests.Test_ShipDeath" methodname="Test_ShipDeath" classname="HeatSystemTests" runstate="Runnable" seed="2071549119" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.005458" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → -100.0
+TestShip has been destroyed!
+✓ Test_ShipDeath passed
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1026" name="Phase1IntegrationTests" fullname="Phase1IntegrationTests" classname="Phase1IntegrationTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:20Z" duration="3.931212" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1032" name="Test_AbilitiesPreventedByInsufficientHeat" fullname="Phase1IntegrationTests.Test_AbilitiesPreventedByInsufficientHeat" methodname="Test_AbilitiesPreventedByInsufficientHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="2081554186" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.007377" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 20.0 (Total with current: 20.0)
+TestShip - Heat committed. Current: 20.0, Tier: Safe
+TestShip - Planned heat: 20.0 (Total with current: 40.0)
+TestShip - Heat committed. Current: 40.0, Tier: Safe
+TestShip - Planned heat: 20.0 (Total with current: 60.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 60.0, Tier: Minor
+TestShip - Planned heat: 20.0 (Total with current: 80.0)
+TestShip - Heat tier changed: Minor → Moderate
+TestShip - Heat committed. Current: 80.0, Tier: Moderate
+TestShip - Planned heat: 20.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Moderate → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Planned heat: 20.0 (Total with current: 120.0)
+TestShip - Heat tier changed: Severe → Critical
+TestShip - Heat committed. Current: 120.0, Tier: Critical
+TestShip - Planned heat: 20.0 (Total with current: 140.0)
+TestShip - Heat committed. Current: 140.0, Tier: Critical
+TestShip - Planned heat: 20.0 (Total with current: 160.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 160.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 180.0)
+TestShip - Heat committed. Current: 180.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 200.0)
+TestShip - Heat committed. Current: 200.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 220.0)
+TestShip - Heat committed. Current: 220.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 240.0)
+TestShip - Heat committed. Current: 240.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 260.0)
+TestShip - Heat committed. Current: 260.0, Tier: Catastrophic
+TestShip - Planned heat: 20.0 (Total with current: 280.0)
+TestShip - Heat committed. Current: 280.0, Tier: Catastrophic
+TestShip - Planned heat: 10.0 (Total with current: 290.0)
+TestShip - Heat committed. Current: 290.0, Tier: Catastrophic
+Shield Boost cannot be used (insufficient resources or conditions not met)
+]]></output>
+        </test-case>
+        <test-case id="1027" name="Test_AbilityAddsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityAddsPlannedHeat" methodname="Test_AbilityAddsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1370978646" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002717" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+]]></output>
+        </test-case>
+        <test-case id="1029" name="Test_AbilityCancelClearsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityCancelClearsPlannedHeat" methodname="Test_AbilityCancelClearsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1004872873" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.002362" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip - Removed 15 planned heat. Remaining planned: 0.0
+]]></output>
+        </test-case>
+        <test-case id="1028" name="Test_AbilityCommitsHeat" fullname="Phase1IntegrationTests.Test_AbilityCommitsHeat" methodname="Test_AbilityCommitsHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="567333967" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:16Z" duration="0.702088" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → 450.0
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip executing 1 queued abilities...
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 100/200
+TestShip - Committed 15 heat. Current: 15.0, Planned remaining: 0.0, Tier: Safe
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1033" name="Test_AbilityExecutionOrder" fullname="Phase1IntegrationTests.Test_AbilityExecutionOrder" methodname="Test_AbilityExecutionOrder" classname="Phase1IntegrationTests" runstate="Runnable" seed="1593903904" result="Passed" start-time="2025-11-20 03:39:16Z" end-time="2025-11-20 03:39:17Z" duration="0.802560" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 2 abilities.
+TestShip - Planned heat: 100.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Safe → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → 450.0
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip - Planned heat: 15.0 (Total with current: 115.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip executing 2 queued abilities...
+Emergency Cooling spinning up for 0.1s...
+Executing Emergency Cooling...
+TestShip - Heat tier changed: Severe → Safe
+TestShip - Instant cooling: -50.0. Heat: 100.0 → 50.0
+TestShip activated Emergency Cooling! Reduced heat by 50
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 100/200
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Committed 15 heat. Current: 65.0, Planned remaining: 0.0, Tier: Minor
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1031" name="Test_EmergencyCoolingAtHighHeat" fullname="Phase1IntegrationTests.Test_EmergencyCoolingAtHighHeat" methodname="Test_EmergencyCoolingAtHighHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="455186241" result="Passed" start-time="2025-11-20 03:39:17Z" end-time="2025-11-20 03:39:17Z" duration="0.302385" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 140.0 (Total with current: 140.0)
+TestShip - Heat tier changed: Safe → Critical
+TestShip - Heat committed. Current: 140.0, Tier: Critical
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip executing 1 queued abilities...
+Emergency Cooling spinning up for 0.1s...
+Executing Emergency Cooling...
+TestShip - Heat tier changed: Critical → Moderate
+TestShip - Instant cooling: -50.0. Heat: 140.0 → 90.0
+TestShip activated Emergency Cooling! Reduced heat by 50
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1034" name="Test_HeatPenaltiesWithAbilities" fullname="Phase1IntegrationTests.Test_HeatPenaltiesWithAbilities" methodname="Test_HeatPenaltiesWithAbilities" classname="Phase1IntegrationTests" runstate="Runnable" seed="1815699731" result="Passed" start-time="2025-11-20 03:39:17Z" end-time="2025-11-20 03:39:18Z" duration="0.702625" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Planned heat: 100.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Safe → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → 450.0
+TestShip - Planned heat: 15.0 (Total with current: 115.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip executing 1 queued abilities...
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 100/200
+TestShip - Committed 15 heat. Current: 115.0, Planned remaining: 0.0, Tier: Severe
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1030" name="Test_MultipleAbilitiesHeatStacking" fullname="Phase1IntegrationTests.Test_MultipleAbilitiesHeatStacking" methodname="Test_MultipleAbilitiesHeatStacking" classname="Phase1IntegrationTests" runstate="Runnable" seed="935879173" result="Passed" start-time="2025-11-20 03:39:18Z" end-time="2025-11-20 03:39:18Z" duration="0.002560" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 3 abilities.
+Queued ability: Emergency Cooling (Heat cost: 0)
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip - Planned heat: 25.0 (Total with current: 25.0)
+Queued ability: Evasive Maneuver (Heat cost: 10)
+]]></output>
+        </test-case>
+        <test-case id="1035" name="Test_SequentialHeatCommit" fullname="Phase1IntegrationTests.Test_SequentialHeatCommit" methodname="Test_SequentialHeatCommit" classname="Phase1IntegrationTests" runstate="Runnable" seed="1853697206" result="Passed" start-time="2025-11-20 03:39:18Z" end-time="2025-11-20 03:39:19Z" duration="0.702161" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 2 abilities.
+TestShip - Shields: 200.0 → 0.0
+TestShip - Hull: 500.0 → 450.0
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip - Planned heat: 25.0 (Total with current: 25.0)
+Queued ability: Evasive Maneuver (Heat cost: 10)
+TestShip executing 2 queued abilities...
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 100/200
+TestShip - Committed 15 heat. Current: 15.0, Planned remaining: 10.0, Tier: Safe
+Executing Evasive Maneuver...
+TestShip activated Evasive Maneuver! Turn rate increased by 2x for 2 turns
+TestShip - Committed 10 heat. Current: 25.0, Planned remaining: 0.0, Tier: Safe
+TestShip Evasive Maneuver ended. Turn rate restored to normal.
+TestShip finished executing abilities
+]]></output>
+        </test-case>
+        <test-case id="1036" name="Test_ShieldBoostWithRegen" fullname="Phase1IntegrationTests.Test_ShieldBoostWithRegen" methodname="Test_ShieldBoostWithRegen" classname="Phase1IntegrationTests" runstate="Runnable" seed="207309556" result="Passed" start-time="2025-11-20 03:39:19Z" end-time="2025-11-20 03:39:20Z" duration="0.702601" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+AbilitySystem initialized on TestShip. Loaded 1 abilities.
+TestShip - Shields: 200.0 → 50.0
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+Queued ability: Shield Boost (Heat cost: 15)
+TestShip executing 1 queued abilities...
+Shield Boost spinning up for 0.3s...
+Executing Shield Boost...
+TestShip activated Shield Boost! Restored 100 shields. Current: 150/200
+TestShip - Committed 15 heat. Current: 15.0, Planned remaining: 0.0, Tier: Safe
+TestShip finished executing abilities
+TestShip - Shield regen: 150.0 → 170.0
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1037" name="WeaponSystemTests" fullname="WeaponSystemTests" classname="WeaponSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:22Z" duration="2.341568" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1039" name="Test_ArcCheck" fullname="WeaponSystemTests.Test_ArcCheck" methodname="Test_ArcCheck" classname="WeaponSystemTests" runstate="Runnable" seed="319282453" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:20Z" duration="0.005398" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1041" name="Test_CanFire" fullname="WeaponSystemTests.Test_CanFire" methodname="Test_CanFire" classname="WeaponSystemTests" runstate="Runnable" seed="1731426667" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:20Z" duration="0.003670" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun: No target assigned
+Rail Gun targeting TargetShip
+Rail Gun: Target out of range
+Newtonian Cannon targeting TargetShip
+Newtonian Cannon: Target not in firing arc
+TargetShip - Shields: 200.0 → 0.0
+TargetShip - Hull: 500.0 → 0.0
+TargetShip has been destroyed!
+Rail Gun: Target is dead
+]]></output>
+        </test-case>
+        <test-case id="1044" name="Test_CannonBallisticSpawn" fullname="WeaponSystemTests.Test_CannonBallisticSpawn" methodname="Test_CannonBallisticSpawn" classname="WeaponSystemTests" runstate="Runnable" seed="1894307244" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:20Z" duration="0.504610" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Newtonian Cannon targeting TargetShip
+Newtonian Cannon spinning up for 0.5s...
+[STUB - Track B] Spawning ballistic projectile:
+  Type: Ballistic
+  From: (-1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Target Ship: TargetShip
+  Damage: 40
+  Speed: 2 units/sec
+  Owner: TestShip
+Newtonian Cannon fired! Ballistic projectile toward TargetShip (lead target at (0.00, 0.00, 10.00))
+TestShip - Planned heat: 30.0 (Total with current: 30.0)
+TestShip - Heat committed. Current: 30.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1042" name="Test_GroupAssignment" fullname="WeaponSystemTests.Test_GroupAssignment" methodname="Test_GroupAssignment" classname="WeaponSystemTests" runstate="Runnable" seed="1993644403" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:20Z" duration="0.003896" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun assigned to group 1
+Assigned Rail Gun to group 1
+Newtonian Cannon assigned to group 2
+Assigned Newtonian Cannon to group 2
+Rail Gun assigned to group 2
+Assigned Rail Gun to group 2
+]]></output>
+        </test-case>
+        <test-case id="1049" name="Test_OverchargeMultiplier" fullname="WeaponSystemTests.Test_OverchargeMultiplier" methodname="Test_OverchargeMultiplier" classname="WeaponSystemTests" runstate="Runnable" seed="1825159935" result="Passed" start-time="2025-11-20 03:39:20Z" end-time="2025-11-20 03:39:21Z" duration="0.703140" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+TargetShip - Shields: 200.0 → 0.0
+Rail Gun targeting TargetShip
+Rail Gun spinning up for 0.2s...
+TargetShip - Hull: 500.0 → 460.0
+Rail Gun fired! Hit TargetShip for 40 damage (instant hit)
+[STUB - Track B] Instant hit effect:
+  From: (1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Distance: 10.05 units
+  Damage: 40
+TestShip - Planned heat: 30.0 (Total with current: 30.0)
+TestShip - Heat committed. Current: 30.0, Tier: Safe
+Rail Gun spinning up for 0.2s...
+TargetShip - Hull: 460.0 → 440.0
+Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
+[STUB - Track B] Instant hit effect:
+  From: (1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Distance: 10.05 units
+  Damage: 20
+TestShip - Planned heat: 15.0 (Total with current: 45.0)
+TestShip - Heat committed. Current: 45.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1043" name="Test_RailGunInstantHit" fullname="WeaponSystemTests.Test_RailGunInstantHit" methodname="Test_RailGunInstantHit" classname="WeaponSystemTests" runstate="Runnable" seed="847911023" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:21Z" duration="0.203022" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+TargetShip - Shields: 200.0 → 0.0
+Rail Gun targeting TargetShip
+Rail Gun spinning up for 0.2s...
+TargetShip - Hull: 500.0 → 480.0
+Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
+[STUB - Track B] Instant hit effect:
+  From: (1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Distance: 10.05 units
+  Damage: 20
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+TestShip - Heat committed. Current: 15.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1040" name="Test_RangeCheck" fullname="WeaponSystemTests.Test_RangeCheck" methodname="Test_RangeCheck" classname="WeaponSystemTests" runstate="Runnable" seed="927660617" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:21Z" duration="0.002066" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1048" name="Test_SpinUpDelay" fullname="WeaponSystemTests.Test_SpinUpDelay" methodname="Test_SpinUpDelay" classname="WeaponSystemTests" runstate="Runnable" seed="570276342" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:21Z" duration="0.203834" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+TargetShip - Shields: 200.0 → 0.0
+Rail Gun targeting TargetShip
+Rail Gun spinning up for 0.2s...
+TargetShip - Hull: 500.0 → 480.0
+Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
+[STUB - Track B] Instant hit effect:
+  From: (1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Distance: 10.05 units
+  Damage: 20
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+TestShip - Heat committed. Current: 15.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1045" name="Test_WeaponCooldown" fullname="WeaponSystemTests.Test_WeaponCooldown" methodname="Test_WeaponCooldown" classname="WeaponSystemTests" runstate="Runnable" seed="1498347350" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:21Z" duration="0.002544" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun on cooldown for 3 turns
+Rail Gun cooldown finished
+]]></output>
+        </test-case>
+        <test-case id="1047" name="Test_WeaponGroupHeatCalculation" fullname="WeaponSystemTests.Test_WeaponGroupHeatCalculation" methodname="Test_WeaponGroupHeatCalculation" classname="WeaponSystemTests" runstate="Runnable" seed="1233860909" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:21Z" duration="0.002716" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun assigned to group 1
+Assigned Rail Gun to group 1
+Newtonian Cannon assigned to group 1
+Assigned Newtonian Cannon to group 1
+Rail Gun targeting TargetShip
+Newtonian Cannon targeting TargetShip
+]]></output>
+        </test-case>
+        <test-case id="1046" name="Test_WeaponHeatCost" fullname="WeaponSystemTests.Test_WeaponHeatCost" methodname="Test_WeaponHeatCost" classname="WeaponSystemTests" runstate="Runnable" seed="2058065116" result="Passed" start-time="2025-11-20 03:39:21Z" end-time="2025-11-20 03:39:22Z" duration="0.702969" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun targeting TargetShip
+Rail Gun spinning up for 0.2s...
+TargetShip - Shields: 200.0 → 180.0
+Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
+[STUB - Track B] Instant hit effect:
+  From: (1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Distance: 10.05 units
+  Damage: 20
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+TestShip - Heat committed. Current: 15.0, Tier: Safe
+Newtonian Cannon targeting TargetShip
+Newtonian Cannon spinning up for 0.5s...
+[STUB - Track B] Spawning ballistic projectile:
+  Type: Ballistic
+  From: (-1.00, 0.00, 0.00)
+  To: (0.00, 0.00, 10.00)
+  Target Ship: TargetShip
+  Damage: 40
+  Speed: 2 units/sec
+  Owner: TestShip
+Newtonian Cannon fired! Ballistic projectile toward TargetShip (lead target at (0.00, 0.00, 10.00))
+TestShip - Planned heat: 30.0 (Total with current: 45.0)
+TestShip - Heat committed. Current: 45.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1038" name="Test_WeaponInitialization" fullname="WeaponSystemTests.Test_WeaponInitialization" methodname="Test_WeaponInitialization" classname="WeaponSystemTests" runstate="Runnable" seed="611288691" result="Passed" start-time="2025-11-20 03:39:22Z" end-time="2025-11-20 03:39:22Z" duration="0.002113" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Saving results to: C:\Repo\DeadLock_Controls\TestResults_Final.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
