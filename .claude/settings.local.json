@@ -23,7 +23,11 @@
       "Bash(powershell -Command \"Get-Content ''C:\\Repo\\DeadLock_Controls\\CompileCheck_WeaponTester.log'' | Select-Object -Last 20\")",
       "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"C:\\Repo\\DeadLock_Controls\" -testResults \"C:\\Repo\\DeadLock_Controls\\TestResults_Projectiles.xml\" -testPlatform PlayMode -logFile \"C:\\Repo\\DeadLock_Controls\\TestLog_Projectiles.txt\")",
       "Bash(powershell -Command \"Stop-Process -Id 14504 -Force\")",
-      "Bash(powershell -Command:*)"
+      "Bash(powershell -Command:*)",
+      "Bash(tree:*)",
+      "Bash(git mv:*)",
+      "Bash(git commit:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []
