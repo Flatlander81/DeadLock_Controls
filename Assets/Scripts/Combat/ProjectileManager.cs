@@ -410,4 +410,33 @@ public class ProjectileManager : MonoBehaviour
                $"Homing Pool: {Instance.homingPool.Count}, " +
                $"Instant Hit Pool: {Instance.instantHitPool.Count}";
     }
+
+    /// <summary>
+    /// Reset the singleton instance. Used for testing to ensure clean state.
+    /// Destroys the current instance and clears the static reference.
+    /// </summary>
+    public static void ResetInstance()
+    {
+        if (instance != null)
+        {
+            // Clear all active projectiles first
+            instance.activeProjectiles.Clear();
+            instance.activeEffects.Clear();
+            instance.ballisticPool.Clear();
+            instance.homingPool.Clear();
+            instance.instantHitPool.Clear();
+
+            // Destroy the game object
+            if (Application.isPlaying)
+            {
+                Destroy(instance.gameObject);
+            }
+            else
+            {
+                DestroyImmediate(instance.gameObject);
+            }
+
+            instance = null;
+        }
+    }
 }

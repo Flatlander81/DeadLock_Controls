@@ -21,6 +21,9 @@ public class ProjectileSystemTests
     [SetUp]
     public void Setup()
     {
+        // Reset any existing ProjectileManager singleton to ensure clean state
+        ProjectileManager.ResetInstance();
+
         // Create ProjectileManager
         managerObject = new GameObject("ProjectileManager");
         manager = managerObject.AddComponent<ProjectileManager>();
@@ -49,11 +52,14 @@ public class ProjectileSystemTests
     [TearDown]
     public void Teardown()
     {
+        // Reset the ProjectileManager singleton to clean up all projectiles
+        ProjectileManager.ResetInstance();
+
         if (managerObject != null) Object.DestroyImmediate(managerObject);
         if (shipObject != null) Object.DestroyImmediate(shipObject);
         if (targetObject != null) Object.DestroyImmediate(targetObject);
 
-        // Clean up any remaining projectiles
+        // Clean up any remaining projectiles that might have been orphaned
         GameObject[] projectiles = GameObject.FindGameObjectsWithTag("Untagged");
         foreach (GameObject obj in projectiles)
         {
