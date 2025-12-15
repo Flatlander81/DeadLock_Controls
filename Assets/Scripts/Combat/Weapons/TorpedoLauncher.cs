@@ -46,11 +46,11 @@ public class TorpedoLauncher : WeaponSystem
         // Get projectile info
         ProjectileSpawnInfo info = GetProjectileInfo();
 
-        // Spawn homing projectile via ProjectileManager
-        ProjectileManager.SpawnHomingProjectile(info);
+        // Spawn homing projectile via ProjectileManager with slow turn rate
+        ProjectileManager.SpawnHomingProjectile(info, torpedoTurnRate);
 
         Debug.Log($"{weaponName} fired! Torpedo tracking {assignedTarget.gameObject.name} " +
-                  $"(Ammo remaining: {currentAmmo - 1})");
+                  $"(Ammo remaining: {currentAmmo - 1}, turnRate={torpedoTurnRate})");
     }
 
     /// <summary>

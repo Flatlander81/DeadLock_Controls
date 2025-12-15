@@ -46,11 +46,11 @@ public class MissileBattery : WeaponSystem
         // Get projectile info
         ProjectileSpawnInfo info = GetProjectileInfo();
 
-        // Spawn homing projectile via ProjectileManager
-        ProjectileManager.SpawnHomingProjectile(info);
+        // Spawn homing projectile via ProjectileManager with fast turn rate
+        ProjectileManager.SpawnHomingProjectile(info, missileTurnRate);
 
         Debug.Log($"{weaponName} fired! Missile tracking {assignedTarget.gameObject.name} " +
-                  $"(Ammo remaining: {currentAmmo - 1})");
+                  $"(Ammo remaining: {currentAmmo - 1}, turnRate={missileTurnRate})");
     }
 
     /// <summary>

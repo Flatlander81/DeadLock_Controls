@@ -223,7 +223,9 @@ public class ProjectileManager : MonoBehaviour
     /// <summary>
     /// Spawn a homing projectile from weapon.
     /// </summary>
-    public static void SpawnHomingProjectile(WeaponSystem.ProjectileSpawnInfo info)
+    /// <param name="info">Projectile spawn configuration</param>
+    /// <param name="turnRate">Turn rate in degrees per second (default 90)</param>
+    public static void SpawnHomingProjectile(WeaponSystem.ProjectileSpawnInfo info, float turnRate = 90f)
     {
         HomingProjectile projectile = Instance.GetHomingFromPool();
 
@@ -235,9 +237,10 @@ public class ProjectileManager : MonoBehaviour
 
         projectile.gameObject.SetActive(true);
         projectile.Initialize(info);
+        projectile.SetTurnRate(turnRate);
         Instance.activeProjectiles.Add(projectile);
 
-        Debug.Log($"Spawned homing projectile at {info.SpawnPosition} targeting {info.TargetShip?.gameObject.name}");
+        Debug.Log($"Spawned homing projectile at {info.SpawnPosition} targeting {info.TargetShip?.gameObject.name} (turnRate={turnRate})");
     }
 
     /// <summary>

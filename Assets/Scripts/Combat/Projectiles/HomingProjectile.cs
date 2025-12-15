@@ -21,6 +21,15 @@ public class HomingProjectile : Projectile
     public Vector3 CurrentVelocity => currentVelocity;
 
     /// <summary>
+    /// Set the turn rate for this projectile.
+    /// Called by ProjectileManager after spawning to configure weapon-specific turn rates.
+    /// </summary>
+    public void SetTurnRate(float rate)
+    {
+        turnRate = rate;
+    }
+
+    /// <summary>
     /// Initialize homing projectile with target.
     /// </summary>
     public override void Initialize(WeaponSystem.ProjectileSpawnInfo info)
