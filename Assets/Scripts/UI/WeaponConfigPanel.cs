@@ -135,5 +135,45 @@ public class WeaponConfigPanel : MonoBehaviour
         GUI.color = Color.white;
 
         y += 22;
+
+        // Ammo display (only for weapons with limited ammo)
+        if (weapon.AmmoCapacity > 0)
+        {
+            DrawAmmoDisplay(weapon, x, ref y);
+        }
+    }
+
+    /// <summary>
+    /// Draw ammo display with color-coded bar for limited ammo weapons.
+    /// </summary>
+    private void DrawAmmoDisplay(WeaponSystem weapon, float x, ref float y)
+    {
+        int currentAmmo = weapon.CurrentAmmo;
+        int maxAmmo = weapon.AmmoCapacity;
+        float ammoPercent = (float)currentAmmo / maxAmmo;
+
+        // Color code based on ammo percentage
+        Color ammoColor;
+        if (ammoPercent > 0.5f)
+            ammoColor = Color.green;
+        else if (ammoPercent > 0.25f)
+            ammoColor = Color.yellow;
+        else
+            ammoColor = Color.red;
+
+        // Ammo text
+        GUI.color = ammoColor;
+        string ammoText = $"  Ammo: {currentAmmo}/{maxAmmo}";
+
+        // Create visual ammo bar
+        int filledBlocks = Mathf.CeilToInt(ammoPercent * 5); // 5 blocks max
+        int emptyBlocks = 5 - filledBlocks;
+        string ammoBar = "  " + new string('\u2588', filledBlocks) + new string('\u2591', emptyBlocks);
+
+        GUI.Label(new Rect(x, y, 150, 20), ammoText);
+        GUI.Label(new Rect(x + 90, y, 100, 20), ammoBar);
+
+        GUI.color = Color.white;
+        y += 20;
     }
 }
