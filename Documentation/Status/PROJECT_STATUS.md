@@ -1,236 +1,240 @@
 # DeadLock Controls - Project Status
 
 ## Project Overview
-A turn-based tactical space combat game in Unity inspired by Battlestar Galactica: Deadlock.
+A turn-based tactical space combat game in Unity inspired by Battlestar Galactica: Deadlock and Homeworld series.
 
-## Current Implementation
+## Current Phase: 2.1 Complete - Weapon Systems
+All core combat infrastructure is operational with 69 automated tests passing.
 
-### Movement System
-- **Turn-based gameplay** with Command and Simulation phases managed by a TurnManager
+## Implemented Systems
+
+### Movement System ✅
+- **Turn-based gameplay** with Command and Simulation phases managed by TurnManager
   - Command Phase: Players plan their moves
   - Simulation Phase: All ships execute moves simultaneously
-- **BSG Deadlock-style movement**: Ships plan moves during Command phase, then execute simultaneously during Simulation phase
-- **Projection-based planning**: When a ship is selected, a semi-transparent green projection appears showing the planned end position
-- **Bezier curve movement**: Ships follow smooth cubic Bezier arcs with a flat start tangent for realistic space combat feel
-- **Movement constraints**:
-  - Min distance: 5 units
-  - Max distance: 20 units
-  - Max turn angle: 45 degrees
-- **Path visualization**: Cyan line renderer shows the planned movement arc in real-time
-- **Collision indication**: Projection turns red when collision is detected (basic implementation exists)
-- **Smooth movement execution**: Ships interpolate along Bezier curves during Simulation phase
-- **Automatic rotation**: Ships face the direction of movement at the end of their arc
+- **BSG Deadlock-style movement**: Ships plan moves during Command phase, then execute simultaneously
+- **Projection-based planning**: Semi-transparent green projection shows planned end position
+- **Bezier curve movement**: Ships follow smooth cubic Bezier arcs
+- **Movement constraints**: Min/max distance, turn angles, inertial stress
+- **Path visualization**: Cyan line renderer shows planned movement arc
+- **Collision indication**: Projection turns red when collision detected
 
-### Input Controls
+### Heat System ✅
+- 7 heat tiers: Safe (0-59), Minor (60-79), Moderate (80-99), Severe (100-119), Critical (120-149), Catastrophic (150+)
+- Passive cooling (20 heat/turn)
+- Heat penalties affect movement speed
+- Hull damage at Critical/Catastrophic tiers
+- Visual heat bar with color transitions
 
-#### Ship Selection & Movement
-- **Left Click** on ship to select (auto-focuses camera on ship)
-- **Drag projection** to plan movement destination
-- **E** - Switch to Elevation adjustment mode
-- **R** - Switch to Rotation adjustment mode (when ship selected)
-- **Mouse Scroll** - Adjust elevation in adjustment mode
-- **Arrow Keys** - Adjust rotation in rotation mode
-- **Enter/Space** - Confirm planned movement
-- **Esc** - Cancel current adjustment
-- **Semicolon (;)** - Direct entry to elevation mode
+### Ability System ✅
+- 6 abilities with cooldowns, heat costs, and spin-up delays:
+  - **Emergency Cooling**: -50 heat instant (0 heat, 4 turn CD)
+  - **Shield Boost**: +100 shields for 2 turns (25 heat, 3 turn CD)
+  - **Evasive Maneuver**: 90° turn, 30u move override (35 heat, 2 turn CD)
+  - **Overcharge Weapons**: 1.5x damage, 2x heat for 1 turn (20 heat, 3 turn CD)
+  - **Sensor Burst**: Reveal enemy positions (15 heat, 2 turn CD)
+  - **PD Override**: 2x PD capacity for 1 turn (30 heat, 3 turn CD)
+- Hotkey activation (keys 1-6)
+- Queue system for Command phase, execution in Simulation phase
 
-#### Phase Management
-- **End Turn Button** (GUI) - Transitions from Command to Simulation phase
+### Weapon System ✅
+- **RailGun**: Instant-hit beam weapon, 360° turret, 30 range, 20 dmg, 15 heat
+- **Newtonian Cannon**: Ballistic projectile, 180° arc, 20 range, 40 dmg, 30 heat
+- Weapon groups (1-4) for tactical control
+- Arc and range validation
+- Lead calculation for moving targets
+- Heat cost with multiplier support (Overcharge ability)
+- Cooldown system
 
-### Camera System (Homeworld-style)
-Full 3D orbit camera with keyboard and mouse controls:
+### Projectile System ✅
+- **Ballistic Projectile**: Straight-line trajectory (cannons)
+- **Homing Projectile**: Seeking with 90°/sec turn rate (missiles)
+- **Instant Hit Effect**: Line renderer beam (railguns)
+- Object pooling for performance (20 per type)
+- Collision detection with damage application
+- No friendly fire
 
-#### Mouse Controls
-- **Shift + Left Mouse Drag** - Orbit around focused ship/point
-- **Ctrl + Left Mouse Drag** - Pan camera (moves focus point)
-- **Mouse Wheel** - Zoom in/out
+### Targeting UI System ✅
+- Mouse click ship selection
+- Visual selection indicators (rotating rings)
+- Weapon Config Panel (left) - group assignment
+- Weapon Group Panel (right) - firing interface
+- Color-coded targeting lines (Blue/Red/Green/Yellow for groups 1-4)
+- Hotkey weapon firing (1-4, A for Alpha Strike)
+- Out-of-arc, cooldown, and heat warnings
 
-#### Keyboard Controls
-- **Q/E** - Orbit left/right around focus point
-- **W/A/S/D** - Pan camera (forward/left/back/right relative to camera)
-- **R/F** - Zoom in/out (R = zoom in, F = zoom out)
+### Camera System ✅
+- Homeworld-style 3D orbit camera
+- Mouse controls: Shift+drag orbit, Ctrl+drag pan, scroll zoom
+- Keyboard controls: Q/E orbit, WASD pan, R/F zoom
+- Auto-focus on selected ships
 
-#### Camera Features
-- Auto-focuses on newly selected ships with smooth transitions
-- Maintains focus on moving ships during Simulation phase
-- Vertical angle constraints (-80° to +80°) to prevent camera flipping
-- Smooth damping for fluid camera movement
-- Configurable zoom range (5-50 units)
+## Input Controls
+
+### Ship Selection & Movement
+- **Left Click** on ship to select
+- **Drag projection** to plan movement
+- **E** - Elevation adjustment mode
+- **R** - Rotation adjustment mode
+- **Mouse Scroll** - Adjust elevation
+- **Arrow Keys** - Adjust rotation
+- **Enter/Space** - Confirm movement
+- **Esc** - Cancel/Deselect
+
+### Combat Controls
+- **1-4** - Fire weapon groups (when enemy targeted) / Activate abilities
+- **5-6** - Activate abilities
+- **A** - Alpha Strike (fire all weapons)
+
+### Camera Controls
+- **Shift + Left Drag** - Orbit
+- **Ctrl + Left Drag** - Pan
+- **Mouse Wheel** - Zoom
+- **Q/E** - Orbit left/right
+- **W/A/S/D** - Pan
+- **R/F** - Zoom in/out
 
 ## File Structure
 ```
 DeadLock_Controls/
 ├── Assets/
 │   ├── Scripts/
-│   │   └── Movement/
-│   │       ├── Ship.cs - Individual ship movement, planning, and execution
-│   │       ├── MovementController.cs - Player input handling and ship selection
-│   │       ├── TurnManager.cs - Phase management (Command/Simulation)
-│   │       └── OrbitCamera.cs - Homeworld-style camera control system
+│   │   ├── Movement/
+│   │   │   ├── Ship.cs
+│   │   │   ├── TurnManager.cs
+│   │   │   ├── MovementController.cs
+│   │   │   └── OrbitCamera.cs
+│   │   ├── Combat/
+│   │   │   ├── HeatManager.cs
+│   │   │   ├── ProjectileManager.cs
+│   │   │   ├── Abilities/
+│   │   │   │   ├── AbilityData.cs
+│   │   │   │   ├── AbilityDataCreator.cs
+│   │   │   │   ├── AbilitySystem.cs
+│   │   │   │   ├── EmergencyCoolingData.cs
+│   │   │   │   ├── EvasiveManeuverData.cs
+│   │   │   │   ├── OverchargeWeaponsData.cs
+│   │   │   │   ├── PDOverrideData.cs
+│   │   │   │   ├── SensorBurstData.cs
+│   │   │   │   └── ShieldBoostData.cs
+│   │   │   ├── Projectiles/
+│   │   │   │   ├── Projectile.cs
+│   │   │   │   ├── BallisticProjectile.cs
+│   │   │   │   ├── HomingProjectile.cs
+│   │   │   │   └── InstantHitEffect.cs
+│   │   │   ├── Targeting/
+│   │   │   │   ├── ITargetingSystem.cs
+│   │   │   │   └── TargetingController.cs
+│   │   │   └── Weapons/
+│   │   │       ├── WeaponSystem.cs
+│   │   │       ├── WeaponManager.cs
+│   │   │       ├── RailGun.cs
+│   │   │       ├── NewtonianCannon.cs
+│   │   │       └── HardpointGizmo.cs
+│   │   ├── UI/
+│   │   │   ├── UIManager.cs
+│   │   │   ├── DebugUI.cs
+│   │   │   ├── WeaponConfigPanel.cs
+│   │   │   ├── WeaponGroupPanel.cs
+│   │   │   ├── SelectionIndicator.cs
+│   │   │   └── TargetingLineRenderer.cs
+│   │   ├── Editor/
+│   │   │   ├── ProjectilePrefabSetup.cs
+│   │   │   ├── ProjectileTestSceneSetup.cs
+│   │   │   ├── TargetingTestSceneSetup.cs
+│   │   │   ├── WeaponHardpointSetup.cs
+│   │   │   └── WeaponTestSceneSetup.cs
+│   │   ├── ProjectileTester.cs
+│   │   └── WeaponTester.cs
+│   ├── Tests/
+│   │   ├── Editor/
+│   │   │   ├── ShipMovementTests.cs
+│   │   │   ├── MovementExecutionTests.cs
+│   │   │   └── MovementPerformanceTests.cs
+│   │   └── PlayModeTests/
+│   │       ├── HeatSystemTests.cs
+│   │       ├── AbilitySystemTests.cs
+│   │       ├── Phase1IntegrationTests.cs
+│   │       ├── WeaponSystemTests.cs
+│   │       ├── ProjectileSystemTests.cs
+│   │       └── TargetingSystemTests.cs
+│   ├── Data/Abilities/
+│   ├── Prefabs/
 │   ├── Scenes/
-│   │   └── TestScene.unity - Main test scene with ships and camera setup
-│   ├── Materials/ - Ship materials and projection materials
-│   ├── Meshes/ - Ship meshes and projection prefabs
-│   └── Textures/ - Ship textures
-├── ProjectSettings/
-└── PROJECT_STATUS.md - This file
+│   ├── Materials/
+│   ├── Meshes/
+│   └── Textures/
+├── Documentation/
+│   ├── Status/
+│   │   ├── PROJECT_STATUS.md
+│   │   └── IMPLEMENTATION_STATUS.md
+│   ├── hephaestus_guide_part1.md
+│   ├── hephaestus_guide_part2.md
+│   ├── hephaestus_guide_part3.md
+│   ├── hephaestus_guide_part4.md
+│   ├── hephaestus_implementation_guide.md
+│   ├── INTEGRATION_GUIDE.md
+│   └── MovementSystem_Guide.md
+├── TestingDocumentation/
+│   ├── ABILITY_SYSTEM_TESTING_GUIDE.md
+│   ├── PROJECTILE_QUICK_START.md
+│   ├── PROJECTILE_TEST_GUIDE.md
+│   ├── TARGETING_QUICK_START.md
+│   ├── TARGETING_TEST_GUIDE.md
+│   ├── TARGETING_CONTROLS_REFERENCE.md
+│   ├── TRACK_B_SUMMARY.md
+│   └── WEAPON_TEST_GUIDE.md
+└── ProjectSettings/
 ```
 
-## Key Classes & Responsibilities
+## Test Coverage
 
-### Ship.cs
-- Manages individual ship state and movement
-- Handles projection creation and updates
-- Executes Bezier curve movement during Simulation phase
-- Calculates arc control points for realistic movement paths
-- Provides selection/deselection visual feedback
-- Properties: PlannedPosition, PlannedRotation, HasPlannedMove
+**Total: 69 Automated Tests Passing**
 
-### MovementController.cs
-- Processes all player input during Command phase
-- Manages ship selection state
-- Handles projection dragging with mouse raycasting
-- Provides elevation and rotation adjustment modes
-- Integrates with OrbitCamera for focus management
-- Displays on-screen GUI for controls and phase info
+| System | Tests | Status |
+|--------|-------|--------|
+| Heat System | 10 | ✅ |
+| Ability System | 13 | ✅ |
+| Phase 1 Integration | 10 | ✅ |
+| Weapon System | 12 | ✅ |
+| Projectile System | 12 | ✅ |
+| Targeting System | 12 | ✅ |
 
-### TurnManager.cs
-- Singleton pattern for global phase management
-- Tracks current phase (Command or Simulation)
-- Triggers ExecuteMove() on all ships when Simulation starts
-- Automatically resets to Command phase after moves complete
-- Manages game timing (3-second simulation duration)
-
-### OrbitCamera.cs
-- Implements spherical coordinate camera positioning
-- Handles all camera input (mouse + keyboard)
-- Provides smooth focus transitions between targets
-- Supports both locked focus (following ships) and free-roam
-- Configurable speeds for orbit, pan, and zoom
-
-## Technical Details
-
-### Movement Mathematics
-- **Cubic Bezier Curves**: P(t) = (1-t)³P₀ + 3(1-t)²tP₁ + 3(1-t)t²P₂ + t³P₃
-- **Control Points**:
-  - P₀: Ship start position
-  - P₁: Ahead of ship in forward direction (flat start)
-  - P₂: Offset perpendicular to movement for arc
-  - P₃: Planned end position
-- **Tangent-based Rotation**: Ship rotation calculated from curve tangent at t=0.99
-
-### Performance Optimizations
-- Line renderer points reduced to 20 for performance
-- Reuses LineRenderer instead of recreating each frame
-- Bezier calculations cached during planning
-- Material instances managed to prevent leaks
-
-### Known Limitations
-- Collision detection is basic (visual only, doesn't prevent moves)
+## Known Limitations
+- Collision detection is visual only (doesn't prevent moves)
 - No multi-ship selection
-- No undo functionality for planned moves
-- Camera zoom conflicts with Rotation mode (both use R key)
-- No save/load system
-- Single scene only
+- No undo for planned moves
+- AI not implemented
+- Point Defense system not implemented
+- VFX are placeholders
 
-## Current State
+## Next Development Phases
 
-### What Works Well
-✅ Smooth Bezier curve movement with realistic arcs
-✅ Intuitive projection-based planning interface
-✅ Flexible camera system with multiple control schemes
-✅ Turn-based phase system
-✅ Visual feedback (projections, paths, collision indicators)
-✅ Movement constraints properly enforced
+### Phase 3: Point Defense System
+- Interceptor targeting
+- Missile defense mechanics
+- PD turret behavior
 
-### What Needs Work
-⚠️ Combat system (not implemented)
-⚠️ AI for enemy ships (not implemented)
-⚠️ Collision resolution (detection only, no prevention)
-⚠️ UI/UX polish (minimal GUI currently)
-⚠️ Ship variety (only single ship type tested)
-⚠️ Game loop/objectives (no win/loss conditions)
-⚠️ Performance testing with many ships
+### Phase 4: Enemy AI
+- AI decision making
+- Threat assessment
+- Behavior trees
+- Multiple enemy types
 
-## Questions for Future Development
+### Phase 5: Polish & VFX
+- Particle effects
+- Audio system
+- Screen shake
+- Post-processing
 
-### 1. Combat System
-- What kind of combat mechanics would work well with this turn-based movement system?
-- Should weapons also be planned during Command phase?
-- Simultaneous fire resolution or initiative-based?
-- Weapon types: direct fire, missiles, point defense?
-- Damage model: HP-based, component damage, or both?
-
-### 2. AI System
-- What level of AI complexity should I implement for enemy ships?
-- Should AI use the same movement planning system or simplified version?
-- How should AI evaluate tactical positions and threats?
-- Difficulty levels or adaptive AI?
-
-### 3. UI/UX Improvements
-- What additional UI elements would help players plan their moves better?
-  - Range indicators?
-  - Firing arcs?
-  - Predicted enemy positions?
-  - Movement history?
-  - Threat assessment visualization?
-- Should there be a tactical overview/map view?
-- How to display ship stats and status effects?
-
-### 4. Ship Variety
-- What ship types/classes should I implement?
-  - Fighters, Corvettes, Frigates, Cruisers, Battleships?
-- What should differentiate ship classes?
-  - Speed/turn rate?
-  - Weapon loadouts?
-  - Armor/shields?
-  - Special abilities?
-- Should ships be customizable or fixed loadouts?
-
-### 5. Game Loop & Structure
-- What should the overall game structure be?
-  - Campaign with story missions?
-  - Skirmish/quick battle mode?
-  - Procedurally generated scenarios?
-- What are the win/loss conditions?
-  - Destroy all enemies?
-  - Objective-based (defend/escort/capture)?
-  - Time limits?
-- Progression system?
-  - Unlock new ships?
-  - Persistent fleet?
-  - Experience/upgrades?
-
-### 6. Technical Improvements
-- Are there any obvious technical issues to address?
-- Code architecture improvements needed?
-- Performance optimizations for large battles?
-- Network multiplayer considerations?
-- Testing framework/automated tests?
-
-### 7. Polish & Feel
-- Audio system (ship sounds, weapons, ambience)?
-- Visual effects (engine trails, weapon fire, explosions)?
-- Screen shake/camera effects for combat?
-- Particle systems for feedback?
-- Post-processing effects?
-
-## Next Steps - Prioritization Needed
-
-Please help prioritize which features to implement next to create a compelling gameplay loop. Consider:
-- What's the minimum viable product (MVP)?
-- Which features provide the most gameplay value?
-- What dependencies exist between features?
-- What's the recommended development order?
+### Phase 6: Balance & MVP
+- Balance tuning
+- Playtesting
+- Performance optimization
+- MVP completion
 
 ## Development Environment
 - **Unity Version**: 6000.2.10f1
 - **Platform**: Windows (PC)
 - **Language**: C#
 - **Version Control**: Git
-
-## Notes
-- Project focuses on tactical gameplay over action
-- Inspiration from BSG Deadlock and Homeworld series
-- Emphasis on planning and positioning over reflexes
-- 3D space combat but currently limited to horizontal plane

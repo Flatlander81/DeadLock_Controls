@@ -61,14 +61,15 @@ None
 ## Step 1.2 - Ability System Details
 
 ### 📁 New Files Created
-- `Assets/Scripts/Combat/Abilities/Ability.cs` - Abstract base class for all abilities
+- `Assets/Scripts/Combat/Abilities/AbilityData.cs` - Abstract base class for all abilities (ScriptableObject)
+- `Assets/Scripts/Combat/Abilities/AbilityDataCreator.cs` - Editor utility for creating ability assets
 - `Assets/Scripts/Combat/Abilities/AbilitySystem.cs` - Manager component for ship abilities
-- `Assets/Scripts/Combat/Abilities/EmergencyCooling.cs` - Instant heat reduction ability (0 heat, 4 CD, 0.1s spin-up)
-- `Assets/Scripts/Combat/Abilities/ShieldBoost.cs` - Temporary shield boost ability (25 heat, 3 CD, 0.3s spin-up)
-- `Assets/Scripts/Combat/Abilities/EvasiveManeuver.cs` - Movement constraint override ability (35 heat, 2 CD, 0s spin-up)
-- `Assets/Scripts/Combat/Abilities/OverchargeWeapons.cs` - Weapon damage multiplier ability (20 heat, 3 CD, 0.5s spin-up)
-- `Assets/Scripts/Combat/Abilities/SensorBurst.cs` - Enemy position reveal ability (15 heat, 2 CD, 0.2s spin-up)
-- `Assets/Scripts/Combat/Abilities/PDOverride.cs` - Point defense enhancement ability (30 heat, 3 CD, 0.3s spin-up)
+- `Assets/Scripts/Combat/Abilities/EmergencyCoolingData.cs` - Instant heat reduction ability (0 heat, 4 CD, 0.1s spin-up)
+- `Assets/Scripts/Combat/Abilities/ShieldBoostData.cs` - Temporary shield boost ability (25 heat, 3 CD, 0.3s spin-up)
+- `Assets/Scripts/Combat/Abilities/EvasiveManeuverData.cs` - Movement constraint override ability (35 heat, 2 CD, 0s spin-up)
+- `Assets/Scripts/Combat/Abilities/OverchargeWeaponsData.cs` - Weapon damage multiplier ability (20 heat, 3 CD, 0.5s spin-up)
+- `Assets/Scripts/Combat/Abilities/SensorBurstData.cs` - Enemy position reveal ability (15 heat, 2 CD, 0.2s spin-up)
+- `Assets/Scripts/Combat/Abilities/PDOverrideData.cs` - Point defense enhancement ability (30 heat, 3 CD, 0.3s spin-up)
 - `Assets/Tests/PlayModeTests/AbilitySystemTests.cs` - Comprehensive test suite (13 tests)
 - `Assets/Scripts/DeadLockControls.asmdef` - Main assembly definition for Scripts folder
 
@@ -280,6 +281,7 @@ Successfully integrated Heat System (Step 1.1) and Ability System (Step 1.2). Sy
 - `Assets/Scripts/Combat/Weapons/RailGun.cs` - Instant-hit energy weapon (360° turret, 20 dmg, 15 heat)
 - `Assets/Scripts/Combat/Weapons/NewtonianCannon.cs` - Ballistic projectile weapon (180° arc, 40 dmg, 30 heat)
 - `Assets/Scripts/Combat/Weapons/WeaponManager.cs` - Ship-level weapon management and firing groups
+- `Assets/Scripts/Combat/Weapons/HardpointGizmo.cs` - Debug visualization for weapon hardpoints
 - `Assets/Scripts/Combat/ProjectileManager.cs` - STUB for Track B integration
 - `Assets/Scripts/Combat/Targeting/ITargetingSystem.cs` - Interface contract for Track C
 
@@ -399,6 +401,8 @@ All weapon system tests passing after fixes:
 - `Assets/Scripts/Combat/Projectiles/InstantHitEffect.cs` - Visual effect for instant-hit weapons (railguns)
 - `Assets/Scripts/Combat/ProjectileManager.cs` - REPLACED stub with full implementation
 - `Assets/Scripts/Editor/ProjectilePrefabSetup.cs` - Editor tool to create projectile prefabs
+- `Assets/Scripts/Editor/ProjectileTestSceneSetup.cs` - Editor tool for one-click test scene setup
+- `Assets/Scripts/ProjectileTester.cs` - Runtime test controller with keyboard controls
 - `Assets/Tests/PlayModeTests/ProjectileSystemTests.cs` - Comprehensive test suite (12 tests)
 
 #### 🎯 Features Implemented
@@ -555,12 +559,16 @@ Track C can now:
 - `Assets/Scripts/UI/TargetingLineRenderer.cs` - Color-coded targeting lines
 - `Assets/Scripts/UI/UIManager.cs` - Panel state management
 
-**Testing & Documentation:**
+**Testing & Tools:**
 - `Assets/Tests/PlayModeTests/TargetingSystemTests.cs` - Comprehensive test suite (12 tests)
 - `Assets/Scripts/Editor/TargetingTestSceneSetup.cs` - One-click scene setup tool
-- `TARGETING_QUICK_START.md` - Quick reference guide
-- `TARGETING_TEST_GUIDE.md` - Comprehensive testing scenarios
-- `TARGETING_CONTROLS_REFERENCE.md` - Control reference card
+- `Assets/Scripts/Editor/WeaponTestSceneSetup.cs` - Weapon test scene setup tool
+- `Assets/Scripts/WeaponTester.cs` - Runtime test controller with keyboard controls
+
+**Documentation (now in TestingDocumentation/):**
+- `TestingDocumentation/TARGETING_QUICK_START.md` - Quick reference guide
+- `TestingDocumentation/TARGETING_TEST_GUIDE.md` - Comprehensive testing scenarios
+- `TestingDocumentation/TARGETING_CONTROLS_REFERENCE.md` - Control reference card
 
 **Files Modified:**
 - `Assets/Scripts/Movement/MovementController.cs` - Added hotkey coordination, player ship restriction
