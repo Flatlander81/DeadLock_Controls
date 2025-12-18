@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Text;
 
 /// <summary>
 /// Debug UI overlay for testing and development.
@@ -9,6 +10,10 @@ public class DebugUI : MonoBehaviour
     [Header("References")]
     [SerializeField] private Ship targetShip;
     [SerializeField] private MovementController movementController;
+
+    // Cached StringBuilders to avoid per-frame allocations
+    private readonly StringBuilder heatTextBuilder = new StringBuilder(64);
+    private readonly StringBuilder abilityTextBuilder = new StringBuilder(64);
 
     // Accessors
     public Ship TargetShip => targetShip;
@@ -144,13 +149,18 @@ public class DebugUI : MonoBehaviour
         GUILayout.BeginArea(new Rect(panelX, panelY, panelWidth, 240));
         GUILayout.Box("Heat System Debug");
 
-        // Heat info
-        string heatText = $"Heat: {heatManager.CurrentHeat:F0}/{heatManager.MaxHeat:F0}";
+        // Heat info - use StringBuilder to avoid allocations
+        heatTextBuilder.Clear();
+        heatTextBuilder.Append("Heat: ");
+        heatTextBuilder.Append(heatManager.CurrentHeat.ToString("F0"));
+        heatTextBuilder.Append("/");
+        heatTextBuilder.Append(heatManager.MaxHeat.ToString("F0"));
         if (heatManager.PlannedHeat > 0.1f)
         {
-            heatText += $" +{heatManager.PlannedHeat:F0}";
+            heatTextBuilder.Append(" +");
+            heatTextBuilder.Append(heatManager.PlannedHeat.ToString("F0"));
         }
-        GUILayout.Label(heatText);
+        GUILayout.Label(heatTextBuilder.ToString());
         GUILayout.Label($"Tier: {heatManager.GetCurrentTier()}");
 
         // Heat bar visualization with planned heat overlay
@@ -285,20 +295,28 @@ public class DebugUI : MonoBehaviour
                 GUI.backgroundColor = Color.green;
             }
 
-            // Build button text
-            string buttonText = $"{i + 1}. {slot.abilityData.abilityName}";
+            // Build button text - use StringBuilder to avoid allocations
+            abilityTextBuilder.Clear();
+            abilityTextBuilder.Append(i + 1);
+            abilityTextBuilder.Append(". ");
+            abilityTextBuilder.Append(slot.abilityData.abilityName);
             if (slot.IsOnCooldown)
             {
-                buttonText += $" (CD:{slot.currentCooldown})";
+                abilityTextBuilder.Append(" (CD:");
+                abilityTextBuilder.Append(slot.currentCooldown);
+                abilityTextBuilder.Append(")");
             }
             else if (slot.isQueued)
             {
-                buttonText += " [QUEUED]";
+                abilityTextBuilder.Append(" [QUEUED]");
             }
             else
             {
-                buttonText += $" (Heat:{slot.abilityData.heatCost})";
+                abilityTextBuilder.Append(" (Heat:");
+                abilityTextBuilder.Append(slot.abilityData.heatCost);
+                abilityTextBuilder.Append(")");
             }
+            string buttonText = abilityTextBuilder.ToString();
 
             // Button click - only allow during Command phase
             GUI.enabled = isCommandPhase;

@@ -253,33 +253,27 @@ public class TargetingController : MonoBehaviour
     }
 
     /// <summary>
-    /// Handle weapon group firing hotkeys (1-4, Space).
+    /// Handle weapon group firing hotkeys (1-4) and Alpha Strike (A).
+    /// Delegated to InputManager for centralized handling.
     /// </summary>
     private void HandleWeaponGroupHotkeys()
     {
-        // Number keys 1-4 fire groups
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        // Input handling is now centralized in InputManager
+        // This method is kept for backwards compatibility but delegates to InputManager
+        // If InputManager doesn't exist, fall back to local handling
+        if (InputManager.Instance != null) return;
+
+        // Fallback: Local handling if InputManager not present
+        for (int i = 1; i <= InputManager.WeaponGroupCount; i++)
         {
-            FireGroupAtCurrentTarget(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            FireGroupAtCurrentTarget(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            FireGroupAtCurrentTarget(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            FireGroupAtCurrentTarget(4);
+            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + (i - 1))))
+            {
+                FireGroupAtCurrentTarget(i);
+                return;
+            }
         }
 
-        // Space for Alpha Strike
-        // Note: Check if not in movement mode to avoid conflicts
-        // For now, we'll allow both systems to work
-        // MovementController should handle space for movement confirmation
-        // We'll use 'A' for Alpha Strike to avoid conflict
+        // Alpha Strike with 'A' key
         if (Input.GetKeyDown(KeyCode.A))
         {
             AlphaStrikeCurrentTarget();
@@ -362,11 +356,16 @@ public class TargetingController : MonoBehaviour
 
     /// <summary>
     /// Get valid enemy targets (all ships except player).
+    /// Uses cached ship list from TurnManager to avoid expensive scene search.
     /// </summary>
     public List<Ship> GetValidTargets()
     {
         List<Ship> targets = new List<Ship>();
-        Ship[] allShips = FindObjectsByType<Ship>(FindObjectsSortMode.None);
+
+        // Use TurnManager's cached ship list instead of FindObjectsByType
+        Ship[] allShips = TurnManager.Instance != null
+            ? TurnManager.Instance.GetAllShips()
+            : FindObjectsByType<Ship>(FindObjectsSortMode.None);
 
         foreach (Ship ship in allShips)
         {

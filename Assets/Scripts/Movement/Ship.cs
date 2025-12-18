@@ -44,6 +44,9 @@ public class Ship : MonoBehaviour
     // Weapon System
     private WeaponManager weaponManager;
 
+    // Section/Damage System
+    private SectionManager sectionManager;
+
     // Movement constraint overrides (for abilities like Evasive Maneuver)
     private bool movementConstraintsOverride = false;
     private float overrideMaxTurnAngle = 45f;
@@ -86,6 +89,9 @@ public class Ship : MonoBehaviour
 
     // Weapon system properties
     public WeaponManager WeaponManager => weaponManager;
+
+    // Section/Damage system properties
+    public SectionManager SectionManager => sectionManager;
     public bool MovementConstraintsOverride => movementConstraintsOverride;
     public float WeaponDamageMultiplier
     {
@@ -133,6 +139,18 @@ public class Ship : MonoBehaviour
         if (weaponManager == null)
         {
             Debug.LogWarning($"{gameObject.name}: No WeaponManager component found. Weapons will not be available.");
+        }
+
+        // Get SectionManager component if not assigned
+        sectionManager = GetComponent<SectionManager>();
+        if (sectionManager == null)
+        {
+            sectionManager = GetComponentInChildren<SectionManager>();
+        }
+        if (sectionManager != null)
+        {
+            sectionManager.SetParentShip(this);
+            sectionManager.AutoRegisterChildSections();
         }
     }
 

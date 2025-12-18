@@ -1,11 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// Rail Gun weapon - Instant-hit energy weapon with no travel time.
-/// High precision, no cooldown, 360-degree turret.
+/// Rail Gun weapon - Ultra-fast ballistic projectile weapon.
+/// High precision, visible projectile but nearly impossible to dodge.
+/// 90-degree firing arc, infinite ammo.
 /// </summary>
 public class RailGun : WeaponSystem
 {
+    [Header("RailGun Settings")]
+    [SerializeField] private float projectileSpeed = 40f; // Fast but visible
+
     /// <summary>
     /// Initialize rail gun with default stats.
     /// </summary>
@@ -19,10 +23,11 @@ public class RailGun : WeaponSystem
         maxCooldown = 0; // No cooldown
         spinUpTime = 0.2f;
         ammoCapacity = 0; // Infinite ammo
+        projectileSpeed = 40f; // 40 units/sec - fast but visible (~0.5s to reach 20 unit target)
     }
 
     /// <summary>
-    /// Fire the rail gun - instant hit with no projectile travel.
+    /// Fire the rail gun - spawns ultra-fast ballistic projectile.
     /// </summary>
     protected override void Fire()
     {
@@ -32,47 +37,22 @@ public class RailGun : WeaponSystem
             return;
         }
 
-        // Apply damage multiplier from ship (Overcharge ability)
-        float actualDamage = damage;
-        if (ownerShip != null)
-        {
-            actualDamage *= ownerShip.WeaponDamageMultiplier;
-        }
+        // Get projectile info with lead calculation
+        ProjectileSpawnInfo info = GetProjectileInfo();
 
-        // Instant hit - apply damage immediately
-        assignedTarget.TakeDamage(actualDamage);
+        // Spawn fast ballistic projectile via ProjectileManager
+        ProjectileManager.SpawnBallisticProjectile(info);
 
-        Debug.Log($"{weaponName} fired! Hit {assignedTarget.gameObject.name} for {actualDamage} damage (instant hit)");
-
-        // Spawn visual tracer effect via ProjectileManager (Track B)
-        ProjectileManager.SpawnInstantHitEffect(
-            hardpointTransform.position,
-            assignedTarget.transform.position,
-            actualDamage
-        );
+        Debug.Log($"{weaponName} fired! Fast projectile toward {assignedTarget.gameObject.name} at {projectileSpeed} units/sec");
     }
 
     /// <summary>
     /// Get projectile spawn info for Track B.
+    /// Uses base class helper for common ballistic projectile calculations.
     /// </summary>
     public override ProjectileSpawnInfo GetProjectileInfo()
     {
-        float actualDamage = damage;
-        if (ownerShip != null)
-        {
-            actualDamage *= ownerShip.WeaponDamageMultiplier;
-        }
-
-        return new ProjectileSpawnInfo
-        {
-            Type = ProjectileSpawnInfo.ProjectileType.InstantHit,
-            SpawnPosition = hardpointTransform.position,
-            SpawnRotation = hardpointTransform.rotation,
-            TargetPosition = assignedTarget != null ? assignedTarget.transform.position : Vector3.zero,
-            TargetShip = assignedTarget,
-            Damage = actualDamage,
-            Speed = 0f, // Instant hit - no travel time
-            OwnerShip = ownerShip
-        };
+        return CreateBallisticProjectileInfo(projectileSpeed);
     }
+
 }

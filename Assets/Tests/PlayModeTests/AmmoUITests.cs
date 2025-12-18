@@ -162,4 +162,121 @@ public class AmmoUITests
         // Cleanup
         Object.DestroyImmediate(torpedoHardpoint);
     }
+
+    /// <summary>
+    /// Test 4: WeaponGroupPanel shows [NO AMMO] warning when weapon is empty.
+    /// </summary>
+    [UnityTest]
+    public IEnumerator Test_GroupPanel_ShowsNoAmmoWarning()
+    {
+        yield return null;
+
+        // Create torpedo launcher
+        GameObject torpedoHardpoint = new GameObject("Torpedo_Hardpoint");
+        torpedoHardpoint.transform.SetParent(shipObject.transform);
+        TorpedoLauncher torpedoLauncher = torpedoHardpoint.AddComponent<TorpedoLauncher>();
+
+        // Add WeaponManager
+        weaponManager = shipObject.AddComponent<WeaponManager>();
+        yield return null;
+
+        // Deplete all ammo via reflection
+        var ammoField = typeof(WeaponSystem).GetField("currentAmmo",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        ammoField.SetValue(torpedoLauncher, 0);
+
+        // Verify ammo is depleted
+        Assert.AreEqual(0, torpedoLauncher.CurrentAmmo, "Ammo should be depleted");
+
+        // Verify CanFire returns false due to no ammo
+        Assert.IsFalse(torpedoLauncher.CanFire(), "Weapon should not be able to fire with no ammo");
+
+        // The UI checks AmmoCapacity > 0 && CurrentAmmo <= 0 to show [NO AMMO]
+        bool shouldShowNoAmmoWarning = torpedoLauncher.AmmoCapacity > 0 && torpedoLauncher.CurrentAmmo <= 0;
+        Assert.IsTrue(shouldShowNoAmmoWarning, "Should show NO AMMO warning");
+
+        // Cleanup
+        Object.DestroyImmediate(torpedoHardpoint);
+    }
+
+    /// <summary>
+    /// Test 5: WeaponGroupPanel does NOT show [NO AMMO] warning when weapon has ammo.
+    /// </summary>
+    [UnityTest]
+    public IEnumerator Test_GroupPanel_NoWarningWithAmmo()
+    {
+        yield return null;
+
+        // Create torpedo launcher
+        GameObject torpedoHardpoint = new GameObject("Torpedo_Hardpoint");
+        torpedoHardpoint.transform.SetParent(shipObject.transform);
+        TorpedoLauncher torpedoLauncher = torpedoHardpoint.AddComponent<TorpedoLauncher>();
+
+        // Add WeaponManager
+        weaponManager = shipObject.AddComponent<WeaponManager>();
+        yield return null;
+
+        // Verify ammo is full
+        Assert.AreEqual(6, torpedoLauncher.CurrentAmmo, "Ammo should be full");
+
+        // The UI checks AmmoCapacity > 0 && CurrentAmmo <= 0 to show [NO AMMO]
+        bool shouldShowNoAmmoWarning = torpedoLauncher.AmmoCapacity > 0 && torpedoLauncher.CurrentAmmo <= 0;
+        Assert.IsFalse(shouldShowNoAmmoWarning, "Should NOT show NO AMMO warning when ammo available");
+
+        // Cleanup
+        Object.DestroyImmediate(torpedoHardpoint);
+    }
+
+    /// <summary>
+    /// Test 6: Alpha Strike shows ammo warning when any weapon has no ammo.
+    /// </summary>
+    [UnityTest]
+    public IEnumerator Test_GroupPanel_AlphaStrikeAmmoWarning()
+    {
+        yield return null;
+
+        // Create torpedo launcher (limited ammo)
+        GameObject torpedoHardpoint = new GameObject("Torpedo_Hardpoint");
+        torpedoHardpoint.transform.SetParent(shipObject.transform);
+        TorpedoLauncher torpedoLauncher = torpedoHardpoint.AddComponent<TorpedoLauncher>();
+
+        // Create rail gun (infinite ammo)
+        GameObject railGunHardpoint = new GameObject("RailGun_Hardpoint");
+        railGunHardpoint.transform.SetParent(shipObject.transform);
+        RailGun railGun = railGunHardpoint.AddComponent<RailGun>();
+
+        // Add WeaponManager
+        weaponManager = shipObject.AddComponent<WeaponManager>();
+        yield return null;
+
+        // Deplete torpedo ammo
+        var ammoField = typeof(WeaponSystem).GetField("currentAmmo",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        ammoField.SetValue(torpedoLauncher, 0);
+
+        // Simulate alpha strike ammo check (same logic as DrawAlphaStrikeButton)
+        bool anyNoAmmo = false;
+        foreach (WeaponSystem weapon in weaponManager.Weapons)
+        {
+            if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+                anyNoAmmo = true;
+        }
+
+        Assert.IsTrue(anyNoAmmo, "Alpha Strike should show ammo warning when torpedo is empty");
+
+        // Verify rail gun doesn't trigger warning on its own
+        ammoField.SetValue(torpedoLauncher, 6); // Restore torpedo ammo
+        anyNoAmmo = false;
+        foreach (WeaponSystem weapon in weaponManager.Weapons)
+        {
+            if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+                anyNoAmmo = true;
+        }
+
+        Assert.IsFalse(anyNoAmmo, "Alpha Strike should NOT show warning when all limited ammo weapons have ammo");
+
+        // Cleanup
+        Object.DestroyImmediate(torpedoHardpoint);
+        Object.DestroyImmediate(railGunHardpoint);
+    }
 }

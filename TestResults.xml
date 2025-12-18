@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="69" result="Passed" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:40Z" duration="13.6080976">
-  <test-suite type="TestSuite" id="1078" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="69" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:40Z" duration="13.608098" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="116" result="Passed" total="116" passed="116" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:55:24Z" duration="37.2344332">
+  <test-suite type="TestSuite" id="1132" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="116" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:55:24Z" duration="37.234433" total="116" passed="116" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="PlayMode" />
     </properties>
-    <test-suite type="Assembly" id="1076" name="PlayModeTests.dll" fullname="C:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="69" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:40Z" duration="13.601038" total="69" passed="69" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1130" name="PlayModeTests.dll" fullname="H:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="116" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:55:24Z" duration="37.228709" total="116" passed="116" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="12816" />
+        <property name="_PID" value="8540" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="PlayMode" />
         <property name="EditorOnly" value="False" />
       </properties>
-      <test-suite type="TestFixture" id="1001" name="AbilitySystemTests" fullname="AbilitySystemTests" classname="AbilitySystemTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:28Z" duration="1.867976" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1001" name="AbilitySystemTests" fullname="AbilitySystemTests" classname="AbilitySystemTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:49Z" duration="1.865914" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1002" name="Test_AbilityActivation" fullname="AbilitySystemTests.Test_AbilityActivation" methodname="Test_AbilityActivation" classname="AbilitySystemTests" runstate="Runnable" seed="1129270178" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.021883" asserts="0">
+        <test-case id="1002" name="Test_AbilityActivation" fullname="AbilitySystemTests.Test_AbilityActivation" methodname="Test_AbilityActivation" classname="AbilitySystemTests" runstate="Runnable" seed="769882939" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.021702" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -25,7 +25,7 @@ AbilitySystem initialized on TestShip. Loaded 1 abilities.
 Queued ability: Emergency Cooling (Heat cost: 0)
 ]]></output>
         </test-case>
-        <test-case id="1011" name="Test_AbilityActivationByIndex" fullname="AbilitySystemTests.Test_AbilityActivationByIndex" methodname="Test_AbilityActivationByIndex" classname="AbilitySystemTests" runstate="Runnable" seed="427188837" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.002426" asserts="0">
+        <test-case id="1011" name="Test_AbilityActivationByIndex" fullname="AbilitySystemTests.Test_AbilityActivationByIndex" methodname="Test_AbilityActivationByIndex" classname="AbilitySystemTests" runstate="Runnable" seed="603345400" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.002038" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -37,7 +37,7 @@ AbilitySystem initialized on TestShip. Loaded 2 abilities.
 Queued ability: Emergency Cooling (Heat cost: 0)
 ]]></output>
         </test-case>
-        <test-case id="1004" name="Test_AbilityCannotActivateInsufficientHeat" fullname="AbilitySystemTests.Test_AbilityCannotActivateInsufficientHeat" methodname="Test_AbilityCannotActivateInsufficientHeat" classname="AbilitySystemTests" runstate="Runnable" seed="1767952838" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.007366" asserts="0">
+        <test-case id="1004" name="Test_AbilityCannotActivateInsufficientHeat" fullname="AbilitySystemTests.Test_AbilityCannotActivateInsufficientHeat" methodname="Test_AbilityCannotActivateInsufficientHeat" classname="AbilitySystemTests" runstate="Runnable" seed="627565359" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.008403" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -84,7 +84,7 @@ TestShip - Heat committed. Current: 290.0, Tier: Catastrophic
 Shield Boost cannot be used (insufficient resources or conditions not met)
 ]]></output>
         </test-case>
-        <test-case id="1003" name="Test_AbilityCannotActivateOnCooldown" fullname="AbilitySystemTests.Test_AbilityCannotActivateOnCooldown" methodname="Test_AbilityCannotActivateOnCooldown" classname="AbilitySystemTests" runstate="Runnable" seed="1088167181" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.002052" asserts="0">
+        <test-case id="1003" name="Test_AbilityCannotActivateOnCooldown" fullname="AbilitySystemTests.Test_AbilityCannotActivateOnCooldown" methodname="Test_AbilityCannotActivateOnCooldown" classname="AbilitySystemTests" runstate="Runnable" seed="728538269" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.001747" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -96,7 +96,7 @@ AbilitySystem initialized on TestShip. Loaded 1 abilities.
 Emergency Cooling is on cooldown (3 turns remaining)
 ]]></output>
         </test-case>
-        <test-case id="1005" name="Test_AbilityCooldownTick" fullname="AbilitySystemTests.Test_AbilityCooldownTick" methodname="Test_AbilityCooldownTick" classname="AbilitySystemTests" runstate="Runnable" seed="318176757" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.001911" asserts="0">
+        <test-case id="1005" name="Test_AbilityCooldownTick" fullname="AbilitySystemTests.Test_AbilityCooldownTick" methodname="Test_AbilityCooldownTick" classname="AbilitySystemTests" runstate="Runnable" seed="562778712" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.001846" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -108,7 +108,7 @@ AbilitySystem initialized on TestShip. Loaded 1 abilities.
 Emergency Cooling cooldown finished
 ]]></output>
         </test-case>
-        <test-case id="1006" name="Test_AbilitySpinUp" fullname="AbilitySystemTests.Test_AbilitySpinUp" methodname="Test_AbilitySpinUp" classname="AbilitySystemTests" runstate="Runnable" seed="740440169" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.301987" asserts="0">
+        <test-case id="1006" name="Test_AbilitySpinUp" fullname="AbilitySystemTests.Test_AbilitySpinUp" methodname="Test_AbilitySpinUp" classname="AbilitySystemTests" runstate="Runnable" seed="632750188" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.302052" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -126,7 +126,7 @@ TestShip activated Emergency Cooling! Reduced heat by 50
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1013" name="Test_ClearQueue" fullname="AbilitySystemTests.Test_ClearQueue" methodname="Test_ClearQueue" classname="AbilitySystemTests" runstate="Runnable" seed="844291903" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:26Z" duration="0.002744" asserts="0">
+        <test-case id="1013" name="Test_ClearQueue" fullname="AbilitySystemTests.Test_ClearQueue" methodname="Test_ClearQueue" classname="AbilitySystemTests" runstate="Runnable" seed="780618625" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.002768" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -141,7 +141,7 @@ Queued ability: Evasive Maneuver (Heat cost: 10)
 TestShip - Removed 10 planned heat. Remaining planned: 0.0
 ]]></output>
         </test-case>
-        <test-case id="1007" name="Test_EmergencyCooling" fullname="AbilitySystemTests.Test_EmergencyCooling" methodname="Test_EmergencyCooling" classname="AbilitySystemTests" runstate="Runnable" seed="911872859" result="Passed" start-time="2025-11-20 04:48:26Z" end-time="2025-11-20 04:48:27Z" duration="0.302214" asserts="0">
+        <test-case id="1007" name="Test_EmergencyCooling" fullname="AbilitySystemTests.Test_EmergencyCooling" methodname="Test_EmergencyCooling" classname="AbilitySystemTests" runstate="Runnable" seed="1672261279" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.301988" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -163,7 +163,7 @@ TestShip activated Emergency Cooling! Reduced heat by 50
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1009" name="Test_EvasiveManeuver" fullname="AbilitySystemTests.Test_EvasiveManeuver" methodname="Test_EvasiveManeuver" classname="AbilitySystemTests" runstate="Runnable" seed="531301500" result="Passed" start-time="2025-11-20 04:48:27Z" end-time="2025-11-20 04:48:27Z" duration="0.104620" asserts="0">
+        <test-case id="1009" name="Test_EvasiveManeuver" fullname="AbilitySystemTests.Test_EvasiveManeuver" methodname="Test_EvasiveManeuver" classname="AbilitySystemTests" runstate="Runnable" seed="137219724" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.103466" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -182,7 +182,7 @@ TestShip Evasive Maneuver ended. Turn rate restored to normal.
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1014" name="Test_InvalidAbilityIndex" fullname="AbilitySystemTests.Test_InvalidAbilityIndex" methodname="Test_InvalidAbilityIndex" classname="AbilitySystemTests" runstate="Runnable" seed="2001758890" result="Passed" start-time="2025-11-20 04:48:27Z" end-time="2025-11-20 04:48:27Z" duration="0.002074" asserts="0">
+        <test-case id="1014" name="Test_InvalidAbilityIndex" fullname="AbilitySystemTests.Test_InvalidAbilityIndex" methodname="Test_InvalidAbilityIndex" classname="AbilitySystemTests" runstate="Runnable" seed="1403655757" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:47Z" duration="0.002089" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -194,7 +194,7 @@ AbilitySystem initialized on TestShip. Loaded 1 abilities.
 Ability index 99 out of range (0-0)
 ]]></output>
         </test-case>
-        <test-case id="1010" name="Test_MultipleAbilitiesQueue" fullname="AbilitySystemTests.Test_MultipleAbilitiesQueue" methodname="Test_MultipleAbilitiesQueue" classname="AbilitySystemTests" runstate="Runnable" seed="1497457430" result="Passed" start-time="2025-11-20 04:48:27Z" end-time="2025-11-20 04:48:27Z" duration="0.402150" asserts="0">
+        <test-case id="1010" name="Test_MultipleAbilitiesQueue" fullname="AbilitySystemTests.Test_MultipleAbilitiesQueue" methodname="Test_MultipleAbilitiesQueue" classname="AbilitySystemTests" runstate="Runnable" seed="1765724305" result="Passed" start-time="2025-12-18 17:54:47Z" end-time="2025-12-18 17:54:48Z" duration="0.402088" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -218,7 +218,7 @@ TestShip Evasive Maneuver ended. Turn rate restored to normal.
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1012" name="Test_PlannedHeatOnQueue" fullname="AbilitySystemTests.Test_PlannedHeatOnQueue" methodname="Test_PlannedHeatOnQueue" classname="AbilitySystemTests" runstate="Runnable" seed="2030298904" result="Passed" start-time="2025-11-20 04:48:27Z" end-time="2025-11-20 04:48:27Z" duration="0.002185" asserts="0">
+        <test-case id="1012" name="Test_PlannedHeatOnQueue" fullname="AbilitySystemTests.Test_PlannedHeatOnQueue" methodname="Test_PlannedHeatOnQueue" classname="AbilitySystemTests" runstate="Runnable" seed="1640103654" result="Passed" start-time="2025-12-18 17:54:48Z" end-time="2025-12-18 17:54:48Z" duration="0.002161" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -231,7 +231,7 @@ TestShip - Planned heat: 15.0 (Total with current: 15.0)
 Queued ability: Shield Boost (Heat cost: 15)
 ]]></output>
         </test-case>
-        <test-case id="1008" name="Test_ShieldBoost" fullname="AbilitySystemTests.Test_ShieldBoost" methodname="Test_ShieldBoost" classname="AbilitySystemTests" runstate="Runnable" seed="1757628213" result="Passed" start-time="2025-11-20 04:48:27Z" end-time="2025-11-20 04:48:28Z" duration="0.704218" asserts="0">
+        <test-case id="1008" name="Test_ShieldBoost" fullname="AbilitySystemTests.Test_ShieldBoost" methodname="Test_ShieldBoost" classname="AbilitySystemTests" runstate="Runnable" seed="147836308" result="Passed" start-time="2025-12-18 17:54:48Z" end-time="2025-12-18 17:54:49Z" duration="0.704077" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -253,9 +253,128 @@ TestShip finished executing abilities
 ]]></output>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1015" name="HeatSystemTests" fullname="HeatSystemTests" classname="HeatSystemTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.032974" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1015" name="AmmoUITests" fullname="AmmoUITests" classname="AmmoUITests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2025-12-18 17:54:49Z" end-time="2025-12-18 17:54:51Z" duration="2.024786" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1016" name="Test_HeatAccumulation" fullname="HeatSystemTests.Test_HeatAccumulation" methodname="Test_HeatAccumulation" classname="HeatSystemTests" runstate="Runnable" seed="1681079069" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002914" asserts="0">
+        <test-case id="1018" name="Test_ConfigPanel_AmmoUpdatesAfterFiring" fullname="AmmoUITests.Test_ConfigPanel_AmmoUpdatesAfterFiring" methodname="Test_ConfigPanel_AmmoUpdatesAfterFiring" classname="AmmoUITests" runstate="Runnable" seed="752480962" result="Passed" start-time="2025-12-18 17:54:49Z" end-time="2025-12-18 17:54:51Z" duration="2.009930" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+WeaponConfigPanel: No WeaponManager found on player ship
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 4, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 50.0)
+PlayerShip - Heat committed. Current: 50.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+        <test-case id="1017" name="Test_ConfigPanel_HidesAmmoForInfiniteWeapon" fullname="AmmoUITests.Test_ConfigPanel_HidesAmmoForInfiniteWeapon" methodname="Test_ConfigPanel_HidesAmmoForInfiniteWeapon" classname="AmmoUITests" runstate="Runnable" seed="787389318" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002785" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+WeaponConfigPanel: No WeaponManager found on player ship
+]]></output>
+        </test-case>
+        <test-case id="1016" name="Test_ConfigPanel_ShowsAmmoForLimitedWeapon" fullname="AmmoUITests.Test_ConfigPanel_ShowsAmmoForLimitedWeapon" methodname="Test_ConfigPanel_ShowsAmmoForLimitedWeapon" classname="AmmoUITests" runstate="Runnable" seed="637505567" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.003037" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+WeaponConfigPanel: No WeaponManager found on player ship
+]]></output>
+        </test-case>
+        <test-case id="1021" name="Test_GroupPanel_AlphaStrikeAmmoWarning" fullname="AmmoUITests.Test_GroupPanel_AlphaStrikeAmmoWarning" methodname="Test_GroupPanel_AlphaStrikeAmmoWarning" classname="AmmoUITests" runstate="Runnable" seed="1154358175" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002362" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+WeaponManager initialized on PlayerShip. Found 2 weapons.
+]]></output>
+        </test-case>
+        <test-case id="1020" name="Test_GroupPanel_NoWarningWithAmmo" fullname="AmmoUITests.Test_GroupPanel_NoWarningWithAmmo" methodname="Test_GroupPanel_NoWarningWithAmmo" classname="AmmoUITests" runstate="Runnable" seed="412532986" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002947" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+]]></output>
+        </test-case>
+        <test-case id="1019" name="Test_GroupPanel_ShowsNoAmmoWarning" fullname="AmmoUITests.Test_GroupPanel_ShowsNoAmmoWarning" methodname="Test_GroupPanel_ShowsNoAmmoWarning" classname="AmmoUITests" runstate="Runnable" seed="2072054048" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002293" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher: Out of ammo
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1035" name="HeatSystemTests" fullname="HeatSystemTests" classname="HeatSystemTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.032610" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1036" name="Test_HeatAccumulation" fullname="HeatSystemTests.Test_HeatAccumulation" methodname="Test_HeatAccumulation" classname="HeatSystemTests" runstate="Runnable" seed="1365883446" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002729" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -268,7 +387,7 @@ TestShip - Heat committed. Current: 50.0, Tier: Safe
 ✓ Test_HeatAccumulation passed
 ]]></output>
         </test-case>
-        <test-case id="1025" name="Test_HeatEvents" fullname="HeatSystemTests.Test_HeatEvents" methodname="Test_HeatEvents" classname="HeatSystemTests" runstate="Runnable" seed="1280381638" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.003565" asserts="0">
+        <test-case id="1045" name="Test_HeatEvents" fullname="HeatSystemTests.Test_HeatEvents" methodname="Test_HeatEvents" classname="HeatSystemTests" runstate="Runnable" seed="2006966903" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.003322" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -284,7 +403,7 @@ TestShip - Heat committed. Current: 65.0, Tier: Minor
 ✓ Test_HeatEvents passed
 ]]></output>
         </test-case>
-        <test-case id="1019" name="Test_HeatPenalties" fullname="HeatSystemTests.Test_HeatPenalties" methodname="Test_HeatPenalties" classname="HeatSystemTests" runstate="Runnable" seed="1719321390" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.003226" asserts="0">
+        <test-case id="1039" name="Test_HeatPenalties" fullname="HeatSystemTests.Test_HeatPenalties" methodname="Test_HeatPenalties" classname="HeatSystemTests" runstate="Runnable" seed="514281565" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.003219" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -304,7 +423,7 @@ TestShip - Heat committed. Current: 155.0, Tier: Catastrophic
 ✓ Test_HeatPenalties passed
 ]]></output>
         </test-case>
-        <test-case id="1018" name="Test_HeatTiers" fullname="HeatSystemTests.Test_HeatTiers" methodname="Test_HeatTiers" classname="HeatSystemTests" runstate="Runnable" seed="1790797266" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.003660" asserts="0">
+        <test-case id="1038" name="Test_HeatTiers" fullname="HeatSystemTests.Test_HeatTiers" methodname="Test_HeatTiers" classname="HeatSystemTests" runstate="Runnable" seed="209533741" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.003975" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -332,7 +451,7 @@ TestShip - Heat committed. Current: 155.0, Tier: Catastrophic
 ✓ Test_HeatTiers passed
 ]]></output>
         </test-case>
-        <test-case id="1022" name="Test_HullDamageFromHeat" fullname="HeatSystemTests.Test_HullDamageFromHeat" methodname="Test_HullDamageFromHeat" classname="HeatSystemTests" runstate="Runnable" seed="23928756" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.003002" asserts="0">
+        <test-case id="1042" name="Test_HullDamageFromHeat" fullname="HeatSystemTests.Test_HullDamageFromHeat" methodname="Test_HullDamageFromHeat" classname="HeatSystemTests" runstate="Runnable" seed="1579700807" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002870" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -351,7 +470,7 @@ TestShip - Heat damage! Hull: 495.0 → 475.0 (Tier: Catastrophic)
 ✓ Test_HullDamageFromHeat passed
 ]]></output>
         </test-case>
-        <test-case id="1021" name="Test_InstantCooling" fullname="HeatSystemTests.Test_InstantCooling" methodname="Test_InstantCooling" classname="HeatSystemTests" runstate="Runnable" seed="1734257965" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002643" asserts="0">
+        <test-case id="1041" name="Test_InstantCooling" fullname="HeatSystemTests.Test_InstantCooling" methodname="Test_InstantCooling" classname="HeatSystemTests" runstate="Runnable" seed="1588873056" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002385" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -368,7 +487,7 @@ TestShip - Instant cooling: -100.0. Heat: 50.0 → 0.0
 ✓ Test_InstantCooling passed
 ]]></output>
         </test-case>
-        <test-case id="1017" name="Test_PassiveCooling" fullname="HeatSystemTests.Test_PassiveCooling" methodname="Test_PassiveCooling" classname="HeatSystemTests" runstate="Runnable" seed="115213727" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.003033" asserts="0">
+        <test-case id="1037" name="Test_PassiveCooling" fullname="HeatSystemTests.Test_PassiveCooling" methodname="Test_PassiveCooling" classname="HeatSystemTests" runstate="Runnable" seed="1169435474" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002618" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -384,7 +503,7 @@ TestShip - Passive cooling applied. Heat: 100.0 → 80.0
 ✓ Test_PassiveCooling passed
 ]]></output>
         </test-case>
-        <test-case id="1020" name="Test_PlannedHeat" fullname="HeatSystemTests.Test_PlannedHeat" methodname="Test_PlannedHeat" classname="HeatSystemTests" runstate="Runnable" seed="447984309" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002442" asserts="0">
+        <test-case id="1040" name="Test_PlannedHeat" fullname="HeatSystemTests.Test_PlannedHeat" methodname="Test_PlannedHeat" classname="HeatSystemTests" runstate="Runnable" seed="1944466612" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002341" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -400,7 +519,7 @@ TestShip - Planned heat cleared
 ✓ Test_PlannedHeat passed
 ]]></output>
         </test-case>
-        <test-case id="1023" name="Test_ShieldRegeneration" fullname="HeatSystemTests.Test_ShieldRegeneration" methodname="Test_ShieldRegeneration" classname="HeatSystemTests" runstate="Runnable" seed="1562353509" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002384" asserts="0">
+        <test-case id="1043" name="Test_ShieldRegeneration" fullname="HeatSystemTests.Test_ShieldRegeneration" methodname="Test_ShieldRegeneration" classname="HeatSystemTests" runstate="Runnable" seed="69965117" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002491" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -417,7 +536,7 @@ TestShip - Shield regen: 180.0 → 200.0
 ✓ Test_ShieldRegeneration passed
 ]]></output>
         </test-case>
-        <test-case id="1024" name="Test_ShipDeath" fullname="HeatSystemTests.Test_ShipDeath" methodname="Test_ShipDeath" classname="HeatSystemTests" runstate="Runnable" seed="864330043" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.004795" asserts="0">
+        <test-case id="1044" name="Test_ShipDeath" fullname="HeatSystemTests.Test_ShipDeath" methodname="Test_ShipDeath" classname="HeatSystemTests" runstate="Runnable" seed="69383066" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.004893" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -432,9 +551,109 @@ TestShip has been destroyed!
 ]]></output>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1026" name="Phase1IntegrationTests" fullname="Phase1IntegrationTests" classname="Phase1IntegrationTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:32Z" duration="3.931791" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1046" name="MissileTests" fullname="MissileTests" classname="MissileTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.818640" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1032" name="Test_AbilitiesPreventedByInsufficientHeat" fullname="Phase1IntegrationTests.Test_AbilitiesPreventedByInsufficientHeat" methodname="Test_AbilitiesPreventedByInsufficientHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1457078595" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.008297" asserts="0">
+        <test-case id="1051" name="Test_MissileBattery_CannotFireEmpty" fullname="MissileTests.Test_MissileBattery_CannotFireEmpty" methodname="Test_MissileBattery_CannotFireEmpty" classname="MissileTests" runstate="Runnable" seed="1119856223" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.003006" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Missile Battery initialized on TestShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery targeting TargetShip
+Missile Battery: Out of ammo
+]]></output>
+        </test-case>
+        <test-case id="1048" name="Test_MissileBattery_ConsumesAmmo" fullname="MissileTests.Test_MissileBattery_ConsumesAmmo" methodname="Test_MissileBattery_ConsumesAmmo" classname="MissileTests" runstate="Runnable" seed="220598166" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.405993" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Missile Battery initialized on TestShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery targeting TargetShip
+Missile Battery spinning up for 0.4s...
+Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+HomingProjectile initialized: Damage=30, Speed=15, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 1.00, 0.00) targeting TargetShip (turnRate=90)
+Missile Battery fired! Missile tracking TargetShip (Ammo remaining: 19, turnRate=90)
+TestShip - Planned heat: 20.0 (Total with current: 20.0)
+TestShip - Heat committed. Current: 20.0, Tier: Safe
+Missile Battery on cooldown for 1 turns
+HomingProjectile target lost, switching to ballistic mode
+]]></output>
+        </test-case>
+        <test-case id="1047" name="Test_MissileBattery_DefaultStats" fullname="MissileTests.Test_MissileBattery_DefaultStats" methodname="Test_MissileBattery_DefaultStats" classname="MissileTests" runstate="Runnable" seed="950169038" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002190" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Missile Battery initialized on TestShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1050" name="Test_MissileBattery_FullArc" fullname="MissileTests.Test_MissileBattery_FullArc" methodname="Test_MissileBattery_FullArc" classname="MissileTests" runstate="Runnable" seed="2003403349" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002141" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Missile Battery initialized on TestShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1049" name="Test_MissileBattery_SetsCooldown" fullname="MissileTests.Test_MissileBattery_SetsCooldown" methodname="Test_MissileBattery_SetsCooldown" classname="MissileTests" runstate="Runnable" seed="1933569541" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.403829" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Missile Battery initialized on TestShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery targeting TargetShip
+Missile Battery spinning up for 0.4s...
+HomingProjectile initialized: Damage=30, Speed=15, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 1.00, 0.00) targeting TargetShip (turnRate=90)
+Missile Battery fired! Missile tracking TargetShip (Ammo remaining: 19, turnRate=90)
+TestShip - Planned heat: 20.0 (Total with current: 20.0)
+TestShip - Heat committed. Current: 20.0, Tier: Safe
+Missile Battery on cooldown for 1 turns
+Missile Battery: On cooldown (1 turns remaining)
+Missile Battery cooldown finished
+HomingProjectile target lost, switching to ballistic mode
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1052" name="Phase1IntegrationTests" fullname="Phase1IntegrationTests" classname="Phase1IntegrationTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:55Z" duration="3.930253" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1058" name="Test_AbilitiesPreventedByInsufficientHeat" fullname="Phase1IntegrationTests.Test_AbilitiesPreventedByInsufficientHeat" methodname="Test_AbilitiesPreventedByInsufficientHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1421250854" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.006906" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -481,7 +700,7 @@ TestShip - Heat committed. Current: 290.0, Tier: Catastrophic
 Shield Boost cannot be used (insufficient resources or conditions not met)
 ]]></output>
         </test-case>
-        <test-case id="1027" name="Test_AbilityAddsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityAddsPlannedHeat" methodname="Test_AbilityAddsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1881996139" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002373" asserts="0">
+        <test-case id="1053" name="Test_AbilityAddsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityAddsPlannedHeat" methodname="Test_AbilityAddsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="131609250" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.002075" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -494,7 +713,7 @@ TestShip - Planned heat: 15.0 (Total with current: 15.0)
 Queued ability: Shield Boost (Heat cost: 15)
 ]]></output>
         </test-case>
-        <test-case id="1029" name="Test_AbilityCancelClearsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityCancelClearsPlannedHeat" methodname="Test_AbilityCancelClearsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1862731339" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:28Z" duration="0.002042" asserts="0">
+        <test-case id="1055" name="Test_AbilityCancelClearsPlannedHeat" fullname="Phase1IntegrationTests.Test_AbilityCancelClearsPlannedHeat" methodname="Test_AbilityCancelClearsPlannedHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1187458578" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:51Z" duration="0.001993" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -508,7 +727,7 @@ Queued ability: Shield Boost (Heat cost: 15)
 TestShip - Removed 15 planned heat. Remaining planned: 0.0
 ]]></output>
         </test-case>
-        <test-case id="1028" name="Test_AbilityCommitsHeat" fullname="Phase1IntegrationTests.Test_AbilityCommitsHeat" methodname="Test_AbilityCommitsHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="610234269" result="Passed" start-time="2025-11-20 04:48:28Z" end-time="2025-11-20 04:48:29Z" duration="0.702207" asserts="0">
+        <test-case id="1054" name="Test_AbilityCommitsHeat" fullname="Phase1IntegrationTests.Test_AbilityCommitsHeat" methodname="Test_AbilityCommitsHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1427644119" result="Passed" start-time="2025-12-18 17:54:51Z" end-time="2025-12-18 17:54:52Z" duration="0.702236" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -529,7 +748,7 @@ TestShip - Committed 15 heat. Current: 15.0, Planned remaining: 0.0, Tier: Safe
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1033" name="Test_AbilityExecutionOrder" fullname="Phase1IntegrationTests.Test_AbilityExecutionOrder" methodname="Test_AbilityExecutionOrder" classname="Phase1IntegrationTests" runstate="Runnable" seed="723418446" result="Passed" start-time="2025-11-20 04:48:29Z" end-time="2025-11-20 04:48:29Z" duration="0.802548" asserts="0">
+        <test-case id="1059" name="Test_AbilityExecutionOrder" fullname="Phase1IntegrationTests.Test_AbilityExecutionOrder" methodname="Test_AbilityExecutionOrder" classname="Phase1IntegrationTests" runstate="Runnable" seed="454801549" result="Passed" start-time="2025-12-18 17:54:52Z" end-time="2025-12-18 17:54:53Z" duration="0.802451" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -560,7 +779,7 @@ TestShip - Committed 15 heat. Current: 65.0, Planned remaining: 0.0, Tier: Minor
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1031" name="Test_EmergencyCoolingAtHighHeat" fullname="Phase1IntegrationTests.Test_EmergencyCoolingAtHighHeat" methodname="Test_EmergencyCoolingAtHighHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="1500975480" result="Passed" start-time="2025-11-20 04:48:29Z" end-time="2025-11-20 04:48:30Z" duration="0.302460" asserts="0">
+        <test-case id="1057" name="Test_EmergencyCoolingAtHighHeat" fullname="Phase1IntegrationTests.Test_EmergencyCoolingAtHighHeat" methodname="Test_EmergencyCoolingAtHighHeat" classname="Phase1IntegrationTests" runstate="Runnable" seed="712157596" result="Passed" start-time="2025-12-18 17:54:53Z" end-time="2025-12-18 17:54:53Z" duration="0.302261" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -582,7 +801,7 @@ TestShip activated Emergency Cooling! Reduced heat by 50
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1034" name="Test_HeatPenaltiesWithAbilities" fullname="Phase1IntegrationTests.Test_HeatPenaltiesWithAbilities" methodname="Test_HeatPenaltiesWithAbilities" classname="Phase1IntegrationTests" runstate="Runnable" seed="1864574117" result="Passed" start-time="2025-11-20 04:48:30Z" end-time="2025-11-20 04:48:30Z" duration="0.702653" asserts="0">
+        <test-case id="1060" name="Test_HeatPenaltiesWithAbilities" fullname="Phase1IntegrationTests.Test_HeatPenaltiesWithAbilities" methodname="Test_HeatPenaltiesWithAbilities" classname="Phase1IntegrationTests" runstate="Runnable" seed="2146534591" result="Passed" start-time="2025-12-18 17:54:53Z" end-time="2025-12-18 17:54:54Z" duration="0.702632" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -606,7 +825,7 @@ TestShip - Committed 15 heat. Current: 115.0, Planned remaining: 0.0, Tier: Seve
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1030" name="Test_MultipleAbilitiesHeatStacking" fullname="Phase1IntegrationTests.Test_MultipleAbilitiesHeatStacking" methodname="Test_MultipleAbilitiesHeatStacking" classname="Phase1IntegrationTests" runstate="Runnable" seed="1161484875" result="Passed" start-time="2025-11-20 04:48:30Z" end-time="2025-11-20 04:48:30Z" duration="0.002623" asserts="0">
+        <test-case id="1056" name="Test_MultipleAbilitiesHeatStacking" fullname="Phase1IntegrationTests.Test_MultipleAbilitiesHeatStacking" methodname="Test_MultipleAbilitiesHeatStacking" classname="Phase1IntegrationTests" runstate="Runnable" seed="14065504" result="Passed" start-time="2025-12-18 17:54:54Z" end-time="2025-12-18 17:54:54Z" duration="0.002643" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -622,7 +841,7 @@ TestShip - Planned heat: 25.0 (Total with current: 25.0)
 Queued ability: Evasive Maneuver (Heat cost: 10)
 ]]></output>
         </test-case>
-        <test-case id="1035" name="Test_SequentialHeatCommit" fullname="Phase1IntegrationTests.Test_SequentialHeatCommit" methodname="Test_SequentialHeatCommit" classname="Phase1IntegrationTests" runstate="Runnable" seed="2133657522" result="Passed" start-time="2025-11-20 04:48:30Z" end-time="2025-11-20 04:48:31Z" duration="0.702412" asserts="0">
+        <test-case id="1061" name="Test_SequentialHeatCommit" fullname="Phase1IntegrationTests.Test_SequentialHeatCommit" methodname="Test_SequentialHeatCommit" classname="Phase1IntegrationTests" runstate="Runnable" seed="1424665226" result="Passed" start-time="2025-12-18 17:54:54Z" end-time="2025-12-18 17:54:55Z" duration="0.702161" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -649,7 +868,7 @@ TestShip Evasive Maneuver ended. Turn rate restored to normal.
 TestShip finished executing abilities
 ]]></output>
         </test-case>
-        <test-case id="1036" name="Test_ShieldBoostWithRegen" fullname="Phase1IntegrationTests.Test_ShieldBoostWithRegen" methodname="Test_ShieldBoostWithRegen" classname="Phase1IntegrationTests" runstate="Runnable" seed="442396757" result="Passed" start-time="2025-11-20 04:48:31Z" end-time="2025-11-20 04:48:32Z" duration="0.702588" asserts="0">
+        <test-case id="1062" name="Test_ShieldBoostWithRegen" fullname="Phase1IntegrationTests.Test_ShieldBoostWithRegen" methodname="Test_ShieldBoostWithRegen" classname="Phase1IntegrationTests" runstate="Runnable" seed="284453350" result="Passed" start-time="2025-12-18 17:54:55Z" end-time="2025-12-18 17:54:55Z" duration="0.702722" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -671,20 +890,178 @@ TestShip - Shield regen: 150.0 → 170.0
 ]]></output>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1037" name="ProjectileSystemTests" fullname="ProjectileSystemTests" classname="ProjectileSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-11-20 04:48:32Z" end-time="2025-11-20 04:48:36Z" duration="4.365579" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1063" name="Phase22IntegrationTests" fullname="Phase22IntegrationTests" classname="Phase22IntegrationTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-12-18 17:54:55Z" end-time="2025-12-18 17:55:00Z" duration="4.632146" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1040" name="Test_BallisticCollision" fullname="ProjectileSystemTests.Test_BallisticCollision" methodname="Test_BallisticCollision" classname="ProjectileSystemTests" runstate="Runnable" seed="486357270" result="Passed" start-time="2025-11-20 04:48:32Z" end-time="2025-11-20 04:48:32Z" duration="0.304355" asserts="0">
+        <test-case id="1066" name="Test_AmmoDepletionPreventsFiring" fullname="Phase22IntegrationTests.Test_AmmoDepletionPreventsFiring" methodname="Test_AmmoDepletionPreventsFiring" classname="Phase22IntegrationTests" runstate="Runnable" seed="984228571" result="Passed" start-time="2025-12-18 17:54:55Z" end-time="2025-12-18 17:54:56Z" duration="1.006244" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 0, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher: Out of ammo
+]]></output>
+        </test-case>
+        <test-case id="1065" name="Test_MissileFullCombatCycle" fullname="Phase22IntegrationTests.Test_MissileFullCombatCycle" methodname="Test_MissileFullCombatCycle" classname="Phase22IntegrationTests" runstate="Runnable" seed="315651798" result="Passed" start-time="2025-12-18 17:54:56Z" end-time="2025-12-18 17:54:57Z" duration="0.405508" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery initialized on PlayerShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Missile Battery targeting TargetShip
+Missile Battery spinning up for 0.4s...
+HomingProjectile initialized: Damage=30, Speed=15, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
+Missile Battery fired! Missile tracking TargetShip (Ammo remaining: 19, turnRate=90)
+PlayerShip - Planned heat: 20.0 (Total with current: 20.0)
+PlayerShip - Heat committed. Current: 20.0, Tier: Safe
+Missile Battery on cooldown for 1 turns
+]]></output>
+        </test-case>
+        <test-case id="1067" name="Test_MixedWeaponAlphaStrike" fullname="Phase22IntegrationTests.Test_MixedWeaponAlphaStrike" methodname="Test_MixedWeaponAlphaStrike" classname="Phase22IntegrationTests" runstate="Runnable" seed="1569434866" result="Passed" start-time="2025-12-18 17:54:57Z" end-time="2025-12-18 17:54:58Z" duration="1.205921" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 2 weapons.
+Rail Gun assigned to group 1
+Assigned Rail Gun to group 1
+Torpedo Launcher assigned to group 1
+Assigned Torpedo Launcher to group 1
+Rail Gun targeting TargetShip
+Torpedo Launcher targeting TargetShip
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=PlayerShip
+BallisticProjectile velocity: (0.00, 0.00, 40.00), speed: 40
+Spawned ballistic projectile at (0.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
+PlayerShip - Planned heat: 15.0 (Total with current: 15.0)
+PlayerShip - Heat committed. Current: 15.0, Tier: Safe
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 1.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 40.0)
+PlayerShip - Heat committed. Current: 40.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+        <test-case id="1064" name="Test_TorpedoFullCombatCycle" fullname="Phase22IntegrationTests.Test_TorpedoFullCombatCycle" methodname="Test_TorpedoFullCombatCycle" classname="Phase22IntegrationTests" runstate="Runnable" seed="2112780507" result="Passed" start-time="2025-12-18 17:54:58Z" end-time="2025-12-18 17:54:59Z" duration="1.007403" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+        <test-case id="1068" name="Test_UIReflectsAmmoChanges" fullname="Phase22IntegrationTests.Test_UIReflectsAmmoChanges" methodname="Test_UIReflectsAmmoChanges" classname="Phase22IntegrationTests" runstate="Runnable" seed="1248188546" result="Passed" start-time="2025-12-18 17:54:59Z" end-time="2025-12-18 17:55:00Z" duration="1.005601" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+WeaponConfigPanel: No WeaponManager found on player ship
+WeaponGroupPanel: No WeaponManager found on player ship
+WeaponGroupPanel: No TargetingController provided
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1069" name="ProjectileSystemTests" fullname="ProjectileSystemTests" classname="ProjectileSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-12-18 17:55:00Z" end-time="2025-12-18 17:55:04Z" duration="4.382569" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1072" name="Test_BallisticCollision" fullname="ProjectileSystemTests.Test_BallisticCollision" methodname="Test_BallisticCollision" classname="ProjectileSystemTests" runstate="Runnable" seed="1875666160" result="Passed" start-time="2025-12-18 17:55:00Z" end-time="2025-12-18 17:55:00Z" duration="0.306757" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 TargetShip - Shields: 200.0 → 0.0
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=40, Speed=5, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 5.00), speed: 5
 Spawned ballistic projectile at (0.00, 0.00, 9.00)
@@ -692,18 +1069,20 @@ BallisticProjectile hit TargetShip for 40 damage
 TargetShip - Hull: 500.0 → 460.0
 ]]></output>
         </test-case>
-        <test-case id="1041" name="Test_BallisticDamageApplication" fullname="ProjectileSystemTests.Test_BallisticDamageApplication" methodname="Test_BallisticDamageApplication" classname="ProjectileSystemTests" runstate="Runnable" seed="1576075144" result="Passed" start-time="2025-11-20 04:48:32Z" end-time="2025-11-20 04:48:32Z" duration="0.302373" asserts="0">
+        <test-case id="1073" name="Test_BallisticDamageApplication" fullname="ProjectileSystemTests.Test_BallisticDamageApplication" methodname="Test_BallisticDamageApplication" classname="ProjectileSystemTests" runstate="Runnable" seed="1820557496" result="Passed" start-time="2025-12-18 17:55:00Z" end-time="2025-12-18 17:55:01Z" duration="0.304137" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 TargetShip - Shields: 200.0 → 0.0
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=50, Speed=10, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 10.00), speed: 10
 Spawned ballistic projectile at (0.00, 0.00, 8.00)
@@ -711,196 +1090,212 @@ BallisticProjectile hit TargetShip for 50 damage
 TargetShip - Hull: 500.0 → 450.0
 ]]></output>
         </test-case>
-        <test-case id="1042" name="Test_BallisticLifetimeExpiry" fullname="ProjectileSystemTests.Test_BallisticLifetimeExpiry" methodname="Test_BallisticLifetimeExpiry" classname="ProjectileSystemTests" runstate="Runnable" seed="1873996131" result="Passed" start-time="2025-11-20 04:48:32Z" end-time="2025-11-20 04:48:33Z" duration="0.603849" asserts="0">
+        <test-case id="1074" name="Test_BallisticLifetimeExpiry" fullname="ProjectileSystemTests.Test_BallisticLifetimeExpiry" methodname="Test_BallisticLifetimeExpiry" classname="ProjectileSystemTests" runstate="Runnable" seed="545485954" result="Passed" start-time="2025-12-18 17:55:01Z" end-time="2025-12-18 17:55:01Z" duration="0.606113" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=40, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 1.00, 0.00), speed: 1
 Spawned ballistic projectile at (0.00, 0.00, 0.00)
 BallisticProjectile lifetime expired (0.5s)
 ]]></output>
         </test-case>
-        <test-case id="1038" name="Test_BallisticSpawn" fullname="ProjectileSystemTests.Test_BallisticSpawn" methodname="Test_BallisticSpawn" classname="ProjectileSystemTests" runstate="Runnable" seed="1840183825" result="Passed" start-time="2025-11-20 04:48:33Z" end-time="2025-11-20 04:48:33Z" duration="0.003140" asserts="0">
+        <test-case id="1070" name="Test_BallisticSpawn" fullname="ProjectileSystemTests.Test_BallisticSpawn" methodname="Test_BallisticSpawn" classname="ProjectileSystemTests" runstate="Runnable" seed="1936702005" result="Passed" start-time="2025-12-18 17:55:01Z" end-time="2025-12-18 17:55:01Z" duration="0.004776" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=40, Speed=5, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 5.00), speed: 5
 Spawned ballistic projectile at (0.00, 0.00, 0.00)
 ]]></output>
         </test-case>
-        <test-case id="1039" name="Test_BallisticTrajectory" fullname="ProjectileSystemTests.Test_BallisticTrajectory" methodname="Test_BallisticTrajectory" classname="ProjectileSystemTests" runstate="Runnable" seed="1563316248" result="Passed" start-time="2025-11-20 04:48:33Z" end-time="2025-11-20 04:48:34Z" duration="0.503363" asserts="0">
+        <test-case id="1071" name="Test_BallisticTrajectory" fullname="ProjectileSystemTests.Test_BallisticTrajectory" methodname="Test_BallisticTrajectory" classname="ProjectileSystemTests" runstate="Runnable" seed="166078575" result="Passed" start-time="2025-12-18 17:55:01Z" end-time="2025-12-18 17:55:02Z" duration="0.504817" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=40, Speed=5, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 5.00), speed: 5
 Spawned ballistic projectile at (0.00, 0.00, 0.00)
 ]]></output>
         </test-case>
-        <test-case id="1045" name="Test_HomingHitMovingTarget" fullname="ProjectileSystemTests.Test_HomingHitMovingTarget" methodname="Test_HomingHitMovingTarget" classname="ProjectileSystemTests" runstate="Runnable" seed="557891519" result="Passed" start-time="2025-11-20 04:48:34Z" end-time="2025-11-20 04:48:35Z" duration="1.005591" asserts="0">
+        <test-case id="1077" name="Test_HomingHitMovingTarget" fullname="ProjectileSystemTests.Test_HomingHitMovingTarget" methodname="Test_HomingHitMovingTarget" classname="ProjectileSystemTests" runstate="Runnable" seed="45728951" result="Passed" start-time="2025-12-18 17:55:02Z" end-time="2025-12-18 17:55:03Z" duration="1.005417" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 TargetShip - Shields: 200.0 → 0.0
-Homing pool empty, creating new projectile
 HomingProjectile initialized: Damage=60, Speed=10, Owner=OwnerShip
 HomingProjectile initialized: Target=TargetShip, Homing=True
-Spawned homing projectile at (0.00, 0.00, 5.00) targeting TargetShip
+Spawned homing projectile at (0.00, 0.00, 5.00) targeting TargetShip (turnRate=90)
 HomingProjectile hit TargetShip for 60 damage
 TargetShip - Hull: 500.0 → 440.0
 ]]></output>
         </test-case>
-        <test-case id="1044" name="Test_HomingSeeks" fullname="ProjectileSystemTests.Test_HomingSeeks" methodname="Test_HomingSeeks" classname="ProjectileSystemTests" runstate="Runnable" seed="989011082" result="Passed" start-time="2025-11-20 04:48:35Z" end-time="2025-11-20 04:48:35Z" duration="0.503926" asserts="0">
+        <test-case id="1076" name="Test_HomingSeeks" fullname="ProjectileSystemTests.Test_HomingSeeks" methodname="Test_HomingSeeks" classname="ProjectileSystemTests" runstate="Runnable" seed="1689038598" result="Passed" start-time="2025-12-18 17:55:03Z" end-time="2025-12-18 17:55:03Z" duration="0.505208" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Homing pool empty, creating new projectile
 HomingProjectile initialized: Damage=60, Speed=2, Owner=OwnerShip
 HomingProjectile initialized: Target=TargetShip, Homing=True
-Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
 ]]></output>
         </test-case>
-        <test-case id="1043" name="Test_HomingSpawn" fullname="ProjectileSystemTests.Test_HomingSpawn" methodname="Test_HomingSpawn" classname="ProjectileSystemTests" runstate="Runnable" seed="1805569048" result="Passed" start-time="2025-11-20 04:48:35Z" end-time="2025-11-20 04:48:35Z" duration="0.003068" asserts="0">
+        <test-case id="1075" name="Test_HomingSpawn" fullname="ProjectileSystemTests.Test_HomingSpawn" methodname="Test_HomingSpawn" classname="ProjectileSystemTests" runstate="Runnable" seed="1769209922" result="Passed" start-time="2025-12-18 17:55:03Z" end-time="2025-12-18 17:55:03Z" duration="0.004780" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Homing pool empty, creating new projectile
 HomingProjectile initialized: Damage=60, Speed=3, Owner=OwnerShip
 HomingProjectile initialized: Target=TargetShip, Homing=True
-Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
 ]]></output>
         </test-case>
-        <test-case id="1046" name="Test_HomingTargetDestroyed" fullname="ProjectileSystemTests.Test_HomingTargetDestroyed" methodname="Test_HomingTargetDestroyed" classname="ProjectileSystemTests" runstate="Runnable" seed="1175237673" result="Passed" start-time="2025-11-20 04:48:35Z" end-time="2025-11-20 04:48:35Z" duration="0.302098" asserts="0">
+        <test-case id="1078" name="Test_HomingTargetDestroyed" fullname="ProjectileSystemTests.Test_HomingTargetDestroyed" methodname="Test_HomingTargetDestroyed" classname="ProjectileSystemTests" runstate="Runnable" seed="240621185" result="Passed" start-time="2025-12-18 17:55:03Z" end-time="2025-12-18 17:55:04Z" duration="0.304160" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Homing pool empty, creating new projectile
 HomingProjectile initialized: Damage=60, Speed=2, Owner=OwnerShip
 HomingProjectile initialized: Target=TargetShip, Homing=True
-Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
 TargetShip - Shields: 200.0 → 0.0
 TargetShip - Hull: 500.0 → 0.0
 TargetShip has been destroyed!
 HomingProjectile target lost, switching to ballistic mode
 ]]></output>
         </test-case>
-        <test-case id="1047" name="Test_InstantHitEffect" fullname="ProjectileSystemTests.Test_InstantHitEffect" methodname="Test_InstantHitEffect" classname="ProjectileSystemTests" runstate="Runnable" seed="1155510827" result="Passed" start-time="2025-11-20 04:48:35Z" end-time="2025-11-20 04:48:36Z" duration="0.314166" asserts="0">
+        <test-case id="1079" name="Test_InstantHitEffect" fullname="ProjectileSystemTests.Test_InstantHitEffect" methodname="Test_InstantHitEffect" classname="ProjectileSystemTests" runstate="Runnable" seed="872879939" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:04Z" duration="0.314705" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Instant hit pool empty, creating new effect
 InstantHitEffect created from (0.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
 Spawned instant hit effect from (0.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
 ]]></output>
         </test-case>
-        <test-case id="1049" name="Test_NoFriendlyFire" fullname="ProjectileSystemTests.Test_NoFriendlyFire" methodname="Test_NoFriendlyFire" classname="ProjectileSystemTests" runstate="Runnable" seed="1110800039" result="Passed" start-time="2025-11-20 04:48:36Z" end-time="2025-11-20 04:48:36Z" duration="0.502348" asserts="0">
+        <test-case id="1081" name="Test_NoFriendlyFire" fullname="ProjectileSystemTests.Test_NoFriendlyFire" methodname="Test_NoFriendlyFire" classname="ProjectileSystemTests" runstate="Runnable" seed="2066633022" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:04Z" duration="0.504165" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=50, Speed=5, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, -5.00), speed: 5
 Spawned ballistic projectile at (0.00, 0.00, 1.00)
 ]]></output>
         </test-case>
-        <test-case id="1048" name="Test_ProjectilePooling" fullname="ProjectileSystemTests.Test_ProjectilePooling" methodname="Test_ProjectilePooling" classname="ProjectileSystemTests" runstate="Runnable" seed="1166601346" result="Passed" start-time="2025-11-20 04:48:36Z" end-time="2025-11-20 04:48:36Z" duration="0.015433" asserts="0">
+        <test-case id="1080" name="Test_ProjectilePooling" fullname="ProjectileSystemTests.Test_ProjectilePooling" methodname="Test_ProjectilePooling" classname="ProjectileSystemTests" runstate="Runnable" seed="823837503" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:04Z" duration="0.015036" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[OwnerShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
 OwnerShip: No WeaponManager component found. Weapons will not be available.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (0.00, 0.00, 0.00)
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (1.00, 0.00, 0.00)
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (2.00, 0.00, 0.00)
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (3.00, 0.00, 0.00)
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (4.00, 0.00, 0.00)
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (5.00, 0.00, 0.00)
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (6.00, 0.00, 0.00)
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (7.00, 0.00, 0.00)
-Ballistic pool empty, creating new projectile
 BallisticProjectile initialized: Damage=10, Speed=1, Owner=OwnerShip
 BallisticProjectile velocity: (0.00, 0.00, 1.00), speed: 1
 Spawned ballistic projectile at (8.00, 0.00, 0.00)
@@ -941,9 +1336,301 @@ Spawned ballistic projectile at (9.00, 0.00, 0.00)
 ]]></output>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1050" name="TargetingSystemTests" fullname="TargetingSystemTests" classname="TargetingSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-11-20 04:48:36Z" end-time="2025-11-20 04:48:37Z" duration="1.059051" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1082" name="ProjectileTurnRateTests" fullname="ProjectileTurnRateTests" classname="ProjectileTurnRateTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:06Z" duration="1.419925" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1055" name="Test_AlphaStrike" fullname="TargetingSystemTests.Test_AlphaStrike" methodname="Test_AlphaStrike" classname="TargetingSystemTests" runstate="Runnable" seed="1011263967" result="Passed" start-time="2025-11-20 04:48:36Z" end-time="2025-11-20 04:48:37Z" duration="0.511052" asserts="0">
+        <test-case id="1084" name="Test_HomingProjectile_CustomTurnRate" fullname="ProjectileTurnRateTests.Test_HomingProjectile_CustomTurnRate" methodname="Test_HomingProjectile_CustomTurnRate" classname="ProjectileTurnRateTests" runstate="Runnable" seed="67553780" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:04Z" duration="0.004372" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
+OwnerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+HomingProjectile initialized: Damage=80, Speed=5, Owner=OwnerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+]]></output>
+        </test-case>
+        <test-case id="1083" name="Test_HomingProjectile_DefaultTurnRate" fullname="ProjectileTurnRateTests.Test_HomingProjectile_DefaultTurnRate" methodname="Test_HomingProjectile_DefaultTurnRate" classname="ProjectileTurnRateTests" runstate="Runnable" seed="2005538328" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:04Z" duration="0.004075" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
+OwnerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+HomingProjectile initialized: Damage=30, Speed=10, Owner=OwnerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
+]]></output>
+        </test-case>
+        <test-case id="1086" name="Test_Missile_FastTurnRate" fullname="ProjectileTurnRateTests.Test_Missile_FastTurnRate" methodname="Test_Missile_FastTurnRate" classname="ProjectileTurnRateTests" runstate="Runnable" seed="1464102719" result="Passed" start-time="2025-12-18 17:55:04Z" end-time="2025-12-18 17:55:05Z" duration="0.405046" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
+OwnerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery initialized on OwnerShip at hardpoint Missile_Hardpoint
+  Discovered weapon: Missile Battery on hardpoint Missile_Hardpoint
+WeaponManager initialized on OwnerShip. Found 1 weapons.
+Missile Battery targeting TargetShip
+Missile Battery spinning up for 0.4s...
+HomingProjectile initialized: Damage=30, Speed=15, Owner=OwnerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=90)
+Missile Battery fired! Missile tracking TargetShip (Ammo remaining: 19, turnRate=90)
+OwnerShip - Planned heat: 20.0 (Total with current: 20.0)
+OwnerShip - Heat committed. Current: 20.0, Tier: Safe
+Missile Battery on cooldown for 1 turns
+]]></output>
+        </test-case>
+        <test-case id="1085" name="Test_Torpedo_SlowTurnRate" fullname="ProjectileTurnRateTests.Test_Torpedo_SlowTurnRate" methodname="Test_Torpedo_SlowTurnRate" classname="ProjectileTurnRateTests" runstate="Runnable" seed="1937271491" result="Passed" start-time="2025-12-18 17:55:05Z" end-time="2025-12-18 17:55:06Z" duration="1.005303" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+OwnerShip: No AbilitySystem component found. Abilities will not be available.
+OwnerShip: No WeaponManager component found. Weapons will not be available.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on OwnerShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on OwnerShip. Found 1 weapons.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=OwnerShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 0.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+OwnerShip - Planned heat: 25.0 (Total with current: 25.0)
+OwnerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1022" name="SectionTests" fullname="SectionTests" classname="SectionTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.037023" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1025" name="Test_DamageFlowsToArmorFirst" fullname="SectionTests.Test_DamageFlowsToArmorFirst" methodname="Test_DamageFlowsToArmorFirst" classname="SectionTests" runstate="Runnable" seed="290502413" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.004787" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore took 30.0 damage - DamageResult[Armor:30.0, Structure:0.0, Overflow:0.0, ArmorBroken:False, Breached:False, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1026" name="Test_DamageOverflowsToStructure" fullname="SectionTests.Test_DamageOverflowsToStructure" methodname="Test_DamageOverflowsToStructure" classname="SectionTests" runstate="Runnable" seed="798235923" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002194" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore armor broken!
+[ShipSection] Fore took 120.0 damage - DamageResult[Armor:100.0, Structure:20.0, Overflow:0.0, ArmorBroken:True, Breached:False, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1029" name="Test_DamageToBreachedSectionOverflows" fullname="SectionTests.Test_DamageToBreachedSectionOverflows" methodname="Test_DamageToBreachedSectionOverflows" classname="SectionTests" runstate="Runnable" seed="1861639812" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002478" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore armor broken!
+[ShipSection] Fore BREACHED!
+[ShipSection] Fore took 150.0 damage - DamageResult[Armor:100.0, Structure:50.0, Overflow:0.0, ArmorBroken:True, Breached:True, WasBreached:False]
+[ShipSection] Fore already breached, 50.0 damage overflows
+]]></output>
+        </test-case>
+        <test-case id="1028" name="Test_OverflowDamageTracking" fullname="SectionTests.Test_OverflowDamageTracking" methodname="Test_OverflowDamageTracking" classname="SectionTests" runstate="Runnable" seed="472771253" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002293" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore armor broken!
+[ShipSection] Fore BREACHED!
+[ShipSection] Fore took 175.0 damage - DamageResult[Armor:100.0, Structure:50.0, Overflow:25.0, ArmorBroken:True, Breached:True, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1027" name="Test_SectionBreachAtZeroStructure" fullname="SectionTests.Test_SectionBreachAtZeroStructure" methodname="Test_SectionBreachAtZeroStructure" classname="SectionTests" runstate="Runnable" seed="1648207889" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002290" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore armor broken!
+[ShipSection] Fore BREACHED!
+[ShipSection] Fore took 150.0 damage - DamageResult[Armor:100.0, Structure:50.0, Overflow:0.0, ArmorBroken:True, Breached:True, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1023" name="Test_SectionInitialization" fullname="SectionTests.Test_SectionInitialization" methodname="Test_SectionInitialization" classname="SectionTests" runstate="Runnable" seed="1253347450" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.001749" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+]]></output>
+        </test-case>
+        <test-case id="1024" name="Test_SectionInitializationFromDefinitions" fullname="SectionTests.Test_SectionInitializationFromDefinitions" methodname="Test_SectionInitializationFromDefinitions" classname="SectionTests" runstate="Runnable" seed="1845770162" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.003312" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Initialized Aft - Armor: 60, Structure: 40
+]]></output>
+        </test-case>
+        <test-case id="1031" name="Test_SectionManagerAutoRegister" fullname="SectionTests.Test_SectionManagerAutoRegister" methodname="Test_SectionManagerAutoRegister" classname="SectionTests" runstate="Runnable" seed="796802384" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.004585" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Initialized Aft (custom) - Armor: 80, Structure: 40
+[ShipSection] Initialized Port (custom) - Armor: 80, Structure: 40
+[ShipSection] Initialized Starboard (custom) - Armor: 80, Structure: 40
+[SectionManager] Registered section: Aft
+[SectionManager] Registered section: Port
+[SectionManager] Registered section: Starboard
+[SectionManager] Auto-registered 4 sections
+]]></output>
+        </test-case>
+        <test-case id="1032" name="Test_SectionManagerBreachedTracking" fullname="SectionTests.Test_SectionManagerBreachedTracking" methodname="Test_SectionManagerBreachedTracking" classname="SectionTests" runstate="Runnable" seed="1524150984" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.003481" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[SectionManager] Section Fore already registered, replacing
+[SectionManager] Unregistered section: Fore
+[SectionManager] Registered section: Fore
+[ShipSection] Fore armor broken!
+[ShipSection] Fore BREACHED!
+[ShipSection] Fore took 150.0 damage - DamageResult[Armor:100.0, Structure:50.0, Overflow:0.0, ArmorBroken:True, Breached:True, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1030" name="Test_SectionManagerRegistration" fullname="SectionTests.Test_SectionManagerRegistration" methodname="Test_SectionManagerRegistration" classname="SectionTests" runstate="Runnable" seed="446812580" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002262" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[SectionManager] Section Fore already registered, replacing
+[SectionManager] Unregistered section: Fore
+[SectionManager] Registered section: Fore
+]]></output>
+        </test-case>
+        <test-case id="1033" name="Test_SectionManagerTotals" fullname="SectionTests.Test_SectionManagerTotals" methodname="Test_SectionManagerTotals" classname="SectionTests" runstate="Runnable" seed="811251888" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.003017" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Initialized Aft (custom) - Armor: 60, Structure: 40
+[SectionManager] Section Fore already registered, replacing
+[SectionManager] Unregistered section: Fore
+[SectionManager] Registered section: Fore
+[SectionManager] Registered section: Aft
+[ShipSection] Fore took 50.0 damage - DamageResult[Armor:50.0, Structure:0.0, Overflow:0.0, ArmorBroken:False, Breached:False, WasBreached:False]
+]]></output>
+        </test-case>
+        <test-case id="1034" name="Test_SectionReset" fullname="SectionTests.Test_SectionReset" methodname="Test_SectionReset" classname="SectionTests" runstate="Runnable" seed="734585796" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.002378" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[ShipSection] Initialized Fore (custom) - Armor: 100, Structure: 50
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+[SectionManager] Registered section: Fore
+[SectionManager] Auto-registered 1 sections
+[ShipSection] Fore armor broken!
+[ShipSection] Fore BREACHED!
+[ShipSection] Fore took 150.0 damage - DamageResult[Armor:100.0, Structure:50.0, Overflow:0.0, ArmorBroken:True, Breached:True, WasBreached:False]
+[ShipSection] Fore reset to full health
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1087" name="TargetingSystemTests" fullname="TargetingSystemTests" classname="TargetingSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:07Z" duration="1.054226" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1092" name="Test_AlphaStrike" fullname="TargetingSystemTests.Test_AlphaStrike" methodname="Test_AlphaStrike" classname="TargetingSystemTests" runstate="Runnable" seed="240499710" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.508604" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -967,17 +1654,21 @@ Hephaestus Alpha Strike on Enemy1!
 Rail Gun targeting Enemy1
 Rail Gun spinning up for 0.2s...
 [TargetingController] ALPHA STRIKE on Enemy1
-Enemy1 - Shields: 200.0 → 180.0
-Rail Gun fired! Hit Enemy1 for 20 damage (instant hit)
-Instant hit pool empty, creating new effect
-InstantHitEffect created from (1.00, 0.00, 0.00) to (10.00, 0.00, 0.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (10.00, 0.00, 0.00)
+Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=Hephaestus
+BallisticProjectile velocity: (40.00, 0.00, 0.00), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward Enemy1 at 40 units/sec
 Hephaestus - Planned heat: 15.0 (Total with current: 15.0)
 Hephaestus - Heat committed. Current: 15.0, Tier: Safe
 Alpha Strike complete
+BallisticProjectile hit Enemy1 for 20 damage
+Enemy1 - Shields: 200.0 → 180.0
 ]]></output>
         </test-case>
-        <test-case id="1060" name="Test_CooldownWarning" fullname="TargetingSystemTests.Test_CooldownWarning" methodname="Test_CooldownWarning" classname="TargetingSystemTests" runstate="Runnable" seed="550156551" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.003266" asserts="0">
+        <test-case id="1097" name="Test_CooldownWarning" fullname="TargetingSystemTests.Test_CooldownWarning" methodname="Test_CooldownWarning" classname="TargetingSystemTests" runstate="Runnable" seed="1744837947" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:06Z" duration="0.003989" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1003,7 +1694,7 @@ Rail Gun: On cooldown (1 turns remaining)
 Rail Gun cooldown finished
 ]]></output>
         </test-case>
-        <test-case id="1054" name="Test_GroupFiring" fullname="TargetingSystemTests.Test_GroupFiring" methodname="Test_GroupFiring" classname="TargetingSystemTests" runstate="Runnable" seed="1726028105" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.502682" asserts="0">
+        <test-case id="1091" name="Test_GroupFiring" fullname="TargetingSystemTests.Test_GroupFiring" methodname="Test_GroupFiring" classname="TargetingSystemTests" runstate="Runnable" seed="377222170" result="Passed" start-time="2025-12-18 17:55:06Z" end-time="2025-12-18 17:55:07Z" duration="0.502770" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1033,16 +1724,18 @@ TargetingLine created: Group 1 (RGBA(0.000, 0.000, 1.000, 1.000)) from Hephaestu
 Hephaestus firing group 1 (1 weapons)...
 Rail Gun spinning up for 0.2s...
 [TargetingController] Firing group 1 at Enemy1
-Enemy1 - Shields: 200.0 → 180.0
-Rail Gun fired! Hit Enemy1 for 20 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (10.00, 0.00, 0.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (10.00, 0.00, 0.00)
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=Hephaestus
+BallisticProjectile velocity: (40.00, 0.00, 0.00), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward Enemy1 at 40 units/sec
 Hephaestus - Planned heat: 15.0 (Total with current: 15.0)
 Hephaestus - Heat committed. Current: 15.0, Tier: Safe
 Group 1 finished firing
+BallisticProjectile hit Enemy1 for 20 damage
+Enemy1 - Shields: 200.0 → 180.0
 ]]></output>
         </test-case>
-        <test-case id="1061" name="Test_HeatCostDisplay" fullname="TargetingSystemTests.Test_HeatCostDisplay" methodname="Test_HeatCostDisplay" classname="TargetingSystemTests" runstate="Runnable" seed="1027346605" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.004761" asserts="0">
+        <test-case id="1098" name="Test_HeatCostDisplay" fullname="TargetingSystemTests.Test_HeatCostDisplay" methodname="Test_HeatCostDisplay" classname="TargetingSystemTests" runstate="Runnable" seed="931995560" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.004704" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1070,7 +1763,7 @@ Rail Gun targeting Enemy1
 Newtonian Cannon targeting Enemy1
 ]]></output>
         </test-case>
-        <test-case id="1057" name="Test_MultiTargeting" fullname="TargetingSystemTests.Test_MultiTargeting" methodname="Test_MultiTargeting" classname="TargetingSystemTests" runstate="Runnable" seed="669275357" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.005590" asserts="0">
+        <test-case id="1094" name="Test_MultiTargeting" fullname="TargetingSystemTests.Test_MultiTargeting" methodname="Test_MultiTargeting" classname="TargetingSystemTests" runstate="Runnable" seed="1129913853" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.004944" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1106,7 +1799,7 @@ TargetingLine created: Group 2 (RGBA(1.000, 0.000, 0.000, 1.000)) from Hephaestu
 [TargetingController] Group 2 assigned to Enemy2
 ]]></output>
         </test-case>
-        <test-case id="1059" name="Test_OutOfArcWarning" fullname="TargetingSystemTests.Test_OutOfArcWarning" methodname="Test_OutOfArcWarning" classname="TargetingSystemTests" runstate="Runnable" seed="1264491568" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.005101" asserts="0">
+        <test-case id="1096" name="Test_OutOfArcWarning" fullname="TargetingSystemTests.Test_OutOfArcWarning" methodname="Test_OutOfArcWarning" classname="TargetingSystemTests" runstate="Runnable" seed="660680516" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.002772" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1128,7 +1821,7 @@ UIManager: No TargetingController assigned
 Newtonian Cannon initialized on Hephaestus at hardpoint Cannon_Hardpoint
 ]]></output>
         </test-case>
-        <test-case id="1062" name="Test_SelectionIndicator" fullname="TargetingSystemTests.Test_SelectionIndicator" methodname="Test_SelectionIndicator" classname="TargetingSystemTests" runstate="Runnable" seed="1639968966" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.007100" asserts="0">
+        <test-case id="1099" name="Test_SelectionIndicator" fullname="TargetingSystemTests.Test_SelectionIndicator" methodname="Test_SelectionIndicator" classname="TargetingSystemTests" runstate="Runnable" seed="43786553" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.006355" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1150,7 +1843,7 @@ UIManager: No TargetingController assigned
 SelectionIndicator initialized for Enemy1 (Enemy)
 ]]></output>
         </test-case>
-        <test-case id="1052" name="Test_TargetDeselection" fullname="TargetingSystemTests.Test_TargetDeselection" methodname="Test_TargetDeselection" classname="TargetingSystemTests" runstate="Runnable" seed="2118919817" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.004089" asserts="0">
+        <test-case id="1089" name="Test_TargetDeselection" fullname="TargetingSystemTests.Test_TargetDeselection" methodname="Test_TargetDeselection" classname="TargetingSystemTests" runstate="Runnable" seed="346176428" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.002621" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1173,7 +1866,7 @@ UIManager: No TargetingController assigned
 [TargetingController] Target deselected: Enemy1
 ]]></output>
         </test-case>
-        <test-case id="1056" name="Test_TargetingLine" fullname="TargetingSystemTests.Test_TargetingLine" methodname="Test_TargetingLine" classname="TargetingSystemTests" runstate="Runnable" seed="890332556" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.003018" asserts="0">
+        <test-case id="1093" name="Test_TargetingLine" fullname="TargetingSystemTests.Test_TargetingLine" methodname="Test_TargetingLine" classname="TargetingSystemTests" runstate="Runnable" seed="212086007" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.002657" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1195,7 +1888,7 @@ UIManager: No TargetingController assigned
 TargetingLine created: Group 1 (RGBA(0.000, 0.000, 1.000, 1.000)) from Hephaestus to Enemy1
 ]]></output>
         </test-case>
-        <test-case id="1051" name="Test_TargetSelection" fullname="TargetingSystemTests.Test_TargetSelection" methodname="Test_TargetSelection" classname="TargetingSystemTests" runstate="Runnable" seed="1630807935" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.002579" asserts="0">
+        <test-case id="1088" name="Test_TargetSelection" fullname="TargetingSystemTests.Test_TargetSelection" methodname="Test_TargetSelection" classname="TargetingSystemTests" runstate="Runnable" seed="567961328" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.002258" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1217,7 +1910,7 @@ UIManager: No TargetingController assigned
 [TargetingController] Target selected: Enemy1
 ]]></output>
         </test-case>
-        <test-case id="1058" name="Test_UIStateTransitions" fullname="TargetingSystemTests.Test_UIStateTransitions" methodname="Test_UIStateTransitions" classname="TargetingSystemTests" runstate="Runnable" seed="1044886168" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.004476" asserts="0">
+        <test-case id="1095" name="Test_UIStateTransitions" fullname="TargetingSystemTests.Test_UIStateTransitions" methodname="Test_UIStateTransitions" classname="TargetingSystemTests" runstate="Runnable" seed="2038159357" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.006742" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1242,7 +1935,7 @@ UIManager: No TargetingController assigned
 [TargetingController] Selected ship: Hephaestus
 ]]></output>
         </test-case>
-        <test-case id="1053" name="Test_WeaponGroupAssignment" fullname="TargetingSystemTests.Test_WeaponGroupAssignment" methodname="Test_WeaponGroupAssignment" classname="TargetingSystemTests" runstate="Runnable" seed="952693430" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.003518" asserts="0">
+        <test-case id="1090" name="Test_WeaponGroupAssignment" fullname="TargetingSystemTests.Test_WeaponGroupAssignment" methodname="Test_WeaponGroupAssignment" classname="TargetingSystemTests" runstate="Runnable" seed="2102860127" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:07Z" duration="0.003469" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -1271,15 +1964,480 @@ TargetingLine created: Group 1 (RGBA(0.000, 0.000, 1.000, 1.000)) from Hephaestu
 ]]></output>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1063" name="WeaponSystemTests" fullname="WeaponSystemTests" classname="WeaponSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:40Z" duration="2.342057" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1100" name="TestSceneSetupTests" fullname="TestSceneSetupTests" classname="TestSceneSetupTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:12Z" duration="4.653244" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1065" name="Test_ArcCheck" fullname="WeaponSystemTests.Test_ArcCheck" methodname="Test_ArcCheck" classname="WeaponSystemTests" runstate="Runnable" seed="693882068" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.002587" asserts="0">
+        <test-case id="1109" name="Test_AmmoDepletion_PreventsFiring" fullname="TestSceneSetupTests.Test_AmmoDepletion_PreventsFiring" methodname="Test_AmmoDepletion_PreventsFiring" classname="TestSceneSetupTests" runstate="Runnable" seed="1964006059" result="Passed" start-time="2025-12-18 17:55:07Z" end-time="2025-12-18 17:55:08Z" duration="1.005772" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher targeting EnemyShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=EnemyShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting EnemyShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking EnemyShip (Ammo remaining: 0, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+        <test-case id="1108" name="Test_Cooldown_PreventsFiring" fullname="TestSceneSetupTests.Test_Cooldown_PreventsFiring" methodname="Test_Cooldown_PreventsFiring" classname="TestSceneSetupTests" runstate="Runnable" seed="972698561" result="Passed" start-time="2025-12-18 17:55:08Z" end-time="2025-12-18 17:55:09Z" duration="1.005431" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher targeting EnemyShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=EnemyShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting EnemyShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking EnemyShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 25.0)
+PlayerShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+]]></output>
+        </test-case>
+        <test-case id="1105" name="Test_FullTestSceneSetup_AllWeaponsCanFire" fullname="TestSceneSetupTests.Test_FullTestSceneSetup_AllWeaponsCanFire" methodname="Test_FullTestSceneSetup_AllWeaponsCanFire" classname="TestSceneSetupTests" runstate="Runnable" seed="1345607830" result="Passed" start-time="2025-12-18 17:55:09Z" end-time="2025-12-18 17:55:09Z" duration="0.007155" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Port
+  Discovered weapon: Rail Gun on hardpoint RailGun_Port
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Starboard
+  Discovered weapon: Rail Gun on hardpoint RailGun_Starboard
+Newtonian Cannon initialized on PlayerShip at hardpoint Cannon_Forward
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Forward
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Forward
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Forward
+Missile Battery initialized on PlayerShip at hardpoint Missile_Dorsal
+  Discovered weapon: Missile Battery on hardpoint Missile_Dorsal
+Missile Battery initialized on PlayerShip at hardpoint Missile_Ventral
+  Discovered weapon: Missile Battery on hardpoint Missile_Ventral
+WeaponManager initialized on PlayerShip. Found 6 weapons.
+Rail Gun targeting EnemyShip
+Rail Gun targeting EnemyShip
+Newtonian Cannon targeting EnemyShip
+Torpedo Launcher targeting EnemyShip
+Missile Battery targeting EnemyShip
+Missile Battery targeting EnemyShip
+Rail Gun: angle=8.7, dist=13.7, arc=360, range=30
+  inArc=True, inRange=True, canFire=True
+Rail Gun: angle=8.7, dist=13.7, arc=360, range=30
+  inArc=True, inRange=True, canFire=True
+Newtonian Cannon: angle=0.0, dist=11.5, arc=60, range=20
+  inArc=True, inRange=True, canFire=True
+Torpedo Launcher: angle=4.6, dist=12.5, arc=30, range=50
+  inArc=True, inRange=True, canFire=True
+Missile Battery: angle=5.7, dist=15.1, arc=360, range=35
+  inArc=True, inRange=True, canFire=True
+Missile Battery: angle=1.9, dist=15.0, arc=360, range=35
+  inArc=True, inRange=True, canFire=True
+]]></output>
+        </test-case>
+        <test-case id="1104" name="Test_MissileBattery_CanFireAtTargetAhead" fullname="TestSceneSetupTests.Test_MissileBattery_CanFireAtTargetAhead" methodname="Test_MissileBattery_CanFireAtTargetAhead" classname="TestSceneSetupTests" runstate="Runnable" seed="980215076" result="Passed" start-time="2025-12-18 17:55:09Z" end-time="2025-12-18 17:55:09Z" duration="0.004184" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery initialized on PlayerShip at hardpoint Missile_Dorsal
+  Discovered weapon: Missile Battery on hardpoint Missile_Dorsal
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Missile Battery targeting EnemyShip
+Missile test: distance=15.07481, arc=360, range=35
+]]></output>
+        </test-case>
+        <test-case id="1102" name="Test_NewtonianCannon_CanFireAtTargetAhead" fullname="TestSceneSetupTests.Test_NewtonianCannon_CanFireAtTargetAhead" methodname="Test_NewtonianCannon_CanFireAtTargetAhead" classname="TestSceneSetupTests" runstate="Runnable" seed="1457234227" result="Passed" start-time="2025-12-18 17:55:09Z" end-time="2025-12-18 17:55:09Z" duration="0.004097" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Newtonian Cannon initialized on PlayerShip at hardpoint Cannon_Forward
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Forward
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Newtonian Cannon targeting EnemyShip
+Cannon test: angle=0, distance=11.5, arc=60, range=20
+]]></output>
+        </test-case>
+        <test-case id="1101" name="Test_RailGun_CanFireAtTargetAhead" fullname="TestSceneSetupTests.Test_RailGun_CanFireAtTargetAhead" methodname="Test_RailGun_CanFireAtTargetAhead" classname="TestSceneSetupTests" runstate="Runnable" seed="578253430" result="Passed" start-time="2025-12-18 17:55:09Z" end-time="2025-12-18 17:55:09Z" duration="0.004274" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun_Port
+  Discovered weapon: Rail Gun on hardpoint RailGun_Port
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Rail Gun targeting EnemyShip
+RailGun test: angle=8.682405, distance=13.6565, arc=360, range=30
+  Hardpoint pos=(-2.00, 0.50, 1.50), fwd=(0.00, 0.00, 1.00)
+  Target pos=(0.00, 0.00, 15.00)
+]]></output>
+        </test-case>
+        <test-case id="1110" name="Test_RailGun_InfiniteAmmo" fullname="TestSceneSetupTests.Test_RailGun_InfiniteAmmo" methodname="Test_RailGun_InfiniteAmmo" classname="TestSceneSetupTests" runstate="Runnable" seed="1212205197" result="Passed" start-time="2025-12-18 17:55:09Z" end-time="2025-12-18 17:55:10Z" duration="0.604922" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun
+  Discovered weapon: Rail Gun on hardpoint RailGun
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Rail Gun targeting EnemyShip
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=PlayerShip
+BallisticProjectile velocity: (0.00, 0.00, 40.00), speed: 40
+Spawned ballistic projectile at (0.00, 0.00, 1.00)
+Rail Gun fired! Fast projectile toward EnemyShip at 40 units/sec
+PlayerShip - Planned heat: 15.0 (Total with current: 15.0)
+PlayerShip - Heat committed. Current: 15.0, Tier: Safe
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=PlayerShip
+BallisticProjectile velocity: (0.00, 0.00, 40.00), speed: 40
+Spawned ballistic projectile at (0.00, 0.00, 1.00)
+Rail Gun fired! Fast projectile toward EnemyShip at 40 units/sec
+PlayerShip - Planned heat: 15.0 (Total with current: 30.0)
+PlayerShip - Heat committed. Current: 30.0, Tier: Safe
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=PlayerShip
+BallisticProjectile velocity: (0.00, 0.00, 40.00), speed: 40
+Spawned ballistic projectile at (0.00, 0.00, 1.00)
+Rail Gun fired! Fast projectile toward EnemyShip at 40 units/sec
+PlayerShip - Planned heat: 15.0 (Total with current: 45.0)
+PlayerShip - Heat committed. Current: 45.0, Tier: Safe
+]]></output>
+        </test-case>
+        <test-case id="1103" name="Test_TorpedoLauncher_CanFireAtTargetAhead" fullname="TestSceneSetupTests.Test_TorpedoLauncher_CanFireAtTargetAhead" methodname="Test_TorpedoLauncher_CanFireAtTargetAhead" classname="TestSceneSetupTests" runstate="Runnable" seed="714966739" result="Passed" start-time="2025-12-18 17:55:10Z" end-time="2025-12-18 17:55:10Z" duration="0.004562" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo_Forward
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Forward
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Torpedo Launcher targeting EnemyShip
+Torpedo test: angle=4.573931, distance=12.53994, arc=30, range=50
+  Hardpoint pos=(0.00, 1.00, 2.50), fwd=(0.00, 0.00, 1.00)
+]]></output>
+        </test-case>
+        <test-case id="1107" name="Test_WeaponsFire_ApplyHeat" fullname="TestSceneSetupTests.Test_WeaponsFire_ApplyHeat" methodname="Test_WeaponsFire_ApplyHeat" classname="TestSceneSetupTests" runstate="Runnable" seed="919345524" result="Passed" start-time="2025-12-18 17:55:10Z" end-time="2025-12-18 17:55:10Z" duration="0.404941" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Missile Battery initialized on PlayerShip at hardpoint Missile
+  Discovered weapon: Missile Battery on hardpoint Missile
+WeaponManager initialized on PlayerShip. Found 1 weapons.
+Missile Battery targeting EnemyShip
+Missile Battery spinning up for 0.4s...
+HomingProjectile initialized: Damage=30, Speed=15, Owner=PlayerShip
+HomingProjectile initialized: Target=EnemyShip, Homing=True
+Spawned homing projectile at (0.00, 1.00, 0.00) targeting EnemyShip (turnRate=90)
+Missile Battery fired! Missile tracking EnemyShip (Ammo remaining: 19, turnRate=90)
+PlayerShip - Planned heat: 20.0 (Total with current: 20.0)
+PlayerShip - Heat committed. Current: 20.0, Tier: Safe
+Missile Battery on cooldown for 1 turns
+]]></output>
+        </test-case>
+        <test-case id="1106" name="Test_WeaponsFire_ProduceProjectiles" fullname="TestSceneSetupTests.Test_WeaponsFire_ProduceProjectiles" methodname="Test_WeaponsFire_ProduceProjectiles" classname="TestSceneSetupTests" runstate="Runnable" seed="1692186092" result="Passed" start-time="2025-12-18 17:55:10Z" end-time="2025-12-18 17:55:12Z" duration="1.605772" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+PlayerShip: No WeaponManager component found. Weapons will not be available.
+EnemyShip: No AbilitySystem component found. Abilities will not be available.
+EnemyShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun initialized on PlayerShip at hardpoint RailGun
+  Discovered weapon: Rail Gun on hardpoint RailGun
+Torpedo Launcher initialized on PlayerShip at hardpoint Torpedo
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo
+Missile Battery initialized on PlayerShip at hardpoint Missile
+  Discovered weapon: Missile Battery on hardpoint Missile
+WeaponManager initialized on PlayerShip. Found 3 weapons.
+Rail Gun targeting EnemyShip
+Torpedo Launcher targeting EnemyShip
+Missile Battery targeting EnemyShip
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=PlayerShip
+BallisticProjectile velocity: (0.00, 0.00, 40.00), speed: 40
+Spawned ballistic projectile at (0.00, 0.00, 1.00)
+Rail Gun fired! Fast projectile toward EnemyShip at 40 units/sec
+PlayerShip - Planned heat: 15.0 (Total with current: 15.0)
+PlayerShip - Heat committed. Current: 15.0, Tier: Safe
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=PlayerShip
+HomingProjectile initialized: Target=EnemyShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting EnemyShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking EnemyShip (Ammo remaining: 5, turnRate=45)
+PlayerShip - Planned heat: 25.0 (Total with current: 40.0)
+PlayerShip - Heat committed. Current: 40.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Missile Battery spinning up for 0.4s...
+HomingProjectile initialized: Damage=30, Speed=15, Owner=PlayerShip
+HomingProjectile initialized: Target=EnemyShip, Homing=True
+Spawned homing projectile at (0.00, 1.00, 0.00) targeting EnemyShip (turnRate=90)
+Missile Battery fired! Missile tracking EnemyShip (Ammo remaining: 19, turnRate=90)
+PlayerShip - Planned heat: 20.0 (Total with current: 60.0)
+PlayerShip - Heat tier changed: Safe → Minor
+PlayerShip - Heat committed. Current: 60.0, Tier: Minor
+Missile Battery on cooldown for 1 turns
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1111" name="TorpedoTests" fullname="TorpedoTests" classname="TorpedoTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2025-12-18 17:55:12Z" end-time="2025-12-18 17:55:20Z" duration="8.016280" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1116" name="Test_TorpedoLauncher_CannotFireEmpty" fullname="TorpedoTests.Test_TorpedoLauncher_CannotFireEmpty" methodname="Test_TorpedoLauncher_CannotFireEmpty" classname="TorpedoTests" runstate="Runnable" seed="1298501294" result="Passed" start-time="2025-12-18 17:55:12Z" end-time="2025-12-18 17:55:18Z" duration="6.004276" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
           <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Torpedo Launcher initialized on TestShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 25.0)
+TestShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 4, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 50.0)
+TestShip - Heat committed. Current: 50.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 3, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 75.0)
+TestShip - Heat tier changed: Safe → Minor
+TestShip - Heat committed. Current: 75.0, Tier: Minor
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 2, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 100.0)
+TestShip - Heat tier changed: Minor → Severe
+TestShip - Heat committed. Current: 100.0, Tier: Severe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile hit TargetShip for 80 damage
+TargetShip - Shields: 200.0 → 120.0
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 1, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 125.0)
+TestShip - Heat tier changed: Severe → Critical
+TestShip - Heat committed. Current: 125.0, Tier: Critical
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher spinning up for 1s...
+HomingProjectile hit TargetShip for 80 damage
+TargetShip - Shields: 120.0 → 40.0
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 0, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 150.0)
+TestShip - Heat tier changed: Critical → Catastrophic
+TestShip - Heat committed. Current: 150.0, Tier: Catastrophic
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher: Out of ammo
+HomingProjectile target lost, switching to ballistic mode
+HomingProjectile target lost, switching to ballistic mode
+HomingProjectile target lost, switching to ballistic mode
+HomingProjectile target lost, switching to ballistic mode
+]]></output>
+        </test-case>
+        <test-case id="1113" name="Test_TorpedoLauncher_ConsumesAmmo" fullname="TorpedoTests.Test_TorpedoLauncher_ConsumesAmmo" methodname="Test_TorpedoLauncher_ConsumesAmmo" classname="TorpedoTests" runstate="Runnable" seed="779902580" result="Passed" start-time="2025-12-18 17:55:18Z" end-time="2025-12-18 17:55:19Z" duration="1.003238" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Torpedo Launcher initialized on TestShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 25.0)
+TestShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+HomingProjectile target lost, switching to ballistic mode
+]]></output>
+        </test-case>
+        <test-case id="1112" name="Test_TorpedoLauncher_DefaultStats" fullname="TorpedoTests.Test_TorpedoLauncher_DefaultStats" methodname="Test_TorpedoLauncher_DefaultStats" classname="TorpedoTests" runstate="Runnable" seed="699750289" result="Passed" start-time="2025-12-18 17:55:19Z" end-time="2025-12-18 17:55:19Z" duration="0.002088" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Torpedo Launcher initialized on TestShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1115" name="Test_TorpedoLauncher_NarrowArc" fullname="TorpedoTests.Test_TorpedoLauncher_NarrowArc" methodname="Test_TorpedoLauncher_NarrowArc" classname="TorpedoTests" runstate="Runnable" seed="206704179" result="Passed" start-time="2025-12-18 17:55:19Z" end-time="2025-12-18 17:55:19Z" duration="0.001905" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Torpedo Launcher initialized on TestShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1114" name="Test_TorpedoLauncher_SetsCooldown" fullname="TorpedoTests.Test_TorpedoLauncher_SetsCooldown" methodname="Test_TorpedoLauncher_SetsCooldown" classname="TorpedoTests" runstate="Runnable" seed="2004245578" result="Passed" start-time="2025-12-18 17:55:19Z" end-time="2025-12-18 17:55:20Z" duration="1.003474" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+Torpedo Launcher initialized on TestShip at hardpoint Torpedo_Hardpoint
+  Discovered weapon: Torpedo Launcher on hardpoint Torpedo_Hardpoint
+WeaponManager initialized on TestShip. Found 1 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Torpedo Launcher targeting TargetShip
+Torpedo Launcher spinning up for 1s...
+HomingProjectile initialized: Damage=80, Speed=5, Owner=TestShip
+HomingProjectile initialized: Target=TargetShip, Homing=True
+Spawned homing projectile at (0.00, 0.00, 2.00) targeting TargetShip (turnRate=45)
+Torpedo Launcher fired! Torpedo tracking TargetShip (Ammo remaining: 5, turnRate=45)
+TestShip - Planned heat: 25.0 (Total with current: 25.0)
+TestShip - Heat committed. Current: 25.0, Tier: Safe
+Torpedo Launcher on cooldown for 3 turns
+Torpedo Launcher: On cooldown (3 turns remaining)
+Torpedo Launcher cooldown finished
+HomingProjectile target lost, switching to ballistic mode
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1117" name="WeaponSystemTests" fullname="WeaponSystemTests" classname="WeaponSystemTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:24Z" duration="4.358450" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1119" name="Test_ArcCheck" fullname="WeaponSystemTests.Test_ArcCheck" methodname="Test_ArcCheck" classname="WeaponSystemTests" runstate="Runnable" seed="1136194612" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:20Z" duration="0.004321" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1289,13 +2447,16 @@ TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 ]]></output>
         </test-case>
-        <test-case id="1067" name="Test_CanFire" fullname="WeaponSystemTests.Test_CanFire" methodname="Test_CanFire" classname="WeaponSystemTests" runstate="Runnable" seed="1986503627" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:37Z" duration="0.003048" asserts="0">
+        <test-case id="1121" name="Test_CanFire" fullname="WeaponSystemTests.Test_CanFire" methodname="Test_CanFire" classname="WeaponSystemTests" runstate="Runnable" seed="1690251530" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:20Z" duration="0.005485" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1314,13 +2475,16 @@ TargetShip has been destroyed!
 Rail Gun: Target is dead
 ]]></output>
         </test-case>
-        <test-case id="1070" name="Test_CannonBallisticSpawn" fullname="WeaponSystemTests.Test_CannonBallisticSpawn" methodname="Test_CannonBallisticSpawn" classname="WeaponSystemTests" runstate="Runnable" seed="111193066" result="Passed" start-time="2025-11-20 04:48:37Z" end-time="2025-11-20 04:48:38Z" duration="0.505536" asserts="0">
+        <test-case id="1124" name="Test_CannonBallisticSpawn" fullname="WeaponSystemTests.Test_CannonBallisticSpawn" methodname="Test_CannonBallisticSpawn" classname="WeaponSystemTests" runstate="Runnable" seed="142755314" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:20Z" duration="0.505223" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1330,22 +2494,24 @@ TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 Newtonian Cannon targeting TargetShip
 Newtonian Cannon spinning up for 0.5s...
-Ballistic pool empty, creating new projectile
-BallisticProjectile initialized: Damage=40, Speed=2, Owner=TestShip
-BallisticProjectile velocity: (0.20, 0.00, 1.99), speed: 2
+BallisticProjectile initialized: Damage=40, Speed=15, Owner=TestShip
+BallisticProjectile velocity: (1.49, 0.00, 14.93), speed: 15
 Spawned ballistic projectile at (-1.00, 0.00, 0.00)
 Newtonian Cannon fired! Ballistic projectile toward TargetShip (lead target at (0.00, 0.00, 10.00))
 TestShip - Planned heat: 30.0 (Total with current: 30.0)
 TestShip - Heat committed. Current: 30.0, Tier: Safe
 ]]></output>
         </test-case>
-        <test-case id="1068" name="Test_GroupAssignment" fullname="WeaponSystemTests.Test_GroupAssignment" methodname="Test_GroupAssignment" classname="WeaponSystemTests" runstate="Runnable" seed="1462383070" result="Passed" start-time="2025-11-20 04:48:38Z" end-time="2025-11-20 04:48:38Z" duration="0.003727" asserts="0">
+        <test-case id="1122" name="Test_GroupAssignment" fullname="WeaponSystemTests.Test_GroupAssignment" methodname="Test_GroupAssignment" classname="WeaponSystemTests" runstate="Runnable" seed="1706151915" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:20Z" duration="0.004867" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1361,13 +2527,16 @@ Rail Gun assigned to group 2
 Assigned Rail Gun to group 2
 ]]></output>
         </test-case>
-        <test-case id="1075" name="Test_OverchargeMultiplier" fullname="WeaponSystemTests.Test_OverchargeMultiplier" methodname="Test_OverchargeMultiplier" classname="WeaponSystemTests" runstate="Runnable" seed="1380115616" result="Passed" start-time="2025-11-20 04:48:38Z" end-time="2025-11-20 04:48:38Z" duration="0.703465" asserts="0">
+        <test-case id="1129" name="Test_OverchargeMultiplier" fullname="WeaponSystemTests.Test_OverchargeMultiplier" methodname="Test_OverchargeMultiplier" classname="WeaponSystemTests" runstate="Runnable" seed="1577031616" result="Passed" start-time="2025-12-18 17:55:20Z" end-time="2025-12-18 17:55:22Z" duration="1.704664" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1378,28 +2547,83 @@ TargetShip: No WeaponManager component found. Weapons will not be available.
 TargetShip - Shields: 200.0 → 0.0
 Rail Gun targeting TargetShip
 Rail Gun spinning up for 0.2s...
-TargetShip - Hull: 500.0 → 460.0
-Rail Gun fired! Hit TargetShip for 40 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
+BallisticProjectile initialized: Damage=40, Speed=40, Owner=TestShip
+BallisticProjectile velocity: (-3.98, 0.00, 39.80), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
 TestShip - Planned heat: 30.0 (Total with current: 30.0)
 TestShip - Heat committed. Current: 30.0, Tier: Safe
+BallisticProjectile hit TargetShip for 40 damage
+TargetShip - Hull: 500.0 → 460.0
 Rail Gun spinning up for 0.2s...
-TargetShip - Hull: 460.0 → 440.0
-Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=TestShip
+BallisticProjectile velocity: (-3.98, 0.00, 39.80), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
 TestShip - Planned heat: 15.0 (Total with current: 45.0)
 TestShip - Heat committed. Current: 45.0, Tier: Safe
+BallisticProjectile hit TargetShip for 20 damage
+TargetShip - Hull: 460.0 → 440.0
 ]]></output>
         </test-case>
-        <test-case id="1069" name="Test_RailGunInstantHit" fullname="WeaponSystemTests.Test_RailGunInstantHit" methodname="Test_RailGunInstantHit" classname="WeaponSystemTests" runstate="Runnable" seed="1022961277" result="Passed" start-time="2025-11-20 04:48:38Z" end-time="2025-11-20 04:48:39Z" duration="0.203362" asserts="0">
+        <test-case id="1123" name="Test_RailGunFastProjectile" fullname="WeaponSystemTests.Test_RailGunFastProjectile" methodname="Test_RailGunFastProjectile" classname="WeaponSystemTests" runstate="Runnable" seed="345377659" result="Passed" start-time="2025-12-18 17:55:22Z" end-time="2025-12-18 17:55:22Z" duration="0.704558" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+Rail Gun targeting TargetShip
+Rail Gun spinning up for 0.2s...
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=TestShip
+BallisticProjectile velocity: (-3.98, 0.00, 39.80), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
+TestShip - Planned heat: 15.0 (Total with current: 15.0)
+TestShip - Heat committed. Current: 15.0, Tier: Safe
+BallisticProjectile hit TargetShip for 20 damage
+TargetShip - Shields: 200.0 → 180.0
+]]></output>
+        </test-case>
+        <test-case id="1120" name="Test_RangeCheck" fullname="WeaponSystemTests.Test_RangeCheck" methodname="Test_RangeCheck" classname="WeaponSystemTests" runstate="Runnable" seed="1582332601" result="Passed" start-time="2025-12-18 17:55:22Z" end-time="2025-12-18 17:55:22Z" duration="0.003952" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
+Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
+  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
+Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
+  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
+WeaponManager initialized on TestShip. Found 2 weapons.
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+]]></output>
+        </test-case>
+        <test-case id="1128" name="Test_SpinUpDelay" fullname="WeaponSystemTests.Test_SpinUpDelay" methodname="Test_SpinUpDelay" classname="WeaponSystemTests" runstate="Runnable" seed="1290848740" result="Passed" start-time="2025-12-18 17:55:22Z" end-time="2025-12-18 17:55:23Z" duration="0.704937" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1410,62 +2634,26 @@ TargetShip: No WeaponManager component found. Weapons will not be available.
 TargetShip - Shields: 200.0 → 0.0
 Rail Gun targeting TargetShip
 Rail Gun spinning up for 0.2s...
-TargetShip - Hull: 500.0 → 480.0
-Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=TestShip
+BallisticProjectile velocity: (-3.98, 0.00, 39.80), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
 TestShip - Planned heat: 15.0 (Total with current: 15.0)
 TestShip - Heat committed. Current: 15.0, Tier: Safe
-]]></output>
-        </test-case>
-        <test-case id="1066" name="Test_RangeCheck" fullname="WeaponSystemTests.Test_RangeCheck" methodname="Test_RangeCheck" classname="WeaponSystemTests" runstate="Runnable" seed="2135113728" result="Passed" start-time="2025-11-20 04:48:39Z" end-time="2025-11-20 04:48:39Z" duration="0.002150" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
-Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
-  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
-Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
-  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
-WeaponManager initialized on TestShip. Found 2 weapons.
-TargetShip: No AbilitySystem component found. Abilities will not be available.
-TargetShip: No WeaponManager component found. Weapons will not be available.
-]]></output>
-        </test-case>
-        <test-case id="1074" name="Test_SpinUpDelay" fullname="WeaponSystemTests.Test_SpinUpDelay" methodname="Test_SpinUpDelay" classname="WeaponSystemTests" runstate="Runnable" seed="375692922" result="Passed" start-time="2025-11-20 04:48:39Z" end-time="2025-11-20 04:48:39Z" duration="0.203876" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
-Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
-  Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
-Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
-  Discovered weapon: Newtonian Cannon on hardpoint Cannon_Hardpoint
-WeaponManager initialized on TestShip. Found 2 weapons.
-TargetShip: No AbilitySystem component found. Abilities will not be available.
-TargetShip: No WeaponManager component found. Weapons will not be available.
-TargetShip - Shields: 200.0 → 0.0
-Rail Gun targeting TargetShip
-Rail Gun spinning up for 0.2s...
+BallisticProjectile hit TargetShip for 20 damage
 TargetShip - Hull: 500.0 → 480.0
-Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-TestShip - Planned heat: 15.0 (Total with current: 15.0)
-TestShip - Heat committed. Current: 15.0, Tier: Safe
 ]]></output>
         </test-case>
-        <test-case id="1071" name="Test_WeaponCooldown" fullname="WeaponSystemTests.Test_WeaponCooldown" methodname="Test_WeaponCooldown" classname="WeaponSystemTests" runstate="Runnable" seed="205948431" result="Passed" start-time="2025-11-20 04:48:39Z" end-time="2025-11-20 04:48:39Z" duration="0.002562" asserts="0">
+        <test-case id="1125" name="Test_WeaponCooldown" fullname="WeaponSystemTests.Test_WeaponCooldown" methodname="Test_WeaponCooldown" classname="WeaponSystemTests" runstate="Runnable" seed="1313328821" result="Passed" start-time="2025-12-18 17:55:23Z" end-time="2025-12-18 17:55:23Z" duration="0.004339" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1477,13 +2665,16 @@ Rail Gun on cooldown for 3 turns
 Rail Gun cooldown finished
 ]]></output>
         </test-case>
-        <test-case id="1073" name="Test_WeaponGroupHeatCalculation" fullname="WeaponSystemTests.Test_WeaponGroupHeatCalculation" methodname="Test_WeaponGroupHeatCalculation" classname="WeaponSystemTests" runstate="Runnable" seed="2018546637" result="Passed" start-time="2025-11-20 04:48:39Z" end-time="2025-11-20 04:48:39Z" duration="0.004162" asserts="0">
+        <test-case id="1127" name="Test_WeaponGroupHeatCalculation" fullname="WeaponSystemTests.Test_WeaponGroupHeatCalculation" methodname="Test_WeaponGroupHeatCalculation" classname="WeaponSystemTests" runstate="Runnable" seed="226329992" result="Passed" start-time="2025-12-18 17:55:23Z" end-time="2025-12-18 17:55:23Z" duration="0.004702" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1499,13 +2690,16 @@ Rail Gun targeting TargetShip
 Newtonian Cannon targeting TargetShip
 ]]></output>
         </test-case>
-        <test-case id="1072" name="Test_WeaponHeatCost" fullname="WeaponSystemTests.Test_WeaponHeatCost" methodname="Test_WeaponHeatCost" classname="WeaponSystemTests" runstate="Runnable" seed="1353713724" result="Passed" start-time="2025-11-20 04:48:39Z" end-time="2025-11-20 04:48:40Z" duration="0.703435" asserts="0">
+        <test-case id="1126" name="Test_WeaponHeatCost" fullname="WeaponSystemTests.Test_WeaponHeatCost" methodname="Test_WeaponHeatCost" classname="WeaponSystemTests" runstate="Runnable" seed="1824383231" result="Passed" start-time="2025-12-18 17:55:23Z" end-time="2025-12-18 17:55:24Z" duration="0.704949" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1515,29 +2709,34 @@ TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
 Rail Gun targeting TargetShip
 Rail Gun spinning up for 0.2s...
-TargetShip - Shields: 200.0 → 180.0
-Rail Gun fired! Hit TargetShip for 20 damage (instant hit)
-InstantHitEffect created from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
-Spawned instant hit effect from (1.00, 0.00, 0.00) to (0.00, 0.00, 10.00)
+BallisticProjectile initialized: Damage=20, Speed=40, Owner=TestShip
+BallisticProjectile velocity: (-3.98, 0.00, 39.80), speed: 40
+Spawned ballistic projectile at (1.00, 0.00, 0.00)
+Rail Gun fired! Fast projectile toward TargetShip at 40 units/sec
 TestShip - Planned heat: 15.0 (Total with current: 15.0)
 TestShip - Heat committed. Current: 15.0, Tier: Safe
 Newtonian Cannon targeting TargetShip
 Newtonian Cannon spinning up for 0.5s...
-BallisticProjectile initialized: Damage=40, Speed=2, Owner=TestShip
-BallisticProjectile velocity: (0.20, 0.00, 1.99), speed: 2
+BallisticProjectile hit TargetShip for 20 damage
+TargetShip - Shields: 200.0 → 180.0
+BallisticProjectile initialized: Damage=40, Speed=15, Owner=TestShip
+BallisticProjectile velocity: (1.49, 0.00, 14.93), speed: 15
 Spawned ballistic projectile at (-1.00, 0.00, 0.00)
 Newtonian Cannon fired! Ballistic projectile toward TargetShip (lead target at (0.00, 0.00, 10.00))
 TestShip - Planned heat: 30.0 (Total with current: 45.0)
 TestShip - Heat committed. Current: 45.0, Tier: Safe
 ]]></output>
         </test-case>
-        <test-case id="1064" name="Test_WeaponInitialization" fullname="WeaponSystemTests.Test_WeaponInitialization" methodname="Test_WeaponInitialization" classname="WeaponSystemTests" runstate="Runnable" seed="1698815321" result="Passed" start-time="2025-11-20 04:48:40Z" end-time="2025-11-20 04:48:40Z" duration="0.002431" asserts="0">
+        <test-case id="1118" name="Test_WeaponInitialization" fullname="WeaponSystemTests.Test_WeaponInitialization" methodname="Test_WeaponInitialization" classname="WeaponSystemTests" runstate="Runnable" seed="912032195" result="Passed" start-time="2025-12-18 17:55:24Z" end-time="2025-12-18 17:55:24Z" duration="0.004020" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
-          <output><![CDATA[TestShip: No AbilitySystem component found. Abilities will not be available.
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TestShip: No AbilitySystem component found. Abilities will not be available.
 Rail Gun initialized on TestShip at hardpoint RailGun_Hardpoint
   Discovered weapon: Rail Gun on hardpoint RailGun_Hardpoint
 Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
@@ -1545,7 +2744,7 @@ Newtonian Cannon initialized on TestShip at hardpoint Cannon_Hardpoint
 WeaponManager initialized on TestShip. Found 2 weapons.
 TargetShip: No AbilitySystem component found. Abilities will not be available.
 TargetShip: No WeaponManager component found. Weapons will not be available.
-Saving results to: C:\Repo\DeadLock_Controls\TestResults.xml
+Saving results to: H:\Repo\DeadLock_Controls\TestResults.xml
 ]]></output>
         </test-case>
       </test-suite>

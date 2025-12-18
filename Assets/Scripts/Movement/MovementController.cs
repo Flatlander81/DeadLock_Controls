@@ -200,46 +200,31 @@ public class MovementController : MonoBehaviour
 
     /// <summary>
     /// Handle ability activation hotkeys (1-6).
+    /// Delegated to InputManager for centralized handling.
     /// Keys 1-4 are also used for weapon groups when targeting enemies.
-    /// Priority: If enemy targeted, weapon groups take precedence.
     /// </summary>
     private void HandleAbilityHotkeys()
     {
+        // Input handling is now centralized in InputManager
+        // This method is kept for backwards compatibility but delegates to InputManager
+        // If InputManager doesn't exist, fall back to local handling
+        if (InputManager.Instance != null) return;
+
+        // Fallback: Local handling if InputManager not present
         if (selectedShip == null || selectedShip.AbilitySystem == null) return;
 
-        // Check if we're currently targeting an enemy
-        // If so, let TargetingController handle keys 1-4 for weapon groups
         bool isTargetingEnemy = targetingController != null && targetingController.CurrentTarget != null;
 
-        // Keys 1-4: Only handle if NOT targeting (otherwise weapon groups take priority)
-        if (!isTargetingEnemy)
+        // Handle all 6 ability keys
+        for (int i = 0; i < 6; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown((KeyCode)((int)KeyCode.Alpha1 + i)))
             {
-                selectedShip.AbilitySystem.TryActivateAbilityByIndex(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                selectedShip.AbilitySystem.TryActivateAbilityByIndex(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                selectedShip.AbilitySystem.TryActivateAbilityByIndex(2);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                selectedShip.AbilitySystem.TryActivateAbilityByIndex(3);
-            }
-        }
+                // Keys 1-4: Only handle if NOT targeting (weapon groups take priority)
+                if (i < 4 && isTargetingEnemy) continue;
 
-        // Keys 5-6: Always available for abilities (no conflict)
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            selectedShip.AbilitySystem.TryActivateAbilityByIndex(4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            selectedShip.AbilitySystem.TryActivateAbilityByIndex(5);
+                selectedShip.AbilitySystem.TryActivateAbilityByIndex(i);
+            }
         }
     }
 

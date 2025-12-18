@@ -10,9 +10,11 @@ public class SelectionIndicator : MonoBehaviour
     [Header("Visual Settings")]
     [SerializeField] private Color enemyColor = Color.cyan;
     [SerializeField] private Color friendlyColor = Color.green;
-    [SerializeField] private float rotationSpeed = 45f; // Degrees per second
+    [SerializeField] private float rotationSpeed = 45f;
     [SerializeField] private float ringRadius = 2f;
     [SerializeField] private float ringHeight = 0.5f;
+    [SerializeField] private float lineWidth = 0.1f;
+    [SerializeField] private int ringSegments = 32;
 
     [Header("Runtime State")]
     private Ship targetShip;
@@ -37,8 +39,8 @@ public class SelectionIndicator : MonoBehaviour
         lineRenderer.startColor = ringColor;
         lineRenderer.endColor = ringColor;
 
-        lineRenderer.startWidth = 0.1f;
-        lineRenderer.endWidth = 0.1f;
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
 
         // Create material
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -54,12 +56,11 @@ public class SelectionIndicator : MonoBehaviour
     /// </summary>
     private void CreateRing()
     {
-        int segments = 32;
-        lineRenderer.positionCount = segments;
+        lineRenderer.positionCount = ringSegments;
 
-        float angleStep = 360f / segments;
+        float angleStep = 360f / ringSegments;
 
-        for (int i = 0; i < segments; i++)
+        for (int i = 0; i < ringSegments; i++)
         {
             float angle = i * angleStep * Mathf.Deg2Rad;
             float x = Mathf.Cos(angle) * ringRadius;

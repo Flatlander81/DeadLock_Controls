@@ -15,6 +15,9 @@ public class WeaponManager : MonoBehaviour
     [Header("Firing Groups")]
     [SerializeField] private Dictionary<int, List<WeaponSystem>> weaponGroups = new Dictionary<int, List<WeaponSystem>>();
 
+    // HashSet for O(1) weapon containment checks (mirrors weapons list)
+    private HashSet<WeaponSystem> weaponSet = new HashSet<WeaponSystem>();
+
     private Ship ship;
 
     // Public properties
@@ -51,6 +54,7 @@ public class WeaponManager : MonoBehaviour
     private void DiscoverWeapons()
     {
         weapons.Clear();
+        weaponSet.Clear();
 
         // Find all weapons in children (hardpoints)
         WeaponSystem[] foundWeapons = GetComponentsInChildren<WeaponSystem>();
@@ -58,6 +62,7 @@ public class WeaponManager : MonoBehaviour
         foreach (WeaponSystem weapon in foundWeapons)
         {
             weapons.Add(weapon);
+            weaponSet.Add(weapon); // O(1) lookup support
             weapon.Initialize(ship);
 
             // Add to group 0 (unassigned) by default
@@ -72,7 +77,8 @@ public class WeaponManager : MonoBehaviour
     /// </summary>
     public void AssignWeaponToGroup(WeaponSystem weapon, int groupNumber)
     {
-        if (!weapons.Contains(weapon))
+        // O(1) containment check using HashSet instead of O(n) List.Contains
+        if (!weaponSet.Contains(weapon))
         {
             Debug.LogWarning($"Weapon {weapon.WeaponName} not found on this ship");
             return;
@@ -144,8 +150,6 @@ public class WeaponManager : MonoBehaviour
         Debug.Log($"{gameObject.name} firing group {groupNumber} ({groupWeapons.Count} weapons)...");
 
         // Fire all weapons in parallel (they handle their own spin-up)
-        List<Coroutine> firingCoroutines = new List<Coroutine>();
-
         foreach (WeaponSystem weapon in groupWeapons)
         {
             if (weapon.CanFire())

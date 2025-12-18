@@ -128,6 +128,7 @@ public class WeaponGroupPanel : MonoBehaviour
         // Check group status
         bool anyOnCooldown = false;
         bool anyOutOfArc = false;
+        bool anyNoAmmo = false;
         int totalHeat = 0;
 
         foreach (WeaponSystem weapon in groupWeapons)
@@ -138,7 +139,11 @@ public class WeaponGroupPanel : MonoBehaviour
             if (currentTarget != null && !weapon.IsInArc(currentTarget.transform.position))
                 anyOutOfArc = true;
 
-            if (weapon.CanFire())
+            // Check ammo (only for weapons with limited ammo)
+            if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+                anyNoAmmo = true;
+
+            if (weapon.CanFireSilent())
                 totalHeat += weapon.HeatCost;
         }
 
@@ -161,19 +166,26 @@ public class WeaponGroupPanel : MonoBehaviour
         // Heat cost
         GUI.Label(new Rect(x + 105, y, 80, 20), $"Heat: {totalHeat}");
 
-        // Warnings
-        string warnings = "";
+        // Warnings - priority: NO AMMO (red) > COOLDOWN (yellow) > OUT OF ARC (orange)
+        float warningX = x + 190;
+        if (anyNoAmmo)
+        {
+            GUI.color = Color.red;
+            GUI.Label(new Rect(warningX, y, 70, 20), "[NO AMMO]");
+            warningX += 75;
+        }
         if (anyOnCooldown)
-            warnings += "[COOLDOWN] ";
-        if (anyOutOfArc)
-            warnings += "[OUT OF ARC]";
-
-        if (warnings.Length > 0)
         {
             GUI.color = Color.yellow;
-            GUI.Label(new Rect(x + 190, y, 140, 20), warnings);
-            GUI.color = Color.white;
+            GUI.Label(new Rect(warningX, y, 80, 20), "[COOLDOWN]");
+            warningX += 85;
         }
+        if (anyOutOfArc)
+        {
+            GUI.color = new Color(1f, 0.5f, 0f); // Orange
+            GUI.Label(new Rect(warningX, y, 90, 20), "[OUT OF ARC]");
+        }
+        GUI.color = Color.white;
 
         y += 22;
 
@@ -182,15 +194,26 @@ public class WeaponGroupPanel : MonoBehaviour
         {
             string weaponStatus = $"  • {weapon.WeaponName}";
 
-            // Show individual weapon status
-            if (weapon.CurrentCooldown > 0)
+            // Add ammo count for limited ammo weapons
+            if (weapon.AmmoCapacity > 0)
+            {
+                weaponStatus += $" ({weapon.CurrentAmmo}/{weapon.AmmoCapacity})";
+            }
+
+            // Show individual weapon status - priority: NO AMMO > COOLDOWN > OUT OF ARC > Ready
+            if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+            {
+                GUI.color = Color.red;
+                weaponStatus += " [NO AMMO]";
+            }
+            else if (weapon.CurrentCooldown > 0)
             {
                 GUI.color = Color.gray;
                 weaponStatus += $" (CD:{weapon.CurrentCooldown})";
             }
             else if (currentTarget != null && !weapon.IsInArc(currentTarget.transform.position))
             {
-                GUI.color = Color.yellow;
+                GUI.color = new Color(1f, 0.5f, 0f); // Orange
                 weaponStatus += " (No Arc)";
             }
             else
@@ -217,14 +240,19 @@ public class WeaponGroupPanel : MonoBehaviour
         int totalWeapons = weaponManager.Weapons.Count;
         int readyWeapons = 0;
         int totalHeat = 0;
+        bool anyNoAmmo = false;
 
         foreach (WeaponSystem weapon in weaponManager.Weapons)
         {
-            if (weapon.CanFire())
+            if (weapon.CanFireSilent())
             {
                 readyWeapons++;
                 totalHeat += weapon.HeatCost;
             }
+
+            // Check ammo (only for weapons with limited ammo)
+            if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+                anyNoAmmo = true;
         }
 
         // Alpha Strike button - larger and more prominent
@@ -246,6 +274,15 @@ public class WeaponGroupPanel : MonoBehaviour
         // Heat warning
         GUI.Label(new Rect(x, y, 330, 20), $"Total Heat: {totalHeat}");
         y += 22;
+
+        // Ammo warning
+        if (anyNoAmmo)
+        {
+            GUI.color = Color.red;
+            GUI.Label(new Rect(x, y, 330, 20), "WARNING: Some weapons have no ammo!");
+            GUI.color = Color.white;
+            y += 20;
+        }
 
         // Check heat capacity
         if (playerShip != null && playerShip.HeatManager != null)

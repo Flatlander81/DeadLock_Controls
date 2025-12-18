@@ -105,47 +105,70 @@ public abstract class WeaponSystem : MonoBehaviour
     /// </summary>
     public bool CanFire()
     {
-        // Check cooldown
-        if (currentCooldown > 0)
+        return CanFireInternal(true);
+    }
+
+    /// <summary>
+    /// Check if weapon can fire without logging (for UI polling).
+    /// </summary>
+    public bool CanFireSilent()
+    {
+        return CanFireInternal(false);
+    }
+
+    /// <summary>
+    /// Helper method for conditional logging to reduce code duplication.
+    /// </summary>
+    private void LogIfEnabled(bool shouldLog, string message)
+    {
+        if (shouldLog)
         {
-            Debug.Log($"{weaponName}: On cooldown ({currentCooldown} turns remaining)");
-            return false;
+            Debug.Log($"{weaponName}: {message}");
         }
+    }
+
+    /// <summary>
+    /// Helper method to check a condition and log if it fails.
+    /// Returns true if the condition FAILS (weapon cannot fire).
+    /// </summary>
+    private bool CheckFailCondition(bool failCondition, bool logReasons, string failMessage)
+    {
+        if (failCondition)
+        {
+            LogIfEnabled(logReasons, failMessage);
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Internal fire check with optional logging.
+    /// </summary>
+    private bool CanFireInternal(bool logReasons)
+    {
+        // Check cooldown
+        if (CheckFailCondition(currentCooldown > 0, logReasons,
+            $"On cooldown ({currentCooldown} turns remaining)")) return false;
 
         // Check ammo (0 = infinite)
-        if (ammoCapacity > 0 && currentAmmo <= 0)
-        {
-            Debug.Log($"{weaponName}: Out of ammo");
-            return false;
-        }
+        if (CheckFailCondition(ammoCapacity > 0 && currentAmmo <= 0, logReasons,
+            "Out of ammo")) return false;
 
         // Check target
-        if (assignedTarget == null)
-        {
-            Debug.Log($"{weaponName}: No target assigned");
-            return false;
-        }
+        if (CheckFailCondition(assignedTarget == null, logReasons,
+            "No target assigned")) return false;
 
         // Check target alive
-        if (assignedTarget.IsDead)
-        {
-            Debug.Log($"{weaponName}: Target is dead");
-            return false;
-        }
+        if (CheckFailCondition(assignedTarget.IsDead, logReasons,
+            "Target is dead")) return false;
 
         // Check arc
-        if (!IsInArc(assignedTarget.transform.position))
-        {
-            Debug.Log($"{weaponName}: Target not in firing arc");
-            return false;
-        }
+        if (CheckFailCondition(!IsInArc(assignedTarget.transform.position), logReasons,
+            "Target not in firing arc")) return false;
 
         // Check range
-        if (!IsInRange(assignedTarget.transform.position))
-        {
-            Debug.Log($"{weaponName}: Target out of range");
-            return false;
-        }
+        if (CheckFailCondition(!IsInRange(assignedTarget.transform.position), logReasons,
+            "Target out of range")) return false;
 
         return true;
     }
@@ -268,6 +291,69 @@ public abstract class WeaponSystem : MonoBehaviour
     {
         currentAmmo = ammoCapacity;
         Debug.Log($"{weaponName} reloaded to {ammoCapacity} rounds");
+    }
+
+    /// <summary>
+    /// Calculate lead position for moving target.
+    /// Estimates where target will be when projectile arrives.
+    /// Used by ballistic weapons (RailGun, NewtonianCannon).
+    /// </summary>
+    /// <param name="projectileSpeed">Speed of the projectile in units per second</param>
+    /// <returns>Lead position to aim at</returns>
+    protected Vector3 CalculateLeadPosition(float projectileSpeed)
+    {
+        if (assignedTarget == null) return Vector3.zero;
+
+        Vector3 targetCurrentPos = assignedTarget.transform.position;
+
+        // Get target velocity based on ship's forward direction and speed
+        Vector3 targetVelocity = assignedTarget.transform.forward * assignedTarget.CurrentSpeed;
+
+        // Calculate time to impact
+        float distanceToTarget = Vector3.Distance(hardpointTransform.position, targetCurrentPos);
+        float timeToImpact = distanceToTarget / projectileSpeed;
+
+        // Calculate lead position
+        return targetCurrentPos + (targetVelocity * timeToImpact);
+    }
+
+    /// <summary>
+    /// Create base projectile spawn info with common calculations.
+    /// Handles lead position, damage multiplier, and rotation calculation.
+    /// Used by ballistic weapons to reduce code duplication.
+    /// </summary>
+    /// <param name="projectileSpeed">Speed of the projectile</param>
+    /// <param name="projectileType">Type of projectile to spawn</param>
+    /// <returns>Populated ProjectileSpawnInfo struct</returns>
+    protected ProjectileSpawnInfo CreateBallisticProjectileInfo(float projectileSpeed, ProjectileSpawnInfo.ProjectileType projectileType = ProjectileSpawnInfo.ProjectileType.Ballistic)
+    {
+        if (assignedTarget == null) return default;
+
+        // Calculate lead position for moving target
+        Vector3 targetPosition = CalculateLeadPosition(projectileSpeed);
+
+        // Apply damage multiplier from ship (Overcharge ability)
+        float actualDamage = damage;
+        if (ownerShip != null)
+        {
+            actualDamage *= ownerShip.WeaponDamageMultiplier;
+        }
+
+        // Calculate rotation to face target
+        Vector3 directionToTarget = (targetPosition - hardpointTransform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        return new ProjectileSpawnInfo
+        {
+            Type = projectileType,
+            SpawnPosition = hardpointTransform.position,
+            SpawnRotation = targetRotation,
+            TargetPosition = targetPosition,
+            TargetShip = assignedTarget,
+            Damage = actualDamage,
+            Speed = projectileSpeed,
+            OwnerShip = ownerShip
+        };
     }
 
     /// <summary>

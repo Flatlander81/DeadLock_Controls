@@ -835,3 +835,171 @@ All targeting system tests passing:
 - ✅ One-click scene setup tool
 
 **Ready for Phase 2 Step 2.2: Final Integration!**
+
+---
+
+## Phase 3: Damage & Destruction System
+
+### Step 3.0 - Phase 3 Standards Established
+
+**Status:** Complete ✅
+
+#### 📁 Files Created
+- `CLAUDE.md` - Claude Code standards document with Phase 3 conventions
+
+#### 📁 Folder Structure Created
+```
+Assets/Scripts/Damage/              # Core damage system
+Assets/Scripts/Damage/Sections/     # Section-related components
+Assets/Scripts/Damage/Systems/      # Mounted systems (weapons, engines, etc.)
+Assets/Scripts/Damage/Debug/        # Debug visualizers and test controllers
+Assets/Editor/DamageSystem/         # Editor automation scripts
+Assets/Tests/PlayModeTests/DamageSystem/  # Unit tests
+Assets/Scenes/Testing/              # Test scenes (auto-generated)
+```
+
+#### 📋 Standards Documented
+- Code standards (DRY, naming, events, SerializeField, null safety, documentation)
+- Editor automation standards (menu items, layer/tag creation, prefab modification)
+- Testing standards (test scenes, test controllers, debug visualization, unit tests)
+- GDD reference data (section stats, shield stats)
+
+---
+
+### Step 3.1 - Section Infrastructure
+
+**Status:** Complete ✅
+
+#### 📁 Files Created
+
+**Core Components:**
+- `Assets/Scripts/Damage/Sections/SectionType.cs` - Enum defining 7 section types (Fore, Aft, Port, Starboard, Dorsal, Ventral, Core)
+- `Assets/Scripts/Damage/Sections/SectionDefinitions.cs` - Static data class with Hephaestus section configurations (armor, structure, collider positions)
+- `Assets/Scripts/Damage/DamageResult.cs` - Struct for damage application results (armor, structure, overflow, breach status)
+- `Assets/Scripts/Damage/Sections/ShipSection.cs` - MonoBehaviour for individual sections with damage flow logic
+- `Assets/Scripts/Damage/Sections/SectionManager.cs` - Manages all sections on a ship with O(1) lookup
+- `Assets/Scripts/Damage/Sections/SectionHitDetector.cs` - Detects projectile hits on section colliders
+
+**Editor Automation:**
+- `Assets/Editor/DamageSystem/SectionSetupEditor.cs` - Menu item to setup sections on selected ship
+- `Assets/Editor/DamageSystem/SectionTestSceneSetup.cs` - Menu item to create section test scene
+
+**Debug Tools:**
+- `Assets/Scripts/Damage/Debug/SectionDebugVisualizer.cs` - Gizmo visualization for section colliders and health
+- `Assets/Scripts/Damage/Debug/SectionTestController.cs` - Runtime test controller with GUI and hotkeys
+
+**Unit Tests:**
+- `Assets/Tests/PlayModeTests/DamageSystem/SectionTests.cs` - 12 comprehensive tests
+
+#### 🔧 Modified Files
+- `Assets/Scripts/Movement/Ship.cs` - Added SectionManager property and initialization in Start()
+
+#### 🎯 Features Implemented
+
+1. **Section Type Enum** (SectionType.cs)
+   - 7 section types with XML documentation
+   - Fore (forward weapons, sensors), Aft (engines), Port (left side)
+   - Starboard (right side), Dorsal (top/bridge), Ventral (bottom/cargo)
+   - Core (protected center, no armor, special access rules)
+
+2. **Section Definitions** (SectionDefinitions.cs)
+   - Static data class with Hephaestus GDD values:
+     - Fore: 100 armor / 50 structure
+     - Aft: 60 armor / 40 structure
+     - Port: 80 armor / 50 structure
+     - Starboard: 80 armor / 50 structure
+     - Dorsal: 70 armor / 40 structure
+     - Ventral: 70 armor / 40 structure
+     - Core: 0 armor / 30 structure (sphere collider)
+   - Collider position/size configurations
+   - Helper methods: GetConfig(), GetAllConfigs(), GetAllSectionTypes()
+
+3. **Damage Result Struct** (DamageResult.cs)
+   - DamageToArmor, DamageToStructure, OverflowDamage
+   - ArmorBroken, SectionBreached, WasAlreadyBreached flags
+   - TotalDamageApplied computed property
+   - Static factory: AlreadyBreached(float)
+
+4. **Ship Section Component** (ShipSection.cs)
+   - Initialize from SectionDefinitions or custom values
+   - Damage flow: Armor → Structure → Breach
+   - Events: OnArmorDamaged, OnStructureDamaged, OnSectionBreached
+   - Health percentage methods, Reset(), IsOperational()
+
+5. **Section Manager** (SectionManager.cs)
+   - Dictionary<SectionType, ShipSection> for O(1) lookup
+   - RegisterSection(), UnregisterSection(), AutoRegisterChildSections()
+   - GetSection(type), GetAllSections(), GetBreachedSections(), GetOperationalSections()
+   - Aggregate methods: GetTotalArmorRemaining(), GetTotalStructureRemaining(), etc.
+   - Events forwarded from sections: OnSectionArmorDamaged, OnSectionStructureDamaged, OnSectionBreached
+
+6. **Section Hit Detector** (SectionHitDetector.cs)
+   - Attach to section colliders
+   - Auto-finds parent ShipSection
+   - OnTriggerEnter for projectile detection
+   - Prevents friendly fire (checks projectile.OwnerShip)
+   - Applies damage and destroys projectile
+
+7. **Editor Automation**
+   - Menu: `Deadlock/Damage System/Setup Sections on Selected Ship`
+   - Menu: `Deadlock/Damage System/Remove Sections from Selected Ship`
+   - Menu: `Deadlock/Damage System/Create Section Test Scene`
+   - Menu: `Deadlock/Damage System/Open Section Test Scene`
+   - Auto-creates Sections container, colliders, components
+
+8. **Debug Tools**
+   - SectionDebugVisualizer: Shows colliders with health-based colors
+   - SectionTestController: GUI panel with damage buttons and hotkeys (D/R/L)
+
+#### 🧪 Unit Tests: 12/12 Passing ✅
+
+**Test Suite:** `Assets/Tests/PlayModeTests/DamageSystem/SectionTests.cs`
+
+1. ✅ Test_SectionInitialization - Section initializes with correct values
+2. ✅ Test_SectionInitializationFromDefinitions - Initializes from SectionDefinitions config
+3. ✅ Test_DamageFlowsToArmorFirst - Armor absorbs damage first
+4. ✅ Test_DamageOverflowsToStructure - Excess damage flows to structure
+5. ✅ Test_SectionBreachAtZeroStructure - Section breaches at 0 structure
+6. ✅ Test_OverflowDamageTracking - Overflow damage is tracked correctly
+7. ✅ Test_DamageToBreachedSectionOverflows - Already breached sections return overflow
+8. ✅ Test_SectionManagerRegistration - SectionManager registers sections correctly
+9. ✅ Test_SectionManagerAutoRegister - Auto-registers child sections
+10. ✅ Test_SectionManagerBreachedTracking - Tracks breached/operational sections
+11. ✅ Test_SectionManagerTotals - Calculates total armor/structure correctly
+12. ✅ Test_SectionReset - Reset restores full health
+
+**All Tests: 116/116 Passing ✅**
+- Heat System Tests: 10/10 ✅
+- Ability System Tests: 13/13 ✅
+- Integration Tests: 10/10 ✅
+- Weapon System Tests: 12/12 ✅
+- Projectile System Tests: 12/12 ✅
+- Targeting System Tests: 12/12 ✅
+- Phase 2.2 Integration Tests: 35/35 ✅
+- **Section Tests: 12/12 ✅**
+
+#### 📊 GDD Section Values (Hephaestus)
+
+| Section | Armor | Structure | Collider |
+|---------|-------|-----------|----------|
+| Fore | 100 | 50 | Box (2, 1.5, 2) at (0, 0, 3) |
+| Aft | 60 | 40 | Box (2, 1.5, 2) at (0, 0, -3) |
+| Port | 80 | 50 | Box (1.5, 1.5, 4) at (-2, 0, 0) |
+| Starboard | 80 | 50 | Box (1.5, 1.5, 4) at (2, 0, 0) |
+| Dorsal | 70 | 40 | Box (3, 1, 5) at (0, 1.5, 0) |
+| Ventral | 70 | 40 | Box (3, 1, 5) at (0, -1.5, 0) |
+| Core | 0 | 30 | Sphere (r=1) at (0, 0, 0) |
+
+**Total Armor:** 460 | **Total Structure:** 300
+
+#### 📝 Architecture Notes
+
+- Damage flow: Armor → Structure → Breach (Core breach = ship destruction)
+- Events bubble up from ShipSection to SectionManager
+- SectionManager integrates with Ship.cs via property and auto-initialization
+- O(1) section lookup via Dictionary
+- Projectile hit detection via OnTriggerEnter
+- Editor automation follows Phase 3 standards (Undo support, validation)
+- Debug tools provide real-time feedback during development
+
+#### ⏭️ Next: Step 3.2 - Targeted Damage Routing

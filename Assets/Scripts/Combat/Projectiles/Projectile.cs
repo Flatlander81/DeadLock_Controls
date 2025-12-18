@@ -12,11 +12,20 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] protected float lifetime = 10f; // Max seconds before auto-destroy
     [SerializeField] protected float collisionRadius = 0.5f; // For sphere cast collision
 
+    [Header("Gizmo Settings")]
+    [SerializeField] protected float gizmoForwardLineLength = 2f; // Length of forward direction gizmo line
+
     [Header("Runtime State")]
     [SerializeField] protected Ship ownerShip;
     [SerializeField] protected Ship targetShip;
     [SerializeField] protected float currentAge = 0f;
     [SerializeField] protected bool isActive = false;
+    private bool isBeingDestroyed = false; // Prevents double-destruction from lifetime + collision race
+
+    // Pre-allocated buffer for SphereCastNonAlloc to avoid GC allocations every frame
+    // Buffer size of 16 is sufficient for typical combat scenarios (rarely more than 16 overlapping colliders)
+    private const int RaycastBufferSize = 16;
+    private static readonly RaycastHit[] hitBuffer = new RaycastHit[RaycastBufferSize];
 
     // Public properties
     public float Damage => damage;
@@ -52,7 +61,7 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     protected virtual void Update()
     {
-        if (!isActive) return;
+        if (!isActive || isBeingDestroyed) return;
 
         // Update age
         currentAge += Time.deltaTime;
@@ -67,8 +76,11 @@ public abstract class Projectile : MonoBehaviour
         // Update movement (implemented by subclasses)
         UpdateMovement();
 
-        // Check for collisions
-        CheckCollisions();
+        // Check for collisions (skip if already being destroyed)
+        if (!isBeingDestroyed)
+        {
+            CheckCollisions();
+        }
     }
 
     /// <summary>
@@ -79,23 +91,25 @@ public abstract class Projectile : MonoBehaviour
 
     /// <summary>
     /// Check for collisions with ships using sphere cast.
+    /// Uses NonAlloc version to avoid GC allocations every frame.
     /// </summary>
     protected virtual void CheckCollisions()
     {
-        // Use sphere cast to detect hits
-        RaycastHit[] hits = Physics.SphereCastAll(
+        // Use sphere cast with pre-allocated buffer to avoid GC allocations
+        int hitCount = Physics.SphereCastNonAlloc(
             transform.position,
             collisionRadius,
             transform.forward,
+            hitBuffer,
             speed * Time.deltaTime
         );
 
-        foreach (RaycastHit hit in hits)
+        for (int i = 0; i < hitCount; i++)
         {
-            Ship hitShip = hit.collider.GetComponent<Ship>();
+            Ship hitShip = hitBuffer[i].collider.GetComponent<Ship>();
             if (hitShip == null)
             {
-                hitShip = hit.collider.GetComponentInParent<Ship>();
+                hitShip = hitBuffer[i].collider.GetComponentInParent<Ship>();
             }
 
             // Check if we hit a ship (and not the owner)
@@ -113,6 +127,18 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     protected virtual void OnHit(Ship target)
     {
+        // Prevent double-hit from race conditions
+        if (isBeingDestroyed) return;
+        isBeingDestroyed = true;
+
+        // Safety check: ensure target is still valid
+        if (target == null || target.IsDead)
+        {
+            Debug.LogWarning($"{GetType().Name} target became invalid before hit could apply");
+            OnDestroyed();
+            return;
+        }
+
         Debug.Log($"{GetType().Name} hit {target.gameObject.name} for {damage} damage");
 
         // Apply damage to target
@@ -127,6 +153,10 @@ public abstract class Projectile : MonoBehaviour
     /// </summary>
     protected virtual void OnLifetimeExpired()
     {
+        // Prevent double-destruction from race conditions
+        if (isBeingDestroyed) return;
+        isBeingDestroyed = true;
+
         Debug.Log($"{GetType().Name} lifetime expired ({lifetime}s)");
         OnDestroyed();
     }
@@ -149,6 +179,7 @@ public abstract class Projectile : MonoBehaviour
     public virtual void ResetToPool()
     {
         isActive = false;
+        isBeingDestroyed = false;
         currentAge = 0f;
         ownerShip = null;
         targetShip = null;
@@ -167,6 +198,6 @@ public abstract class Projectile : MonoBehaviour
 
         // Draw forward direction
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2f);
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * gizmoForwardLineLength);
     }
 }

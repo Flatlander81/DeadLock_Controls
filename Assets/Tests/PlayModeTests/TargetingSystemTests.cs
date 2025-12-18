@@ -110,6 +110,18 @@ public class TargetingSystemTests
             }
         }
 
+        // Add to weaponSet HashSet for O(1) containment checks
+        var weaponSetField = typeof(WeaponManager).GetField("weaponSet",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        if (weaponSetField != null)
+        {
+            var weaponSet = weaponSetField.GetValue(weaponManager) as System.Collections.Generic.HashSet<WeaponSystem>;
+            if (weaponSet != null)
+            {
+                weaponSet.Add(weapon);
+            }
+        }
+
         // Add to weaponGroups dictionary (group 0 by default)
         var weaponGroupsField = typeof(WeaponManager).GetField("weaponGroups",
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -356,7 +368,7 @@ public class TargetingSystemTests
     {
         yield return null;
 
-        // Create narrow-arc weapon (cannon with 180° forward arc)
+        // Create narrow-arc weapon (cannon with 60° spinal mount arc)
         GameObject cannonHardpoint = new GameObject("Cannon_Hardpoint");
         cannonHardpoint.transform.SetParent(playerShipObject.transform);
         cannonHardpoint.transform.localPosition = Vector3.zero;
@@ -368,15 +380,15 @@ public class TargetingSystemTests
 
         yield return null;
 
-        // Position enemy behind the cannon (out of 180° forward arc)
+        // Position enemy behind the cannon (out of 60° spinal mount arc)
         enemyShip1Object.transform.position = new Vector3(0f, 0f, -10f);
 
         // Verify out of arc
-        Assert.IsFalse(cannon.IsInArc(enemyShip1.transform.position), "Target behind should be out of 180° arc");
+        Assert.IsFalse(cannon.IsInArc(enemyShip1.transform.position), "Target behind should be out of 60° arc");
 
         // Position enemy ahead (in arc)
         enemyShip1Object.transform.position = new Vector3(0f, 0f, 10f);
-        Assert.IsTrue(cannon.IsInArc(enemyShip1.transform.position), "Target ahead should be in 180° arc");
+        Assert.IsTrue(cannon.IsInArc(enemyShip1.transform.position), "Target ahead should be in 60° arc");
 
         // Cleanup
         Object.DestroyImmediate(cannonHardpoint);
@@ -450,7 +462,7 @@ public class TargetingSystemTests
         weaponManager.AssignWeaponToGroup(railGun, 1);
         weaponManager.AssignWeaponToGroup(cannon, 1);
 
-        // Move enemy in front of ship so both weapons can hit (cannon has 180° forward arc)
+        // Move enemy in front of ship so both weapons can hit (cannon has 60° spinal mount arc)
         enemyShip1Object.transform.position = new Vector3(0f, 0f, 10f);
 
         // Set targets so CanFire returns true

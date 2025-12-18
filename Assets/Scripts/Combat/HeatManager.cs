@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Manages heat generation, accumulation, and cooling for a ship.
@@ -34,11 +35,50 @@ public class HeatManager : MonoBehaviour
     [Header("Heat Configuration")]
     [SerializeField] private float maxHeat = 150f;
     [SerializeField] private float passiveCooling = 20f;
+    [SerializeField] private float overheatMultiplier = 2f;
+
+    [Header("Heat Tier Thresholds")]
+    [SerializeField] private float minorThreshold = 60f;
+    [SerializeField] private float moderateThreshold = 80f;
+    [SerializeField] private float severeThreshold = 100f;
+    [SerializeField] private float criticalThreshold = 120f;
+    [SerializeField] private float catastrophicThreshold = 150f;
+
+    [Header("Penalty Settings - Minor Tier")]
+    [SerializeField] private float minorAccuracyMult = 0.9f;
+    [SerializeField] private float minorSpeedMult = 1.0f;
+
+    [Header("Penalty Settings - Moderate Tier")]
+    [SerializeField] private float moderateAccuracyMult = 0.8f;
+    [SerializeField] private float moderateSpeedMult = 0.9f;
+
+    [Header("Penalty Settings - Severe Tier")]
+    [SerializeField] private float severeAccuracyMult = 0.6f;
+    [SerializeField] private float severeSpeedMult = 0.75f;
+
+    [Header("Penalty Settings - Critical Tier")]
+    [SerializeField] private float criticalAccuracyMult = 0.4f;
+    [SerializeField] private float criticalSpeedMult = 0.6f;
+    [SerializeField] private float criticalHullDamage = 5f;
+
+    [Header("Penalty Settings - Catastrophic Tier")]
+    [SerializeField] private float catastrophicAccuracyMult = 0.2f;
+    [SerializeField] private float catastrophicSpeedMult = 0.5f;
+    [SerializeField] private float catastrophicHullDamage = 20f;
+
+    [Header("Visual Settings")]
+    [SerializeField] private float gizmoBarHeight = 3f;
+    [SerializeField] private float gizmoBarWidth = 2f;
+    [SerializeField] private float gizmoBarThickness = 0.2f;
 
     [Header("Debug Info")]
     [SerializeField] private float currentHeat = 0f;
     [SerializeField] private float plannedHeat = 0f;
     [SerializeField] private HeatTier currentTier = HeatTier.Safe;
+
+    // Penalty lookup dictionaries (initialized in Awake)
+    private Dictionary<HeatTier, HeatPenalties> penaltyLookup;
+    private Dictionary<HeatTier, Color> colorLookup;
 
     // Events
     public event Action<float> OnHeatChanged;
@@ -51,6 +91,15 @@ public class HeatManager : MonoBehaviour
     public float PassiveCooling => passiveCooling;
 
     /// <summary>
+    /// Initialize lookup tables on Awake.
+    /// </summary>
+    private void Awake()
+    {
+        InitializePenaltyLookup();
+        InitializeColorLookup();
+    }
+
+    /// <summary>
     /// Initialize heat system.
     /// </summary>
     private void Start()
@@ -58,6 +107,52 @@ public class HeatManager : MonoBehaviour
         currentHeat = 0f;
         plannedHeat = 0f;
         currentTier = HeatTier.Safe;
+    }
+
+    /// <summary>
+    /// Initialize the penalty lookup dictionary with serialized values.
+    /// </summary>
+    private void InitializePenaltyLookup()
+    {
+        penaltyLookup = new Dictionary<HeatTier, HeatPenalties>
+        {
+            { HeatTier.Safe, CreatePenalty(1.0f, 1.0f, 0f, false) },
+            { HeatTier.Minor, CreatePenalty(minorAccuracyMult, minorSpeedMult, 0f, false) },
+            { HeatTier.Moderate, CreatePenalty(moderateAccuracyMult, moderateSpeedMult, 0f, true) },
+            { HeatTier.Severe, CreatePenalty(severeAccuracyMult, severeSpeedMult, 0f, true) },
+            { HeatTier.Critical, CreatePenalty(criticalAccuracyMult, criticalSpeedMult, criticalHullDamage, true) },
+            { HeatTier.Catastrophic, CreatePenalty(catastrophicAccuracyMult, catastrophicSpeedMult, catastrophicHullDamage, true) }
+        };
+    }
+
+    /// <summary>
+    /// Initialize the color lookup dictionary.
+    /// </summary>
+    private void InitializeColorLookup()
+    {
+        colorLookup = new Dictionary<HeatTier, Color>
+        {
+            { HeatTier.Safe, new Color(0.0f, 1.0f, 0.0f, 1.0f) },        // Green
+            { HeatTier.Minor, new Color(0.5f, 1.0f, 0.0f, 1.0f) },       // Yellow-green
+            { HeatTier.Moderate, new Color(1.0f, 1.0f, 0.0f, 1.0f) },    // Yellow
+            { HeatTier.Severe, new Color(1.0f, 0.5f, 0.0f, 1.0f) },      // Orange
+            { HeatTier.Critical, new Color(1.0f, 0.0f, 0.0f, 1.0f) },    // Red
+            { HeatTier.Catastrophic, new Color(0.5f, 0.0f, 0.0f, 1.0f) } // Dark red
+        };
+    }
+
+    /// <summary>
+    /// Helper to create HeatPenalties struct.
+    /// </summary>
+    private HeatPenalties CreatePenalty(float accuracy, float speed, float hullDamage, bool sensorFlicker)
+    {
+        return new HeatPenalties
+        {
+            AccuracyMultiplier = accuracy,
+            SpeedMultiplier = speed,
+            HullDamagePerTurn = hullDamage,
+            SensorFlicker = sensorFlicker
+        };
     }
 
     /// <summary>
@@ -79,8 +174,8 @@ public class HeatManager : MonoBehaviour
         currentHeat += plannedHeat;
         plannedHeat = 0f;
 
-        // Clamp to max heat
-        currentHeat = Mathf.Min(currentHeat, maxHeat * 2f); // Allow overheat up to 2x max
+        // Clamp to max heat (allow overheat up to multiplier)
+        currentHeat = Mathf.Min(currentHeat, maxHeat * overheatMultiplier);
 
         UpdateHeatTier();
         OnHeatChanged?.Invoke(currentHeat);
@@ -97,8 +192,8 @@ public class HeatManager : MonoBehaviour
         currentHeat += heatToCommit;
         plannedHeat = Mathf.Max(0f, plannedHeat - heatToCommit);
 
-        // Clamp to max heat
-        currentHeat = Mathf.Min(currentHeat, maxHeat * 2f);
+        // Clamp to max heat (allow overheat up to multiplier)
+        currentHeat = Mathf.Min(currentHeat, maxHeat * overheatMultiplier);
 
         UpdateHeatTier();
         OnHeatChanged?.Invoke(currentHeat);
@@ -168,65 +263,20 @@ public class HeatManager : MonoBehaviour
 
     /// <summary>
     /// Gets the current penalties based on heat level.
+    /// Uses dictionary lookup for O(1) performance.
     /// </summary>
     /// <returns>HeatPenalties struct with current multipliers</returns>
     public HeatPenalties GetPenalties()
     {
-        HeatPenalties penalties = new HeatPenalties();
-
-        switch (currentTier)
+        // Ensure lookup is initialized (for cases where called before Awake)
+        if (penaltyLookup == null)
         {
-            case HeatTier.Safe:
-                penalties.AccuracyMultiplier = 1.0f;
-                penalties.SpeedMultiplier = 1.0f;
-                penalties.HullDamagePerTurn = 0f;
-                penalties.SensorFlicker = false;
-                break;
-
-            case HeatTier.Minor:
-                penalties.AccuracyMultiplier = 0.9f; // -10%
-                penalties.SpeedMultiplier = 1.0f;
-                penalties.HullDamagePerTurn = 0f;
-                penalties.SensorFlicker = false;
-                break;
-
-            case HeatTier.Moderate:
-                penalties.AccuracyMultiplier = 0.8f; // -20%
-                penalties.SpeedMultiplier = 0.9f; // -10%
-                penalties.HullDamagePerTurn = 0f;
-                penalties.SensorFlicker = true;
-                break;
-
-            case HeatTier.Severe:
-                penalties.AccuracyMultiplier = 0.6f; // -40%
-                penalties.SpeedMultiplier = 0.75f; // -25%
-                penalties.HullDamagePerTurn = 0f;
-                penalties.SensorFlicker = true;
-                break;
-
-            case HeatTier.Critical:
-                penalties.AccuracyMultiplier = 0.4f; // -60%
-                penalties.SpeedMultiplier = 0.6f; // -40%
-                penalties.HullDamagePerTurn = 5f;
-                penalties.SensorFlicker = true;
-                break;
-
-            case HeatTier.Catastrophic:
-                penalties.AccuracyMultiplier = 0.2f; // -80%
-                penalties.SpeedMultiplier = 0.5f; // -50%
-                penalties.HullDamagePerTurn = 20f;
-                penalties.SensorFlicker = true;
-                break;
-
-            default:
-                penalties.AccuracyMultiplier = 1.0f;
-                penalties.SpeedMultiplier = 1.0f;
-                penalties.HullDamagePerTurn = 0f;
-                penalties.SensorFlicker = false;
-                break;
+            InitializePenaltyLookup();
         }
 
-        return penalties;
+        return penaltyLookup.TryGetValue(currentTier, out HeatPenalties penalties)
+            ? penalties
+            : CreatePenalty(1.0f, 1.0f, 0f, false);
     }
 
     /// <summary>
@@ -251,38 +301,28 @@ public class HeatManager : MonoBehaviour
     /// <returns>Corresponding HeatTier</returns>
     private HeatTier CalculateHeatTier(float heat)
     {
-        if (heat >= 150f) return HeatTier.Catastrophic;
-        if (heat >= 120f) return HeatTier.Critical;
-        if (heat >= 100f) return HeatTier.Severe;
-        if (heat >= 80f) return HeatTier.Moderate;
-        if (heat >= 60f) return HeatTier.Minor;
+        if (heat >= catastrophicThreshold) return HeatTier.Catastrophic;
+        if (heat >= criticalThreshold) return HeatTier.Critical;
+        if (heat >= severeThreshold) return HeatTier.Severe;
+        if (heat >= moderateThreshold) return HeatTier.Moderate;
+        if (heat >= minorThreshold) return HeatTier.Minor;
         return HeatTier.Safe;
     }
 
     /// <summary>
     /// Gets the color associated with the current heat tier.
-    /// Used for UI visualization.
+    /// Uses dictionary lookup for O(1) performance.
     /// </summary>
     /// <returns>Color for current tier</returns>
     public Color GetTierColor()
     {
-        switch (currentTier)
+        // Ensure lookup is initialized (for cases where called before Awake)
+        if (colorLookup == null)
         {
-            case HeatTier.Safe:
-                return new Color(0.0f, 1.0f, 0.0f, 1.0f); // Green
-            case HeatTier.Minor:
-                return new Color(0.5f, 1.0f, 0.0f, 1.0f); // Yellow-green
-            case HeatTier.Moderate:
-                return new Color(1.0f, 1.0f, 0.0f, 1.0f); // Yellow
-            case HeatTier.Severe:
-                return new Color(1.0f, 0.5f, 0.0f, 1.0f); // Orange
-            case HeatTier.Critical:
-                return new Color(1.0f, 0.0f, 0.0f, 1.0f); // Red
-            case HeatTier.Catastrophic:
-                return new Color(0.5f, 0.0f, 0.0f, 1.0f); // Dark red
-            default:
-                return Color.white;
+            InitializeColorLookup();
         }
+
+        return colorLookup.TryGetValue(currentTier, out Color color) ? color : Color.white;
     }
 
     /// <summary>
@@ -291,19 +331,17 @@ public class HeatManager : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         // Draw heat bar above ship
-        Vector3 barPosition = transform.position + Vector3.up * 3f;
-        float barWidth = 2f;
-        float barHeight = 0.2f;
+        Vector3 barPosition = transform.position + Vector3.up * gizmoBarHeight;
 
         // Background
         Gizmos.color = Color.gray;
-        Gizmos.DrawCube(barPosition, new Vector3(barWidth, barHeight, 0.1f));
+        Gizmos.DrawCube(barPosition, new Vector3(gizmoBarWidth, gizmoBarThickness, 0.1f));
 
         // Current heat
         float heatPercentage = currentHeat / maxHeat;
-        float fillWidth = barWidth * heatPercentage;
+        float fillWidth = gizmoBarWidth * heatPercentage;
         Gizmos.color = GetTierColor();
-        Gizmos.DrawCube(barPosition - Vector3.right * (barWidth - fillWidth) * 0.5f,
-            new Vector3(fillWidth, barHeight, 0.11f));
+        Gizmos.DrawCube(barPosition - Vector3.right * (gizmoBarWidth - fillWidth) * 0.5f,
+            new Vector3(fillWidth, gizmoBarThickness, 0.11f));
     }
 }

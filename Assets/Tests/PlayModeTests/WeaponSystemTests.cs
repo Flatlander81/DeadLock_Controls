@@ -26,6 +26,13 @@ public class WeaponSystemTests
     [SetUp]
     public void Setup()
     {
+        // Reset ProjectileManager to clear any leftover projectiles from previous tests
+        ProjectileManager.ResetInstance();
+
+        // Create ProjectileManager for this test
+        var pmObj = new GameObject("ProjectileManager");
+        pmObj.AddComponent<ProjectileManager>();
+
         // Create test ship
         shipObject = new GameObject("TestShip");
         ship = shipObject.AddComponent<Ship>();
@@ -47,16 +54,20 @@ public class WeaponSystemTests
         // Add WeaponManager
         weaponManager = shipObject.AddComponent<WeaponManager>();
 
-        // Create target ship
+        // Create target ship (with collider for projectile detection)
         targetObject = new GameObject("TargetShip");
         targetObject.transform.position = new Vector3(0f, 0f, 10f); // 10 units ahead
         targetShip = targetObject.AddComponent<Ship>();
         targetObject.AddComponent<HeatManager>();
+        targetObject.AddComponent<BoxCollider>(); // Required for projectile collision detection
     }
 
     [TearDown]
     public void Teardown()
     {
+        // Clear all projectiles before destroying objects
+        ProjectileManager.ResetInstance();
+
         if (shipObject != null) Object.DestroyImmediate(shipObject);
         if (targetObject != null) Object.DestroyImmediate(targetObject);
     }
@@ -82,7 +93,7 @@ public class WeaponSystemTests
         Assert.AreEqual("Newtonian Cannon", cannon.WeaponName, "Cannon name incorrect");
         Assert.AreEqual(40f, cannon.Damage, "Cannon damage incorrect");
         Assert.AreEqual(30, cannon.HeatCost, "Cannon heat cost incorrect");
-        Assert.AreEqual(180f, cannon.FiringArc, "Cannon arc incorrect");
+        Assert.AreEqual(60f, cannon.FiringArc, "Cannon arc incorrect");
         Assert.AreEqual(20f, cannon.MaxRange, "Cannon range incorrect");
         Assert.AreEqual(0, cannon.MaxCooldown, "Cannon cooldown incorrect");
         Assert.AreEqual(0.5f, cannon.SpinUpTime, 0.01f, "Cannon spin-up time incorrect");
@@ -90,6 +101,7 @@ public class WeaponSystemTests
 
     /// <summary>
     /// Test 2: Test IsInArc() with various positions.
+    /// RailGun has 360° arc, Cannon has 60° arc (spinal mount).
     /// </summary>
     [UnityTest]
     public IEnumerator Test_ArcCheck()
@@ -99,22 +111,26 @@ public class WeaponSystemTests
         // Position target directly ahead (0, 0, 10)
         targetObject.transform.position = new Vector3(0f, 0f, 10f);
         Assert.IsTrue(railGun.IsInArc(targetObject.transform.position), "RailGun: Target ahead should be in 360° arc");
-        Assert.IsTrue(cannon.IsInArc(targetObject.transform.position), "Cannon: Target ahead should be in 180° forward arc");
+        Assert.IsTrue(cannon.IsInArc(targetObject.transform.position), "Cannon: Target ahead should be in 60° forward arc");
 
         // Position target behind (0, 0, -10)
         targetObject.transform.position = new Vector3(0f, 0f, -10f);
         Assert.IsTrue(railGun.IsInArc(targetObject.transform.position), "RailGun: Target behind should be in 360° arc");
-        Assert.IsFalse(cannon.IsInArc(targetObject.transform.position), "Cannon: Target behind should NOT be in 180° forward arc");
+        Assert.IsFalse(cannon.IsInArc(targetObject.transform.position), "Cannon: Target behind should NOT be in 60° forward arc");
 
         // Position target to the side (10, 0, 0)
         targetObject.transform.position = new Vector3(10f, 0f, 0f);
         Assert.IsTrue(railGun.IsInArc(targetObject.transform.position), "RailGun: Target to side should be in 360° arc");
-        Assert.IsFalse(cannon.IsInArc(targetObject.transform.position), "Cannon: Target to side should NOT be in 180° forward arc");
+        Assert.IsFalse(cannon.IsInArc(targetObject.transform.position), "Cannon: Target to side should NOT be in 60° forward arc");
 
-        // Position target at 45° forward-right (7, 0, 7)
+        // Position target at 45° forward-right (7, 0, 7) - outside 60° arc (30° each side)
         targetObject.transform.position = new Vector3(7f, 0f, 7f);
         Assert.IsTrue(railGun.IsInArc(targetObject.transform.position), "RailGun: Target at 45° should be in 360° arc");
-        Assert.IsTrue(cannon.IsInArc(targetObject.transform.position), "Cannon: Target at 45° should be in 180° forward arc");
+        Assert.IsFalse(cannon.IsInArc(targetObject.transform.position), "Cannon: Target at 45° should NOT be in 60° arc");
+
+        // Position target at 20° forward-right (~3.4, 0, 10) - inside 60° arc
+        targetObject.transform.position = new Vector3(3.4f, 0f, 10f);
+        Assert.IsTrue(cannon.IsInArc(targetObject.transform.position), "Cannon: Target at ~20° should be in 60° arc");
     }
 
     /// <summary>
@@ -169,7 +185,7 @@ public class WeaponSystemTests
         // Move target back in range but out of arc (for cannon)
         targetObject.transform.position = new Vector3(0f, 0f, -10f);
         cannon.SetTarget(targetShip);
-        Assert.IsFalse(cannon.CanFire(), "Cannon cannot fire when target behind (out of 180° arc)");
+        Assert.IsFalse(cannon.CanFire(), "Cannon cannot fire when target behind (out of 60° arc)");
 
         // Kill target - cannot fire
         targetObject.transform.position = new Vector3(0f, 0f, 10f);
@@ -219,26 +235,26 @@ public class WeaponSystemTests
     }
 
     /// <summary>
-    /// Test 6: Fire rail gun, verify instant damage.
+    /// Test 6: Fire rail gun, verify fast projectile hits target.
+    /// RailGun fires a fast ballistic projectile (40 units/sec).
     /// </summary>
     [UnityTest]
-    public IEnumerator Test_RailGunInstantHit()
+    public IEnumerator Test_RailGunFastProjectile()
     {
         yield return null;
 
-        // Deplete shields first so damage goes to hull
-        targetShip.TakeDamage(targetShip.CurrentShields);
-        Assert.AreEqual(0f, targetShip.CurrentShields, "Shields should be depleted");
-
         railGun.SetTarget(targetShip);
-        float initialHull = targetShip.CurrentHull;
+        float initialShields = targetShip.CurrentShields;
 
         // Fire weapon
         yield return railGun.FireWithSpinUp();
 
-        // Verify instant damage applied (20 damage)
-        Assert.Less(targetShip.CurrentHull, initialHull, "Target hull should decrease");
-        Assert.AreEqual(initialHull - 20f, targetShip.CurrentHull, 0.01f, "Should take exactly 20 damage");
+        // Wait for projectile to travel and hit (40 units/sec at 10 unit distance = 0.25 sec)
+        yield return new WaitForSeconds(0.5f);
+
+        // Verify damage was dealt - this confirms projectile spawned and hit
+        Assert.Less(targetShip.CurrentShields, initialShields, "Target shields should decrease from RailGun projectile hit");
+        Assert.AreEqual(initialShields - 20f, targetShip.CurrentShields, 0.01f, "Should deal exactly 20 damage");
     }
 
     /// <summary>
@@ -259,7 +275,7 @@ public class WeaponSystemTests
         var info = cannon.GetProjectileInfo();
         Assert.AreEqual(WeaponSystem.ProjectileSpawnInfo.ProjectileType.Ballistic, info.Type, "Cannon should spawn ballistic projectile");
         Assert.AreEqual(40f, info.Damage, "Projectile should have 40 damage");
-        Assert.AreEqual(2f, info.Speed, "Projectile should have 2 units/sec speed");
+        Assert.AreEqual(15f, info.Speed, "Projectile should have 15 units/sec speed");
         Assert.AreEqual(targetShip, info.TargetShip, "Projectile should target correct ship");
     }
 
@@ -386,7 +402,10 @@ public class WeaponSystemTests
         float elapsed = Time.time - startTime;
         Assert.GreaterOrEqual(elapsed, 0.2f, "Spin-up should take at least 0.2 seconds");
 
-        // Verify damage applied after spin-up
+        // Wait for projectile to hit (RailGun now fires projectile at 40 units/sec)
+        yield return new WaitForSeconds(0.5f);
+
+        // Verify damage applied after spin-up + projectile travel
         Assert.Less(targetShip.CurrentHull, initialHull, "Damage should be applied after spin-up");
     }
 
@@ -413,6 +432,9 @@ public class WeaponSystemTests
         // Fire weapon
         yield return railGun.FireWithSpinUp();
 
+        // Wait for projectile to hit (RailGun fires 40 units/sec projectile)
+        yield return new WaitForSeconds(0.5f);
+
         // Verify 2x damage (20 * 2 = 40)
         Assert.AreEqual(initialHull - 40f, targetShip.CurrentHull, 0.01f, "Should deal 40 damage with 2x multiplier");
 
@@ -426,6 +448,9 @@ public class WeaponSystemTests
         // Fire again with normal multipliers
         yield return new WaitForSeconds(0.3f);
         yield return railGun.FireWithSpinUp();
+
+        // Wait for projectile to hit
+        yield return new WaitForSeconds(0.5f);
 
         // Verify normal damage (40 more damage)
         Assert.AreEqual(initialHull - 40f - 20f, targetShip.CurrentHull, 0.01f, "Should deal 20 damage with 1x multiplier");

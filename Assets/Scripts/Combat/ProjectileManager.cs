@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Manages all projectiles in the game.
@@ -18,6 +19,11 @@ public class ProjectileManager : MonoBehaviour
     [Header("Pooling Settings")]
     [SerializeField] private int initialPoolSize = 20;
     [SerializeField] private bool allowPoolGrowth = true;
+    [SerializeField] private int maxPoolSize = 100;
+
+    [Header("Default Projectile Settings")]
+    [SerializeField] private Vector3 defaultBallisticScale = new Vector3(0.3f, 0.3f, 0.3f);
+    [SerializeField] private Vector3 defaultHomingScale = new Vector3(0.2f, 0.5f, 0.2f);
 
     [Header("Runtime State")]
     [SerializeField] private List<Projectile> activeProjectiles = new List<Projectile>();
@@ -28,22 +34,35 @@ public class ProjectileManager : MonoBehaviour
     private Queue<HomingProjectile> homingPool = new Queue<HomingProjectile>();
     private Queue<InstantHitEffect> instantHitPool = new Queue<InstantHitEffect>();
 
+    // Active projectile counts by type (avoid FindAll allocations)
+    private int activeBallisticCount = 0;
+    private int activeHomingCount = 0;
+
     // Parent transforms for organization
     private Transform projectileParent;
     private Transform effectParent;
 
-    // Singleton accessor
+    // Thread-safety lock for singleton
+    private static readonly object instanceLock = new object();
+
+    // Singleton accessor with thread-safe double-checked locking
     public static ProjectileManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindFirstObjectByType<ProjectileManager>();
-                if (instance == null)
+                lock (instanceLock)
                 {
-                    GameObject go = new GameObject("ProjectileManager");
-                    instance = go.AddComponent<ProjectileManager>();
+                    if (instance == null)
+                    {
+                        instance = FindFirstObjectByType<ProjectileManager>();
+                        if (instance == null)
+                        {
+                            GameObject go = new GameObject("ProjectileManager");
+                            instance = go.AddComponent<ProjectileManager>();
+                        }
+                    }
                 }
             }
             return instance;
@@ -79,116 +98,87 @@ public class ProjectileManager : MonoBehaviour
     /// </summary>
     private void InitializePools()
     {
-        // Only initialize if prefabs are assigned
-        if (ballisticProjectilePrefab != null)
-        {
-            for (int i = 0; i < initialPoolSize; i++)
-            {
-                CreatePooledBallistic();
-            }
-            Debug.Log($"Initialized ballistic projectile pool with {initialPoolSize} projectiles");
-        }
+        InitializePool(ballisticProjectilePrefab, "ballistic projectile",
+            () => CreatePooledObject<BallisticProjectile>(
+                ballisticProjectilePrefab, PrimitiveType.Sphere, defaultBallisticScale,
+                "BallisticProjectile", projectileParent, ballisticPool));
 
-        if (homingProjectilePrefab != null)
-        {
-            for (int i = 0; i < initialPoolSize; i++)
-            {
-                CreatePooledHoming();
-            }
-            Debug.Log($"Initialized homing projectile pool with {initialPoolSize} projectiles");
-        }
+        InitializePool(homingProjectilePrefab, "homing projectile",
+            () => CreatePooledObject<HomingProjectile>(
+                homingProjectilePrefab, PrimitiveType.Capsule, defaultHomingScale,
+                "HomingProjectile", projectileParent, homingPool));
 
-        if (instantHitEffectPrefab != null)
+        InitializePool(instantHitEffectPrefab, "instant hit effect",
+            () => CreatePooledEffect(instantHitEffectPrefab, "InstantHitEffect", effectParent, instantHitPool));
+    }
+
+    /// <summary>
+    /// Generic pool initialization helper.
+    /// </summary>
+    private void InitializePool(GameObject prefab, string typeName, Action createAction)
+    {
+        if (prefab != null || allowPoolGrowth)
         {
             for (int i = 0; i < initialPoolSize; i++)
             {
-                CreatePooledInstantHit();
+                createAction();
             }
-            Debug.Log($"Initialized instant hit effect pool with {initialPoolSize} effects");
+            Debug.Log($"Initialized {typeName} pool with {initialPoolSize} objects");
         }
     }
 
     /// <summary>
-    /// Create a pooled ballistic projectile.
+    /// Generic pooled object creation for projectiles.
     /// </summary>
-    private BallisticProjectile CreatePooledBallistic()
+    private T CreatePooledObject<T>(GameObject prefab, PrimitiveType fallbackPrimitive,
+        Vector3 fallbackScale, string objectName, Transform parent, Queue<T> pool) where T : Component
     {
         GameObject obj;
-        if (ballisticProjectilePrefab != null)
+        if (prefab != null)
         {
-            obj = Instantiate(ballisticProjectilePrefab, projectileParent);
+            obj = Instantiate(prefab, parent);
         }
         else
         {
-            // Create default if no prefab
-            obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            obj.transform.localScale = Vector3.one * 0.3f;
-            obj.AddComponent<BallisticProjectile>();
-            obj.transform.SetParent(projectileParent);
+            // Create default primitive if no prefab
+            obj = GameObject.CreatePrimitive(fallbackPrimitive);
+            obj.transform.localScale = fallbackScale;
+            obj.transform.SetParent(parent);
         }
 
-        obj.name = "BallisticProjectile (Pooled)";
-        BallisticProjectile projectile = obj.GetComponent<BallisticProjectile>();
-        if (projectile == null)
+        obj.name = $"{objectName} (Pooled)";
+
+        // Get or add the component
+        T component = obj.GetComponent<T>();
+        if (component == null)
         {
-            projectile = obj.AddComponent<BallisticProjectile>();
+            component = obj.AddComponent<T>();
         }
 
         obj.SetActive(false);
-        ballisticPool.Enqueue(projectile);
-        return projectile;
+        pool.Enqueue(component);
+        return component;
     }
 
     /// <summary>
-    /// Create a pooled homing projectile.
+    /// Create pooled effect (non-primitive fallback).
     /// </summary>
-    private HomingProjectile CreatePooledHoming()
+    private InstantHitEffect CreatePooledEffect(GameObject prefab, string objectName,
+        Transform parent, Queue<InstantHitEffect> pool)
     {
         GameObject obj;
-        if (homingProjectilePrefab != null)
+        if (prefab != null)
         {
-            obj = Instantiate(homingProjectilePrefab, projectileParent);
+            obj = Instantiate(prefab, parent);
         }
         else
         {
-            // Create default if no prefab
-            obj = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-            obj.transform.localScale = new Vector3(0.2f, 0.5f, 0.2f);
-            obj.AddComponent<HomingProjectile>();
-            obj.transform.SetParent(projectileParent);
+            obj = new GameObject(objectName);
+            obj.transform.SetParent(parent);
         }
 
-        obj.name = "HomingProjectile (Pooled)";
-        HomingProjectile projectile = obj.GetComponent<HomingProjectile>();
-        if (projectile == null)
-        {
-            projectile = obj.AddComponent<HomingProjectile>();
-        }
+        obj.name = $"{objectName} (Pooled)";
 
-        obj.SetActive(false);
-        homingPool.Enqueue(projectile);
-        return projectile;
-    }
-
-    /// <summary>
-    /// Create a pooled instant hit effect.
-    /// </summary>
-    private InstantHitEffect CreatePooledInstantHit()
-    {
-        GameObject obj;
-        if (instantHitEffectPrefab != null)
-        {
-            obj = Instantiate(instantHitEffectPrefab, effectParent);
-        }
-        else
-        {
-            // Create default if no prefab
-            obj = new GameObject("InstantHitEffect");
-            obj.AddComponent<InstantHitEffect>();
-            obj.transform.SetParent(effectParent);
-        }
-
-        obj.name = "InstantHitEffect (Pooled)";
         InstantHitEffect effect = obj.GetComponent<InstantHitEffect>();
         if (effect == null)
         {
@@ -196,8 +186,47 @@ public class ProjectileManager : MonoBehaviour
         }
 
         obj.SetActive(false);
-        instantHitPool.Enqueue(effect);
+        pool.Enqueue(effect);
         return effect;
+    }
+
+    /// <summary>
+    /// Generic method to get object from pool with growth and limit checking.
+    /// </summary>
+    private T GetFromPool<T>(Queue<T> pool, string typeName, Func<T> createFunc,
+        Func<int> activeCountFunc) where T : class
+    {
+        if (pool.Count == 0)
+        {
+            if (allowPoolGrowth)
+            {
+                // Check pool size limit to prevent memory leaks
+                int totalCount = pool.Count + activeCountFunc();
+                if (totalCount >= maxPoolSize)
+                {
+                    Debug.LogError($"{typeName} pool at max size ({maxPoolSize})! Cannot create more.");
+                    return null;
+                }
+
+                Debug.LogWarning($"{typeName} pool empty, creating new object");
+                try
+                {
+                    return createFunc();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError($"Failed to create {typeName}: {e.Message}");
+                    return null;
+                }
+            }
+            else
+            {
+                Debug.LogError($"{typeName} pool exhausted and growth disabled!");
+                return null;
+            }
+        }
+
+        return pool.Dequeue();
     }
 
     /// <summary>
@@ -205,7 +234,14 @@ public class ProjectileManager : MonoBehaviour
     /// </summary>
     public static void SpawnBallisticProjectile(WeaponSystem.ProjectileSpawnInfo info)
     {
-        BallisticProjectile projectile = Instance.GetBallisticFromPool();
+        BallisticProjectile projectile = Instance.GetFromPool(
+            Instance.ballisticPool,
+            "Ballistic",
+            () => Instance.CreatePooledObject<BallisticProjectile>(
+                Instance.ballisticProjectilePrefab, PrimitiveType.Sphere,
+                Instance.defaultBallisticScale, "BallisticProjectile",
+                Instance.projectileParent, Instance.ballisticPool),
+            () => Instance.activeBallisticCount); // O(1) instead of O(n) FindAll
 
         if (projectile == null)
         {
@@ -216,6 +252,7 @@ public class ProjectileManager : MonoBehaviour
         projectile.gameObject.SetActive(true);
         projectile.Initialize(info);
         Instance.activeProjectiles.Add(projectile);
+        Instance.activeBallisticCount++;
 
         Debug.Log($"Spawned ballistic projectile at {info.SpawnPosition}");
     }
@@ -223,11 +260,16 @@ public class ProjectileManager : MonoBehaviour
     /// <summary>
     /// Spawn a homing projectile from weapon.
     /// </summary>
-    /// <param name="info">Projectile spawn configuration</param>
-    /// <param name="turnRate">Turn rate in degrees per second (default 90)</param>
     public static void SpawnHomingProjectile(WeaponSystem.ProjectileSpawnInfo info, float turnRate = 90f)
     {
-        HomingProjectile projectile = Instance.GetHomingFromPool();
+        HomingProjectile projectile = Instance.GetFromPool(
+            Instance.homingPool,
+            "Homing",
+            () => Instance.CreatePooledObject<HomingProjectile>(
+                Instance.homingProjectilePrefab, PrimitiveType.Capsule,
+                Instance.defaultHomingScale, "HomingProjectile",
+                Instance.projectileParent, Instance.homingPool),
+            () => Instance.activeHomingCount); // O(1) instead of O(n) FindAll
 
         if (projectile == null)
         {
@@ -239,6 +281,7 @@ public class ProjectileManager : MonoBehaviour
         projectile.Initialize(info);
         projectile.SetTurnRate(turnRate);
         Instance.activeProjectiles.Add(projectile);
+        Instance.activeHomingCount++;
 
         Debug.Log($"Spawned homing projectile at {info.SpawnPosition} targeting {info.TargetShip?.gameObject.name} (turnRate={turnRate})");
     }
@@ -248,7 +291,13 @@ public class ProjectileManager : MonoBehaviour
     /// </summary>
     public static void SpawnInstantHitEffect(Vector3 startPosition, Vector3 endPosition, float damage)
     {
-        InstantHitEffect effect = Instance.GetInstantHitFromPool();
+        InstantHitEffect effect = Instance.GetFromPool(
+            Instance.instantHitPool,
+            "InstantHit",
+            () => Instance.CreatePooledEffect(
+                Instance.instantHitEffectPrefab, "InstantHitEffect",
+                Instance.effectParent, Instance.instantHitPool),
+            () => Instance.activeEffects.Count);
 
         if (effect == null)
         {
@@ -264,72 +313,6 @@ public class ProjectileManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Get ballistic projectile from pool.
-    /// </summary>
-    private BallisticProjectile GetBallisticFromPool()
-    {
-        if (ballisticPool.Count == 0)
-        {
-            if (allowPoolGrowth)
-            {
-                Debug.LogWarning("Ballistic pool empty, creating new projectile");
-                return CreatePooledBallistic();
-            }
-            else
-            {
-                Debug.LogError("Ballistic pool exhausted and growth disabled!");
-                return null;
-            }
-        }
-
-        return ballisticPool.Dequeue();
-    }
-
-    /// <summary>
-    /// Get homing projectile from pool.
-    /// </summary>
-    private HomingProjectile GetHomingFromPool()
-    {
-        if (homingPool.Count == 0)
-        {
-            if (allowPoolGrowth)
-            {
-                Debug.LogWarning("Homing pool empty, creating new projectile");
-                return CreatePooledHoming();
-            }
-            else
-            {
-                Debug.LogError("Homing pool exhausted and growth disabled!");
-                return null;
-            }
-        }
-
-        return homingPool.Dequeue();
-    }
-
-    /// <summary>
-    /// Get instant hit effect from pool.
-    /// </summary>
-    private InstantHitEffect GetInstantHitFromPool()
-    {
-        if (instantHitPool.Count == 0)
-        {
-            if (allowPoolGrowth)
-            {
-                Debug.LogWarning("Instant hit pool empty, creating new effect");
-                return CreatePooledInstantHit();
-            }
-            else
-            {
-                Debug.LogError("Instant hit pool exhausted and growth disabled!");
-                return null;
-            }
-        }
-
-        return instantHitPool.Dequeue();
-    }
-
-    /// <summary>
     /// Return projectile to pool.
     /// Called by Projectile.OnDestroyed().
     /// </summary>
@@ -340,16 +323,18 @@ public class ProjectileManager : MonoBehaviour
         // Remove from active list
         Instance.activeProjectiles.Remove(projectile);
 
-        // Reset and return to appropriate pool
+        // Reset and return to appropriate pool, decrement type counts
+        projectile.ResetToPool();
+
         if (projectile is BallisticProjectile ballistic)
         {
-            ballistic.ResetToPool();
             Instance.ballisticPool.Enqueue(ballistic);
+            Instance.activeBallisticCount--;
         }
         else if (projectile is HomingProjectile homing)
         {
-            homing.ResetToPool();
             Instance.homingPool.Enqueue(homing);
+            Instance.activeHomingCount--;
         }
     }
 
@@ -383,6 +368,10 @@ public class ProjectileManager : MonoBehaviour
             InstantHitEffect effect = Instance.activeEffects[0];
             ReturnInstantHitToPool(effect);
         }
+
+        // Reset type counts (should already be 0, but ensure consistency)
+        Instance.activeBallisticCount = 0;
+        Instance.activeHomingCount = 0;
 
         Debug.Log("All projectiles cleared");
     }
@@ -428,6 +417,10 @@ public class ProjectileManager : MonoBehaviour
             instance.ballisticPool.Clear();
             instance.homingPool.Clear();
             instance.instantHitPool.Clear();
+
+            // Reset type counts
+            instance.activeBallisticCount = 0;
+            instance.activeHomingCount = 0;
 
             // Destroy the game object
             if (Application.isPlaying)
