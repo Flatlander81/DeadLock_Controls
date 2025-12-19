@@ -16,7 +16,6 @@ public class DamageUITestController : MonoBehaviour
     public CombatLogPanel combatLog;
 
     [Header("Test Settings")]
-    [SerializeField] private float testDamage = 50f;
     [SerializeField] private SectionType targetSection = SectionType.Fore;
 
     [Header("UI Settings")]

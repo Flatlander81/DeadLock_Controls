@@ -8,7 +8,7 @@ using System.IO;
 /// </summary>
 public class ProjectilePrefabSetup : EditorWindow
 {
-    [MenuItem("Tools/Create Projectile Prefabs")]
+    [MenuItem("Hephaestus/Setup/Create Projectile Prefabs")]
     public static void CreateProjectilePrefabs()
     {
         Debug.Log("Creating projectile prefabs...");

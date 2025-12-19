@@ -142,6 +142,8 @@ public class DamageRouter : MonoBehaviour
         // Step 2: Apply remaining damage to section
         ShipSection section = null;
         DamageResult sectionResult = new DamageResult();
+        DamageResult coreOverflowResult = new DamageResult();
+        bool hadCoreOverflow = false;
 
         if (sectionManager != null)
         {
@@ -156,7 +158,24 @@ public class DamageRouter : MonoBehaviour
                              $"Structure={sectionResult.DamageToStructure:F1}, Overflow={sectionResult.OverflowDamage:F1}");
                 }
 
-                // Step 3: Check for lucky shot to Core on structure damage
+                // Step 3: Handle overflow from breached sections - route to Core
+                if (sectionResult.WasAlreadyBreached && sectionResult.OverflowDamage > 0f &&
+                    actualTargetSection != SectionType.Core)
+                {
+                    ShipSection coreSection = sectionManager.GetSection(SectionType.Core);
+                    if (coreSection != null)
+                    {
+                        coreOverflowResult = coreSection.ApplyDamage(sectionResult.OverflowDamage);
+                        hadCoreOverflow = true;
+
+                        if (logDamageRouting)
+                        {
+                            Debug.Log($"[DamageRouter] Breached section overflow! Core took {coreOverflowResult.DamageToArmor + coreOverflowResult.DamageToStructure:F1} damage!");
+                        }
+                    }
+                }
+
+                // Step 4: Check for lucky shot to Core on structure damage
                 if (sectionResult.DamageToStructure > 0f &&
                     actualTargetSection != SectionType.Core &&
                     coreProtection != null)
@@ -168,11 +187,11 @@ public class DamageRouter : MonoBehaviour
                         if (coreSection != null)
                         {
                             // Lucky shot deals the same structure damage to Core
-                            DamageResult coreResult = coreSection.ApplyDamage(sectionResult.DamageToStructure);
+                            DamageResult luckyResult = coreSection.ApplyDamage(sectionResult.DamageToStructure);
 
                             if (logDamageRouting)
                             {
-                                Debug.Log($"[DamageRouter] LUCKY SHOT! Core took {coreResult.DamageToStructure:F1} damage!");
+                                Debug.Log($"[DamageRouter] LUCKY SHOT! Core took {luckyResult.DamageToStructure:F1} damage!");
                             }
 
                             // Return combined report
@@ -180,11 +199,11 @@ public class DamageRouter : MonoBehaviour
                                 totalIncoming: damage,
                                 shieldDamage: shieldDamage,
                                 armorDamage: sectionResult.DamageToArmor,
-                                structureDamage: sectionResult.DamageToStructure + coreResult.DamageToStructure,
+                                structureDamage: sectionResult.DamageToStructure + luckyResult.DamageToStructure,
                                 overflowDamage: sectionResult.OverflowDamage,
                                 shieldsDepleted: shieldsDepleted,
                                 armorBroken: sectionResult.ArmorBroken,
-                                sectionBreached: sectionResult.SectionBreached || coreResult.SectionBreached,
+                                sectionBreached: sectionResult.SectionBreached || luckyResult.SectionBreached,
                                 sectionHit: actualTargetSection,
                                 section: section,
                                 criticalResult: sectionResult.CriticalResult,
@@ -205,19 +224,32 @@ public class DamageRouter : MonoBehaviour
             Debug.LogWarning("[DamageRouter] No SectionManager found, damage lost");
         }
 
+        // Build final report, including any Core overflow damage
+        float totalStructureDamage = sectionResult.DamageToStructure;
+        float finalOverflow = sectionResult.OverflowDamage;
+        bool anySectionBreached = sectionResult.SectionBreached;
+
+        if (hadCoreOverflow)
+        {
+            totalStructureDamage += coreOverflowResult.DamageToArmor + coreOverflowResult.DamageToStructure;
+            finalOverflow = coreOverflowResult.OverflowDamage; // Core's overflow (if Core also breached)
+            anySectionBreached = anySectionBreached || coreOverflowResult.SectionBreached;
+        }
+
         return new DamageReport(
             totalIncoming: damage,
             shieldDamage: shieldDamage,
             armorDamage: sectionResult.DamageToArmor,
-            structureDamage: sectionResult.DamageToStructure,
-            overflowDamage: sectionResult.OverflowDamage,
+            structureDamage: totalStructureDamage,
+            overflowDamage: finalOverflow,
             shieldsDepleted: shieldsDepleted,
             armorBroken: sectionResult.ArmorBroken,
-            sectionBreached: sectionResult.SectionBreached,
+            sectionBreached: anySectionBreached,
             sectionHit: actualTargetSection,
             section: section,
-            criticalResult: sectionResult.CriticalResult,
-            coreWasProtected: coreWasProtected
+            criticalResult: sectionResult.CriticalResult ?? coreOverflowResult.CriticalResult,
+            coreWasProtected: coreWasProtected,
+            overflowedToCore: hadCoreOverflow
         );
     }
 

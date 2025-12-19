@@ -25,7 +25,7 @@ public class ShipDeathTestController : MonoBehaviour
     {
         if (testShip == null)
         {
-            testShip = FindObjectOfType<Ship>();
+            testShip = FindFirstObjectByType<Ship>();
         }
 
         if (testShip != null)

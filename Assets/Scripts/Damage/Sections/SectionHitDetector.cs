@@ -36,18 +36,32 @@ public class SectionHitDetector : MonoBehaviour
             Debug.LogError($"[SectionHitDetector] No parent ShipSection found for {gameObject.name}");
         }
 
-        // Auto-find DamageRouter from parent ship
-        if (damageRouter == null && parentSection != null && parentSection.ParentShip != null)
-        {
-            damageRouter = parentSection.ParentShip.DamageRouter;
-        }
-
         // Ensure collider is set as trigger
         Collider col = GetComponent<Collider>();
         if (col != null && !col.isTrigger)
         {
             Debug.LogWarning($"[SectionHitDetector] Collider on {gameObject.name} is not a trigger, setting isTrigger=true");
             col.isTrigger = true;
+        }
+    }
+
+    private void Start()
+    {
+        // Find DamageRouter in Start() to ensure Ship components are initialized
+        // This runs after Awake() on all objects, so Ship.DamageRouter should be available
+        if (damageRouter == null)
+        {
+            // Try to get from parent section's ship first
+            if (parentSection != null && parentSection.ParentShip != null)
+            {
+                damageRouter = parentSection.ParentShip.DamageRouter;
+            }
+
+            // Fallback: search up the hierarchy
+            if (damageRouter == null)
+            {
+                damageRouter = GetComponentInParent<DamageRouter>();
+            }
         }
     }
 

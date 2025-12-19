@@ -36,7 +36,7 @@ public class Phase3UnifiedTestController : MonoBehaviour
     private CombatLogPanel combatLog;
 
     // UI state
-    private enum TestTab { Combat, Sections, Systems, CoreDeath, Projectiles, Status }
+    private enum TestTab { Combat, Sections, Systems, CoreDeath, Projectiles, Weapons, Status }
     private TestTab currentTab = TestTab.Combat;
     private Vector2 scrollPosition;
     private int selectedSystemIndex = 0;
@@ -53,6 +53,11 @@ public class Phase3UnifiedTestController : MonoBehaviour
         ("Down (Ventral)", Vector3.down)
     };
     private int currentDirectionIndex = 0;
+
+    // Phase 2.2 integration - weapon groups and UI panels
+    private WeaponConfigPanel configPanel;
+    private WeaponGroupPanel groupPanel;
+    private bool weaponGroupsInitialized = false;
 
     void Start()
     {
@@ -103,10 +108,142 @@ public class Phase3UnifiedTestController : MonoBehaviour
 
         Debug.Log("=== Phase 3 Unified Test Controller ===");
         Debug.Log("CONTROLS:");
-        Debug.Log("  J: Toggle UI");
+        Debug.Log("  J: Toggle test panel UI");
         Debug.Log("  K: Cycle target ships");
         Debug.Log("  Tab: Cycle UI tabs");
-        Debug.Log("  1-6: Quick select sections");
+        Debug.Log("");
+        Debug.Log("WEAPON CONTROLS (Phase 2.2):");
+        Debug.Log("  1,2,3,4: Fire weapon groups");
+        Debug.Log("  A: Alpha Strike (all weapons)");
+        Debug.Log("  Space: Toggle weapon config panel");
+        Debug.Log("  R: Reset cooldowns (cheat)");
+        Debug.Log("  L: Reload all ammo (cheat)");
+
+        // Initialize weapon systems after a short delay (let WeaponManager initialize)
+        Invoke(nameof(InitializeWeaponSystems), 0.2f);
+    }
+
+    void InitializeWeaponSystems()
+    {
+        if (weaponGroupsInitialized) return;
+
+        // Create weapon UI panels (from Phase 2.2)
+        CreateWeaponUIPanels();
+
+        // Assign weapons to groups automatically
+        AssignWeaponGroups();
+
+        // Set all weapons to target first enemy
+        if (enemyShips.Count > 0)
+        {
+            SetAllWeaponsTarget(enemyShips[0]);
+        }
+
+        weaponGroupsInitialized = true;
+        Debug.Log("✓ Weapon systems initialized with groups assigned");
+    }
+
+    void CreateWeaponUIPanels()
+    {
+        // Config Panel - only create if not already assigned
+        if (configPanel == null)
+        {
+            var existingConfig = FindFirstObjectByType<WeaponConfigPanel>();
+            if (existingConfig != null)
+            {
+                configPanel = existingConfig;
+            }
+            else
+            {
+                GameObject configObj = new GameObject("WeaponConfigPanel_Runtime");
+                configObj.transform.SetParent(transform);
+                configPanel = configObj.AddComponent<WeaponConfigPanel>();
+            }
+            configPanel.Initialize(playerShip);
+        }
+
+        // Group Panel - only create if not already assigned
+        if (groupPanel == null)
+        {
+            var existingGroup = FindFirstObjectByType<WeaponGroupPanel>();
+            if (existingGroup != null)
+            {
+                groupPanel = existingGroup;
+            }
+            else
+            {
+                GameObject groupObj = new GameObject("WeaponGroupPanel_Runtime");
+                groupObj.transform.SetParent(transform);
+                groupPanel = groupObj.AddComponent<WeaponGroupPanel>();
+            }
+            groupPanel.Initialize(playerShip, null);
+            if (enemyShips.Count > 0)
+            {
+                groupPanel.SetTarget(enemyShips[0]);
+            }
+        }
+    }
+
+    void AssignWeaponGroups()
+    {
+        WeaponManager wm = playerShip?.WeaponManager;
+        if (wm == null)
+        {
+            Debug.LogWarning("No WeaponManager found for weapon group assignment");
+            return;
+        }
+
+        int assigned = 0;
+        foreach (WeaponSystem weapon in wm.Weapons)
+        {
+            // Group 1: RailGuns (cyan)
+            if (weapon is RailGun)
+            {
+                wm.AssignWeaponToGroup(weapon, 1);
+                assigned++;
+            }
+            // Group 2: Newtonian Cannon (magenta)
+            else if (weapon is NewtonianCannon)
+            {
+                wm.AssignWeaponToGroup(weapon, 2);
+                assigned++;
+            }
+            // Group 3: Torpedoes (orange)
+            else if (weapon is TorpedoLauncher)
+            {
+                wm.AssignWeaponToGroup(weapon, 3);
+                assigned++;
+            }
+            // Group 4: Missiles (yellow)
+            else if (weapon is MissileBattery)
+            {
+                wm.AssignWeaponToGroup(weapon, 4);
+                assigned++;
+            }
+        }
+
+        Debug.Log($"✓ Assigned {assigned} weapons to groups:");
+        Debug.Log("  Group 1 (Blue/Cyan): RailGuns - instant hit, infinite ammo");
+        Debug.Log("  Group 2 (Magenta): Newtonian Cannon - slow projectile, infinite ammo");
+        Debug.Log("  Group 3 (Orange): Torpedo - slow homing, limited ammo");
+        Debug.Log("  Group 4 (Yellow): Missiles - fast homing, limited ammo");
+    }
+
+    void SetAllWeaponsTarget(Ship target)
+    {
+        if (playerShip?.WeaponManager == null) return;
+
+        foreach (WeaponSystem weapon in playerShip.WeaponManager.Weapons)
+        {
+            weapon.SetTarget(target);
+        }
+
+        if (groupPanel != null)
+        {
+            groupPanel.SetTarget(target);
+        }
+
+        Debug.Log($"All weapons targeting: {target?.gameObject.name ?? "None"}");
     }
 
     void CacheTargetComponents()
@@ -135,7 +272,7 @@ public class Phase3UnifiedTestController : MonoBehaviour
 
     void Update()
     {
-        // Toggle UI
+        // Toggle test panel UI
         if (Input.GetKeyDown(KeyCode.J))
         {
             showUI = !showUI;
@@ -145,22 +282,157 @@ public class Phase3UnifiedTestController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             CycleTarget();
+            // Also update weapon targets
+            if (targetShip != playerShip)
+            {
+                SetAllWeaponsTarget(targetShip);
+            }
         }
 
-        // Cycle tabs
-        if (Input.GetKeyDown(KeyCode.Tab))
+        // Cycle tabs (when UI is visible)
+        if (Input.GetKeyDown(KeyCode.Tab) && showUI)
         {
             currentTab = (TestTab)(((int)currentTab + 1) % System.Enum.GetValues(typeof(TestTab)).Length);
         }
 
-        // Quick section select
-        if (Input.GetKeyDown(KeyCode.Alpha1)) targetSection = SectionType.Fore;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) targetSection = SectionType.Aft;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) targetSection = SectionType.Port;
-        if (Input.GetKeyDown(KeyCode.Alpha4)) targetSection = SectionType.Starboard;
-        if (Input.GetKeyDown(KeyCode.Alpha5)) targetSection = SectionType.Dorsal;
-        if (Input.GetKeyDown(KeyCode.Alpha6)) targetSection = SectionType.Ventral;
-        if (Input.GetKeyDown(KeyCode.Alpha7)) targetSection = SectionType.Core;
+        // Phase 2.2 weapon controls - these work regardless of UI visibility
+        HandleWeaponInput();
+    }
+
+    void HandleWeaponInput()
+    {
+        WeaponManager wm = playerShip?.WeaponManager;
+        if (wm == null) return;
+
+        // Fire weapon groups 1-4
+        if (Input.GetKeyDown(KeyCode.Alpha1)) FireWeaponGroup(1);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) FireWeaponGroup(2);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) FireWeaponGroup(3);
+        if (Input.GetKeyDown(KeyCode.Alpha4)) FireWeaponGroup(4);
+
+        // Alpha Strike - fire all weapons
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Debug.Log(">>> ALPHA STRIKE <<<");
+            int fired = 0;
+            foreach (WeaponSystem weapon in wm.Weapons)
+            {
+                if (weapon.CanFire())
+                {
+                    StartCoroutine(weapon.FireWithSpinUp());
+                    fired++;
+                }
+            }
+            Debug.Log($"Alpha Strike: Fired {fired}/{wm.Weapons.Count} weapons");
+        }
+
+        // Toggle weapon config panel
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (configPanel != null)
+            {
+                configPanel.IsVisible = !configPanel.IsVisible;
+            }
+        }
+
+        // Cheat: Reset all cooldowns
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            var field = typeof(WeaponSystem).GetField("currentCooldown",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            if (field != null)
+            {
+                foreach (WeaponSystem weapon in wm.Weapons)
+                {
+                    field.SetValue(weapon, 0);
+                }
+                Debug.Log("CHEAT: All cooldowns reset to 0");
+            }
+        }
+
+        // Cheat: Reload all ammo
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            var field = typeof(WeaponSystem).GetField("currentAmmo",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            if (field != null)
+            {
+                foreach (WeaponSystem weapon in wm.Weapons)
+                {
+                    if (weapon.AmmoCapacity > 0)
+                    {
+                        field.SetValue(weapon, weapon.AmmoCapacity);
+                    }
+                }
+                Debug.Log("CHEAT: All ammo reloaded");
+            }
+        }
+    }
+
+    void FireWeaponGroup(int groupNum)
+    {
+        WeaponManager wm = playerShip?.WeaponManager;
+        if (wm == null) return;
+
+        List<WeaponSystem> weapons = wm.GetWeaponsInGroup(groupNum);
+
+        if (weapons.Count == 0)
+        {
+            Debug.Log($"Group {groupNum}: Empty");
+            return;
+        }
+
+        string[] groupNames = { "", "RailGuns", "Cannon", "Torpedoes", "Missiles" };
+        string groupName = groupNum <= 4 ? groupNames[groupNum] : $"Group {groupNum}";
+
+        Debug.Log($">>> Firing {groupName} (Group {groupNum}) <<<");
+        int fired = 0;
+        int blocked = 0;
+
+        // Use first enemy as target
+        Ship target = (enemyShips.Count > 0) ? enemyShips[0] : null;
+
+        foreach (WeaponSystem weapon in weapons)
+        {
+            // Ensure weapon is initialized and has target
+            if (weapon.OwnerShip == null)
+            {
+                weapon.Initialize(playerShip);
+            }
+            if (weapon.AssignedTarget == null && target != null)
+            {
+                weapon.SetTarget(target);
+            }
+
+            if (weapon.CanFire())
+            {
+                StartCoroutine(weapon.FireWithSpinUp());
+                fired++;
+            }
+            else
+            {
+                blocked++;
+                if (weapon.CurrentCooldown > 0)
+                    Debug.Log($"  {weapon.WeaponName}: On cooldown ({weapon.CurrentCooldown} turns)");
+                else if (weapon.AmmoCapacity > 0 && weapon.CurrentAmmo <= 0)
+                    Debug.Log($"  {weapon.WeaponName}: Out of ammo!");
+                else if (weapon.AssignedTarget == null)
+                    Debug.Log($"  {weapon.WeaponName}: No target assigned");
+                else
+                {
+                    // Detailed arc/range debug
+                    Vector3 targetPos = weapon.AssignedTarget.transform.position;
+                    float dist = Vector3.Distance(weapon.transform.position, targetPos);
+                    Vector3 toTarget = (targetPos - weapon.transform.position).normalized;
+                    float angle = Vector3.Angle(weapon.transform.forward, toTarget);
+                    Debug.Log($"  {weapon.WeaponName}: Cannot fire - dist={dist:F1} (max={weapon.MaxRange}), angle={angle:F1}° (arc={weapon.FiringArc}°)");
+                }
+            }
+        }
+
+        Debug.Log($"  Result: Fired {fired}, Blocked {blocked}");
     }
 
     void CycleTarget()
@@ -175,8 +447,145 @@ public class Phase3UnifiedTestController : MonoBehaviour
         Debug.Log($"Target switched to: {targetShip?.gameObject.name}");
     }
 
+    /// <summary>
+    /// Draws the left-side status overlay showing target, distance, heat, shields, and ammo (from Phase 2.2)
+    /// </summary>
+    void DrawStatusOverlay()
+    {
+        GUILayout.BeginArea(new Rect(10, 10, 300, 450));
+
+        GUI.Box(new Rect(0, 0, 300, 430), "");
+
+        GUILayout.Label("<size=12><b>PHASE 3 UNIFIED TEST</b></size>");
+        GUILayout.Space(5);
+
+        // Current weapon target info
+        Ship weaponTarget = (enemyShips.Count > 0) ? enemyShips[0] : null;
+        if (weaponTarget != null)
+        {
+            GUI.color = Color.red;
+            GUILayout.Label($"<b>Weapon Target:</b> {weaponTarget.gameObject.name}");
+            GUI.color = Color.white;
+
+            float dist = Vector3.Distance(playerShip.transform.position, weaponTarget.transform.position);
+            GUILayout.Label($"Distance: {dist:F1} units");
+
+            // Show target shields
+            var targetShieldSys = weaponTarget.ShieldSystem;
+            if (targetShieldSys != null)
+            {
+                float pct = targetShieldSys.CurrentShields / targetShieldSys.MaxShields;
+                GUI.color = pct > 0.5f ? Color.cyan : (pct > 0 ? Color.yellow : Color.red);
+                GUILayout.Label($"Target Shields: {targetShieldSys.CurrentShields:F0}/{targetShieldSys.MaxShields:F0}");
+                GUI.color = Color.white;
+            }
+        }
+
+        GUILayout.Space(10);
+
+        // Player heat
+        if (playerShip?.HeatManager != null)
+        {
+            float heat = playerShip.HeatManager.CurrentHeat;
+            float maxHeat = playerShip.HeatManager.MaxHeat;
+            GUI.color = heat > maxHeat * 0.7f ? Color.red : (heat > maxHeat * 0.4f ? Color.yellow : Color.white);
+            GUILayout.Label($"<b>Heat:</b> {heat:F0}/{maxHeat}");
+            GUI.color = Color.white;
+        }
+
+        // Player shields
+        if (playerShip?.ShieldSystem != null)
+        {
+            var shields = playerShip.ShieldSystem;
+            float pct = shields.CurrentShields / shields.MaxShields;
+            GUI.color = pct > 0.5f ? Color.cyan : (pct > 0 ? Color.yellow : Color.red);
+            GUILayout.Label($"<b>Shields:</b> {shields.CurrentShields:F0}/{shields.MaxShields:F0}");
+            GUI.color = Color.white;
+        }
+
+        GUILayout.Space(10);
+
+        // Ammo status (from Phase 2.2)
+        GUILayout.Label("<b>AMMO STATUS:</b>");
+        if (playerShip?.WeaponManager != null)
+        {
+            foreach (WeaponSystem weapon in playerShip.WeaponManager.Weapons)
+            {
+                if (weapon.AmmoCapacity > 0)
+                {
+                    float pct = (float)weapon.CurrentAmmo / weapon.AmmoCapacity;
+                    if (pct <= 0)
+                        GUI.color = Color.red;
+                    else if (pct < 0.25f)
+                        GUI.color = Color.yellow;
+                    else
+                        GUI.color = Color.green;
+
+                    string status = weapon.CurrentAmmo > 0
+                        ? $"{weapon.CurrentAmmo}/{weapon.AmmoCapacity}"
+                        : "EMPTY!";
+                    GUILayout.Label($"  {weapon.WeaponName}: {status}");
+                }
+            }
+        }
+        GUI.color = Color.white;
+
+        GUILayout.Space(10);
+
+        // Weapon groups legend
+        GUILayout.Label("<b>WEAPON GROUPS:</b>");
+        GUI.color = Color.cyan;
+        GUILayout.Label("  1: RailGuns");
+        GUI.color = Color.magenta;
+        GUILayout.Label("  2: Cannon");
+        GUI.color = new Color(1f, 0.5f, 0f); // Orange
+        GUILayout.Label("  3: Torpedoes");
+        GUI.color = Color.yellow;
+        GUILayout.Label("  4: Missiles");
+        GUI.color = Color.white;
+
+        GUILayout.Space(10);
+
+        // Controls reminder
+        GUILayout.Label("<size=10>A=Alpha Strike | K=Cycle Target</size>");
+        GUILayout.Label("<size=10>R=Reset CD | L=Reload | J=Panel</size>");
+
+        GUILayout.EndArea();
+    }
+
+    void DrawTargetGizmo()
+    {
+        // Draw line from player to weapon target in scene view
+        // Note: This only works in OnDrawGizmos, not OnGUI
+        // We'll handle this in OnDrawGizmos instead
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw line to weapon target
+        if (playerShip != null && enemyShips.Count > 0 && enemyShips[0] != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(playerShip.transform.position, enemyShips[0].transform.position);
+        }
+
+        // Draw line to current test target (different color)
+        if (playerShip != null && targetShip != null && targetShip != playerShip)
+        {
+            Gizmos.color = Color.yellow;
+            Vector3 offset = Vector3.up * 0.5f; // Slight offset to not overlap
+            Gizmos.DrawLine(playerShip.transform.position + offset, targetShip.transform.position + offset);
+        }
+    }
+
     void OnGUI()
     {
+        // Always draw the status overlay on the left (from Phase 2.2)
+        DrawStatusOverlay();
+
+        // Draw gizmo line to current weapon target
+        DrawTargetGizmo();
+
         if (!showUI) return;
 
         float panelWidth = 380f;
@@ -206,10 +615,11 @@ public class Phase3UnifiedTestController : MonoBehaviour
         DrawTabButton("Combat", TestTab.Combat);
         DrawTabButton("Sections", TestTab.Sections);
         DrawTabButton("Systems", TestTab.Systems);
+        DrawTabButton("Core/Death", TestTab.CoreDeath);
         GUILayout.EndHorizontal();
         GUILayout.BeginHorizontal();
-        DrawTabButton("Core/Death", TestTab.CoreDeath);
         DrawTabButton("Projectiles", TestTab.Projectiles);
+        DrawTabButton("Weapons", TestTab.Weapons);
         DrawTabButton("Status", TestTab.Status);
         GUILayout.EndHorizontal();
 
@@ -231,6 +641,7 @@ public class Phase3UnifiedTestController : MonoBehaviour
             case TestTab.Systems: DrawSystemsTab(); break;
             case TestTab.CoreDeath: DrawCoreDeathTab(); break;
             case TestTab.Projectiles: DrawProjectilesTab(); break;
+            case TestTab.Weapons: DrawWeaponsTab(); break;
             case TestTab.Status: DrawStatusTab(); break;
         }
 
@@ -592,6 +1003,160 @@ public class Phase3UnifiedTestController : MonoBehaviour
         {
             combatLog?.Clear();
         }
+    }
+    #endregion
+
+    #region Weapons Tab
+    void DrawWeaponsTab()
+    {
+        GUILayout.Label("<b>WEAPON SYSTEM FIRE TESTS</b>");
+        GUILayout.Label("Uses actual WeaponSystem components to fire projectiles");
+        GUILayout.Label("that route through the full damage system.");
+        GUILayout.Space(5);
+
+        // Get weapon manager from player ship
+        WeaponManager playerWeaponManager = playerShip?.GetComponent<WeaponManager>();
+        if (playerWeaponManager == null)
+        {
+            GUILayout.Label("<color=red>No WeaponManager on player ship!</color>");
+            return;
+        }
+
+        // Find all weapons on player ship
+        WeaponSystem[] playerWeapons = playerShip.GetComponentsInChildren<WeaponSystem>();
+
+        GUILayout.Label($"<b>Player Weapons: {playerWeapons.Length}</b>");
+
+        // Select target for weapons
+        Ship weaponTarget = (enemyShips.Count > 0) ? enemyShips[0] : null;
+        GUILayout.Label($"Target: {weaponTarget?.gameObject.name ?? "None"}");
+
+        if (weaponTarget == null)
+        {
+            GUILayout.Label("<color=yellow>No target available!</color>");
+            return;
+        }
+
+        GUILayout.Space(5);
+
+        // List each weapon with fire button
+        foreach (var weapon in playerWeapons)
+        {
+            if (weapon == null) continue;
+
+            GUILayout.BeginHorizontal();
+
+            // Weapon info
+            string weaponName = weapon.WeaponName;
+            string status = weapon.CanFireSilent() ? "Ready" :
+                           (weapon.CurrentCooldown > 0 ? $"CD:{weapon.CurrentCooldown}" : "Can't Fire");
+
+            Color statusColor = weapon.CanFireSilent() ? Color.green : Color.yellow;
+            GUI.color = statusColor;
+            GUILayout.Label($"{weaponName}: {status}", GUILayout.Width(180));
+            GUI.color = Color.white;
+
+            // Set target and fire
+            if (GUILayout.Button("Fire", GUILayout.Width(50)))
+            {
+                FireWeaponAtTarget(weapon, weaponTarget);
+            }
+
+            GUILayout.EndHorizontal();
+        }
+
+        GUILayout.Space(10);
+        GUILayout.Label("<b>QUICK FIRE ALL</b>");
+
+        if (GUILayout.Button("Fire All Weapons at Target"))
+        {
+            foreach (var weapon in playerWeapons)
+            {
+                if (weapon != null)
+                {
+                    FireWeaponAtTarget(weapon, weaponTarget);
+                }
+            }
+        }
+
+        GUILayout.Space(10);
+        GUILayout.Label("<b>ENEMY FIRES AT PLAYER</b>");
+
+        // Get weapons from first enemy
+        if (enemyShips.Count > 0)
+        {
+            WeaponSystem[] enemyWeapons = enemyShips[0].GetComponentsInChildren<WeaponSystem>();
+
+            foreach (var weapon in enemyWeapons)
+            {
+                if (weapon == null) continue;
+
+                GUILayout.BeginHorizontal();
+                GUILayout.Label($"Enemy {weapon.WeaponName}", GUILayout.Width(180));
+
+                if (GUILayout.Button("Fire at Player", GUILayout.Width(100)))
+                {
+                    FireWeaponAtTarget(weapon, playerShip);
+                }
+
+                GUILayout.EndHorizontal();
+            }
+
+            if (GUILayout.Button("Enemy Alpha Strike (all weapons)"))
+            {
+                foreach (var weapon in enemyWeapons)
+                {
+                    if (weapon != null)
+                    {
+                        FireWeaponAtTarget(weapon, playerShip);
+                    }
+                }
+            }
+        }
+
+        GUILayout.Space(10);
+        GUILayout.Label("<b>WEAPON STATS</b>");
+
+        if (playerWeapons.Length > 0)
+        {
+            var firstWeapon = playerWeapons[0];
+            GUILayout.Label($"Sample: {firstWeapon.WeaponName}");
+            GUILayout.Label($"  Damage: {firstWeapon.Damage:F0} (Effective: {firstWeapon.EffectiveDamage:F0})");
+            GUILayout.Label($"  Heat Cost: {firstWeapon.HeatCost}");
+            GUILayout.Label($"  Cooldown: {firstWeapon.MaxCooldown} turns");
+            GUILayout.Label($"  Range: {firstWeapon.MaxRange:F0} units");
+            GUILayout.Label($"  Arc: {firstWeapon.FiringArc:F0}°");
+        }
+    }
+
+    void FireWeaponAtTarget(WeaponSystem weapon, Ship target)
+    {
+        if (weapon == null || target == null)
+        {
+            Debug.LogWarning("[Weapons] Cannot fire - weapon or target is null");
+            return;
+        }
+
+        // Initialize weapon if needed
+        Ship ownerShip = weapon.GetComponentInParent<Ship>();
+        if (weapon.OwnerShip == null && ownerShip != null)
+        {
+            weapon.Initialize(ownerShip);
+        }
+
+        // Set target
+        weapon.SetTarget(target);
+
+        // Check if weapon can fire
+        if (!weapon.CanFire())
+        {
+            Debug.LogWarning($"[Weapons] {weapon.WeaponName} cannot fire at {target.gameObject.name}");
+            return;
+        }
+
+        // Fire the weapon (this spawns the projectile)
+        StartCoroutine(weapon.FireWithSpinUp());
+        Debug.Log($"[Weapons] {weapon.WeaponName} fired at {target.gameObject.name}!");
     }
     #endregion
 

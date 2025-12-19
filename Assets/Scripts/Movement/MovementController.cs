@@ -73,7 +73,7 @@ public class MovementController : MonoBehaviour
         // Find DebugUI if not assigned
         if (debugUI == null)
         {
-            debugUI = FindObjectOfType<DebugUI>();
+            debugUI = FindFirstObjectByType<DebugUI>();
         }
 
         // Set movement controller reference in DebugUI
@@ -85,7 +85,7 @@ public class MovementController : MonoBehaviour
         // Find TargetingController if not assigned
         if (targetingController == null)
         {
-            targetingController = FindObjectOfType<TargetingController>();
+            targetingController = FindFirstObjectByType<TargetingController>();
         }
 
         // Find player ship if not assigned (look for ship named "Hephaestus" or get from TargetingController)
@@ -107,7 +107,7 @@ public class MovementController : MonoBehaviour
         // Last resort: find first ship (but warn user)
         if (playerShip == null)
         {
-            playerShip = FindObjectOfType<Ship>();
+            playerShip = FindFirstObjectByType<Ship>();
             if (playerShip != null)
             {
                 Debug.LogWarning($"MovementController: Could not find 'Hephaestus', using {playerShip.gameObject.name} as player ship");

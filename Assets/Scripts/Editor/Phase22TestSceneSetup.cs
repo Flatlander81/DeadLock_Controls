@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 /// </summary>
 public class Phase22TestSceneSetup : Editor
 {
-    [MenuItem("DeadLock/Setup Phase 2.2 Test Scene")]
+    [MenuItem("Hephaestus/Testing/Setup Phase 2.2 Test Scene")]
     public static void SetupTestScene()
     {
         // Create new scene

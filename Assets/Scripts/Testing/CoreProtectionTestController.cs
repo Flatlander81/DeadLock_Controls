@@ -40,7 +40,7 @@ public class CoreProtectionTestController : MonoBehaviour
     {
         if (testShip == null)
         {
-            testShip = FindObjectOfType<Ship>();
+            testShip = FindFirstObjectByType<Ship>();
         }
 
         if (testShip != null)

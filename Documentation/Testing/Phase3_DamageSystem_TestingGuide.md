@@ -4,9 +4,9 @@
 
 ## Overview
 
-This guide provides step-by-step instructions for testing all Phase 3 Damage System features. Use the **Phase 3 Unified Test Level** for comprehensive testing, or individual test scenes for focused testing of specific systems.
+This guide provides step-by-step instructions for testing all Phase 3 Damage System features **integrated with Phase 2.2 weapon systems**. Use the **Phase 3 Unified Test Level** for comprehensive testing that combines real weapon firing with the full damage system.
 
-**Test Count**: 188 automated tests
+**Test Count**: 198+ automated tests (including weapon-damage integration tests)
 **Menu Location**: `Hephaestus > Testing > Create Phase 3 Unified Test Level`
 
 ---
@@ -19,16 +19,29 @@ This guide provides step-by-step instructions for testing all Phase 3 Damage Sys
 2. Go to menu: `Hephaestus > Testing > Create Phase 3 Unified Test Level`
 3. A complete test scene will be created in the hierarchy
 4. Press **Play** to enter Play Mode
-5. Press **J** to toggle the test UI
+5. Press number keys **1-4** to fire weapon groups at enemy ships
+6. Press **J** to toggle the detailed test panel UI
 
-### Test Controller Keyboard Shortcuts
+### Keyboard Controls
 
+**Weapon Controls (Phase 2.2 Integration)**:
 | Key | Action |
 |-----|--------|
-| J | Toggle test UI on/off |
-| K | Cycle through target ships (Player, Enemy1, Enemy2) |
-| Tab | Switch between UI tabs |
-| 1-7 | Quick select sections (Fore, Aft, Port, Starboard, Dorsal, Ventral, Core) |
+| 1 | Fire Group 1: RailGuns (cyan) - instant hit, infinite ammo |
+| 2 | Fire Group 2: Cannon (magenta) - slow projectile, infinite ammo |
+| 3 | Fire Group 3: Torpedoes (orange) - slow homing, limited ammo |
+| 4 | Fire Group 4: Missiles (yellow) - fast homing, limited ammo |
+| A | Alpha Strike - fire ALL weapons at current target |
+| K | Cycle weapon targets (between enemy ships) |
+| Space | Toggle weapon configuration panel |
+| R | **CHEAT**: Reset all cooldowns to 0 |
+| L | **CHEAT**: Reload all ammunition |
+
+**Test Panel Controls**:
+| Key | Action |
+|-----|--------|
+| J | Toggle test panel UI on/off |
+| Tab | Switch between test panel tabs (when panel is visible) |
 
 ---
 
@@ -36,27 +49,46 @@ This guide provides step-by-step instructions for testing all Phase 3 Damage Sys
 
 The unified test level contains:
 
-### Ships
-- **PlayerShip** (Blue) - Your ship at origin
-- **EnemyShip** (Red) - Primary target at (25, 0, 0)
-- **EnemyShip2** (Red) - Secondary target at (15, 0, 15)
+### Ships (with detailed visual models)
+- **PlayerShip** (Blue) - Your ship at origin (0, 0, 0) facing +Z
+- **EnemyShip** (Red) - Primary target at (0, 0, 30) - directly ahead, 30 units
+- **EnemyShip2** (Red) - Secondary target at (5, 0, 15) - ahead-right, ~16 units
+
+Ships feature detailed visuals: hull, bridge superstructure, nose cone, engine block, and wing fins.
 
 ### Per-Ship Systems
 Each ship is fully equipped with:
-- All 7 sections (Fore, Aft, Port, Starboard, Dorsal, Ventral, Core)
-- Shield System (200 max shields)
-- Main Engine
-- 2 Weapons (Newtonian Cannon, Missile Battery)
-- Reactor Core
-- Radiator
-- Sensors
-- Torpedo Magazine
-- PD Turret
+- **All 7 sections** (Fore, Aft, Port, Starboard, Dorsal, Ventral, Core)
+  - Each section has a collider and SectionHitDetector for projectile hit detection
+- **Shield System** (200 max shields)
+- **Main Engine**
+- **Firing Weapons** with colored visual indicators (sphere markers):
+  | Weapon | Color | Range | Arc | Notes |
+  |--------|-------|-------|-----|-------|
+  | 2x RailGun | Cyan | 30 | 360° | Instant hit, infinite ammo |
+  | NewtonianCannon | Magenta | 20 | 60° | Slow projectile, infinite ammo |
+  | MissileBattery | Yellow | 40 | 180° | Fast homing, limited ammo |
+  | TorpedoLauncher | Orange | 50 | 30° | Slow homing, limited ammo |
+- **Mounted Systems** (for critical hit testing):
+  - Newtonian Cannon, Missile Battery (MountedWeapon)
+  - Reactor Core, Radiator, Sensors
+  - Torpedo Magazine, PD Turret
 
 ### Global Systems
-- ProjectileManager
-- TargetingController
-- Full Damage UI (Section Panel, Combat Log, Shield Bar)
+- **ProjectileManager** - handles all projectile spawning and tracking
+- **TargetingController** - manages target selection
+- **Full Damage UI** (Section Panel, Combat Log, Shield Bar)
+- **Status Overlay** (left panel) - shows target info, heat, shields, ammo status
+
+### On-Screen UI Elements
+- **Left Panel**: Always visible status overlay showing:
+  - Current weapon target and distance
+  - Target's shield status
+  - Player heat and shields
+  - Ammo status for all limited-ammo weapons
+  - Weapon group legend with colors
+  - Quick controls reference
+- **Right Panel** (toggle with J): Detailed test controls with tabs
 
 ---
 
@@ -230,7 +262,51 @@ Each ship is fully equipped with:
 
 ---
 
-### 7. Damage UI Testing
+### 7. Weapon System Fire Testing (NEW)
+
+**Location**: Weapons Tab
+
+This tab tests the **complete weapon-to-damage integration**. Unlike the Projectiles tab which spawns generic projectiles, this tab uses actual weapon systems that fire projectiles which route through the full damage system.
+
+**Damage Flow**:
+```
+WeaponSystem.Fire() → ProjectileManager.SpawnProjectile() → Projectile travels →
+SectionHitDetector.OnTriggerEnter() → DamageRouter.ProcessDamage() →
+Shields → Section Armor → Section Structure → Critical Hits → Combat Log
+```
+
+**Tests to Perform**:
+
+| Test | Steps | Expected Result |
+|------|-------|-----------------|
+| Fire Single Weapon | Click "Fire" next to RailGun | Projectile spawns, travels, hits target, applies damage |
+| Fire All Weapons | Click "Fire All Weapons" | All weapons fire, multiple projectiles hit |
+| Enemy Alpha Strike | Click "Enemy Alpha Strike" | Enemy weapons fire at player, player takes damage |
+| Weapon Cooldowns | Fire weapon, try firing again | Weapon shows cooldown, cannot fire |
+| Target Verification | Fire at different targets | Damage applies to correct target |
+
+**Weapon Stats Reference**:
+
+| Weapon | Damage | Heat | Cooldown | Speed | Type |
+|--------|--------|------|----------|-------|------|
+| RailGun | 20 | 15 | 0 | 40 | Fast Ballistic |
+| NewtonianCannon | 50 | 25 | 2 | 30 | Heavy Ballistic |
+| MissileBattery | 15/missile | 10 | 1 | 25 | Homing |
+| TorpedoLauncher | 100 | 30 | 3 | 15 | Slow Homing |
+
+**Verification Checklist**:
+- [ ] Weapons show Ready/Cooldown status correctly
+- [ ] Projectiles spawn from weapon hardpoint position
+- [ ] Projectiles travel toward target
+- [ ] Impact triggers damage routing (shields → armor → structure)
+- [ ] Combat log shows weapon damage
+- [ ] Heat is applied to firing ship
+- [ ] Cooldowns are applied after firing
+- [ ] Enemy weapons can damage player ship
+
+---
+
+### 8. Damage UI Testing
 
 **Location**: Status Tab + On-screen UI elements
 
@@ -326,6 +402,22 @@ Each ship is fully equipped with:
 7. Continue until Core section breached
 8. **Verify**: Ship destroyed, all damage recorded in combat log
 
+### Scenario 6: Weapon-to-Damage Combat (NEW)
+
+**Objective**: Test complete weapon → projectile → damage integration
+
+1. Create unified test level, enter Play Mode
+2. Go to **Weapons tab**
+3. Note enemy shield level (should be 200)
+4. Click "Fire" on RailGun (20 damage)
+5. **Verify**: Projectile travels, enemy shields drop to ~180
+6. Click "Fire All Weapons" (total ~235 damage from all weapons)
+7. **Verify**: Shields depleted, armor takes overflow damage
+8. Go to Status tab, verify damage reflected on enemy
+9. Click "Enemy Alpha Strike" on Weapons tab
+10. **Verify**: Enemy weapons fire, player shields reduce
+11. Check combat log for all weapon hit entries
+
 ---
 
 ## Automated Tests
@@ -343,7 +435,8 @@ All 188 automated tests can be run via Unity Test Runner:
 |----------|-------|-------------|
 | SectionTests | 12 | Section infrastructure |
 | ShieldSystemTests | 12 | Shield mechanics |
-| ProjectileDamageTests | 10 | Projectile integration |
+| ProjectileDamageIntegrationTests | 10 | Projectile-to-damage routing |
+| **WeaponDamageIntegrationTests** | 10 | **Weapon→Projectile→Damage flow (NEW)** |
 | CriticalHitTests | 10 | Critical hit system |
 | SystemDegradationTests | 10 | Degradation effects |
 | CoreProtectionTests | 10 | Core protection rules |
@@ -437,6 +530,17 @@ Use this checklist to verify all Phase 3 features are working:
 - [ ] Damage routed through DamageRouter
 - [ ] Impact triggers full damage flow
 
+### Weapon-to-Damage Integration (NEW)
+- [ ] Weapons can fire at assigned targets
+- [ ] Projectiles spawn from weapon hardpoints
+- [ ] Projectiles collide with section colliders
+- [ ] SectionHitDetector receives hit events
+- [ ] DamageRouter processes projectile damage
+- [ ] Full damage flow: Shields → Armor → Structure → Criticals
+- [ ] Combat log records weapon hits accurately
+- [ ] Heat is applied to firing ship
+- [ ] Weapon cooldowns work correctly
+
 ---
 
 ## Version History
@@ -444,6 +548,7 @@ Use this checklist to verify all Phase 3 features are working:
 | Version | Date | Changes |
 |---------|------|---------|
 | 1.0 | Dec 2025 | Initial Phase 3 testing guide |
+| 1.1 | Dec 2025 | Added Weapon-to-Damage integration testing section |
 
 ---
 

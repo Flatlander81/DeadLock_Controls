@@ -220,7 +220,6 @@ public class DamageSystemIntegrationTestSetup : Editor
 
         SerializedObject engineSO = new SerializedObject(engine);
         engineSO.FindProperty("systemType").enumValueIndex = (int)ShipSystemType.MainEngine;
-        engineSO.FindProperty("slotSize").intValue = 15;
         engineSO.ApplyModifiedProperties();
     }
 
@@ -232,7 +231,6 @@ public class DamageSystemIntegrationTestSetup : Editor
 
         SerializedObject weaponSO = new SerializedObject(weapon);
         weaponSO.FindProperty("systemType").enumValueIndex = (int)weaponType;
-        weaponSO.FindProperty("slotSize").intValue = 8;
         weaponSO.ApplyModifiedProperties();
     }
 
@@ -244,7 +242,6 @@ public class DamageSystemIntegrationTestSetup : Editor
 
         SerializedObject reactorSO = new SerializedObject(reactor);
         reactorSO.FindProperty("systemType").enumValueIndex = (int)ShipSystemType.ReactorCore;
-        reactorSO.FindProperty("slotSize").intValue = 20;
         reactorSO.ApplyModifiedProperties();
     }
 

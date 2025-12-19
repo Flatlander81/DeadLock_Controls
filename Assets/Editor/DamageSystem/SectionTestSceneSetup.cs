@@ -11,7 +11,7 @@ public static class SectionTestSceneSetup
     /// <summary>
     /// Creates a new test scene with a ship pre-configured with sections.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Create Section Test Scene")]
+    [MenuItem("Hephaestus/Testing/Create Section Test Scene")]
     public static void CreateSectionTestScene()
     {
         // Create new scene
@@ -158,7 +158,7 @@ public static class SectionTestSceneSetup
     /// <summary>
     /// Opens the section test scene if it exists.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Open Section Test Scene")]
+    [MenuItem("Hephaestus/Testing/Open Section Test Scene")]
     public static void OpenSectionTestScene()
     {
         string scenePath = "Assets/Scenes/Testing/SectionTestScene.unity";

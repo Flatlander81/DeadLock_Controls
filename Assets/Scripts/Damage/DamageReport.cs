@@ -43,6 +43,9 @@ public struct DamageReport
     /// <summary>True if a lucky shot punched through to Core.</summary>
     public bool WasLuckyShot;
 
+    /// <summary>True if damage overflowed from a breached section to Core.</summary>
+    public bool OverflowedToCore;
+
     /// <summary>True if a critical hit occurred.</summary>
     public bool HadCritical => CriticalResult.HasValue;
 
@@ -73,7 +76,8 @@ public struct DamageReport
         ShipSection section,
         CriticalHitResult? criticalResult = null,
         bool coreWasProtected = false,
-        bool wasLuckyShot = false)
+        bool wasLuckyShot = false,
+        bool overflowedToCore = false)
     {
         TotalIncomingDamage = totalIncoming;
         ShieldDamage = shieldDamage;
@@ -88,6 +92,7 @@ public struct DamageReport
         CriticalResult = criticalResult;
         CoreWasProtected = coreWasProtected;
         WasLuckyShot = wasLuckyShot;
+        OverflowedToCore = overflowedToCore;
     }
 
     /// <summary>
@@ -158,6 +163,10 @@ public struct DamageReport
         if (WasLuckyShot)
         {
             coreStr += ", LUCKY_SHOT";
+        }
+        if (OverflowedToCore)
+        {
+            coreStr += ", OVERFLOW_TO_CORE";
         }
 
         return $"DamageReport[Total:{TotalIncomingDamage:F1}, Shield:{ShieldDamage:F1}, " +

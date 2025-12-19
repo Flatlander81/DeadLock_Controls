@@ -54,7 +54,7 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        allShips = FindObjectsOfType<Ship>();
+        allShips = FindObjectsByType<Ship>(FindObjectsSortMode.None);
         CurrentPhase = Phase.Command;
         Debug.Log($"TurnManager initialized. Found {allShips.Length} ships. Starting in Command Phase.");
     }
@@ -246,7 +246,7 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     public void RefreshShipList()
     {
-        allShips = FindObjectsOfType<Ship>();
+        allShips = FindObjectsByType<Ship>(FindObjectsSortMode.None);
         Debug.Log($"Ship list refreshed. Found {allShips.Length} ships.");
     }
 }

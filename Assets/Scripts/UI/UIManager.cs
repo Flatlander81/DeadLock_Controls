@@ -35,9 +35,6 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        // Find or create panel components
-        InitializePanels();
-
         // Subscribe to targeting controller events
         if (targetingController != null)
         {
@@ -51,6 +48,10 @@ public class UIManager : MonoBehaviour
 
         // Start with all panels hidden
         SetState(UIState.NothingSelected);
+
+        // Delay panel initialization to allow Ship.Start() to run first
+        // Ship.Start() discovers WeaponManager via GetComponent
+        Invoke(nameof(InitializePanels), 0.1f);
     }
 
     private void OnDestroy()

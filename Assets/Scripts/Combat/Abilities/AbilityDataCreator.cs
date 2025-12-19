@@ -10,7 +10,7 @@ using UnityEditor;
 public class AbilityDataCreator
 {
 #if UNITY_EDITOR
-    [MenuItem("Tools/Create Default Abilities")]
+    [MenuItem("Hephaestus/Setup/Create Default Abilities")]
     public static void CreateDefaultAbilities()
     {
         // Ensure directory exists

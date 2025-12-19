@@ -288,12 +288,12 @@ When a system is destroyed, it remains in its slot range. Future critical rolls 
 
 ### Weapon Reference
 
-| Weapon | Arc | Range | Speed | Damage | Heat | Cooldown | Ammo |
-|--------|-----|-------|-------|--------|------|----------|------|
-| Rail Gun | 360° | 30 | 40 u/s | 20 | 15 | None | ∞ |
-| Newtonian Cannon | 60° | 20 | 15 u/s | 40 | 30 | None | ∞ |
-| Torpedo | 30° | 25 | 5 u/s (homing) | 50 | 25 | 3T | 6 |
-| Missile Battery | 360° | 35 | 8 u/s (homing) | 15 | 10 | 1T | 20 |
+| Weapon | Arc | Range | Speed | Damage | Heat | Cooldown | Ammo | Firing Style |
+|--------|-----|-------|-------|--------|------|----------|------|--------------|
+| Rail Gun | 360° | 30 | 40 u/s | 20 | 15 | None | ∞ | Turret |
+| Newtonian Cannon | 60° | 20 | 15 u/s | 40 | 30 | None | ∞ | Spinal |
+| Torpedo | 360° | 50 | 5 u/s (homing) | 80 | 25 | 3T | 6 | Broadside |
+| Missile Battery | 360° | 35 | 15 u/s (homing) | 30 | 20 | 1T | 20 | Broadside |
 
 *Note: All damage values are placeholders pending balance testing.*
 
@@ -317,25 +317,35 @@ When a system is destroyed, it remains in its slot range. Future critical rolls 
 - **Cooldown**: None (can fire every turn)
 - **Characteristics**: Massive spinal-mounted cannon. High damage but requires precise positioning
 
-**Torpedo (Strategic Weapon)**
-- **Arc**: Forward firing only (±30°)
-- **Range**: Medium-Long (25 units)
-- **Hit**: Slow homing projectile (5 units/second, 90°/sec turn rate)
-- **Damage**: 50 (devastating)
+**Torpedo (Strategic Weapon - Broadside)**
+- **Arc**: 360° coverage
+- **Firing Style**: Broadside - launches from port or starboard side closest to target
+- **Range**: Long (50 units)
+- **Hit**: Slow homing projectile (5 units/second, 45°/sec turn rate)
+- **Damage**: 80 (devastating)
 - **Heat**: +25
 - **Cooldown**: 3 turns after firing
 - **Ammo**: Limited (6 torpedoes total)
-- **Characteristics**: Multi-turn travel time, can be intercepted by point defense
+- **Characteristics**:
+  - Multi-turn travel time, can be intercepted by point defense
+  - Fires from the side of the ship facing the target
+  - Positioning matters - enemy location determines launch point
+  - Slow but powerful, ideal for capital ship engagements
 
-**Missile Battery (Tactical Weapon)**
-- **Arc**: 360° launcher
+**Missile Battery (Tactical Weapon - Broadside)**
+- **Arc**: 360° coverage
+- **Firing Style**: Broadside - launches volleys from port or starboard side closest to target
 - **Range**: Long (35 units)
-- **Hit**: Fast homing (8 units/second, 90°/sec turn rate)
-- **Damage**: 15
-- **Heat**: +10
+- **Hit**: Fast homing (15 units/second, 90°/sec turn rate)
+- **Damage**: 30
+- **Heat**: +20
 - **Cooldown**: 1 turn after firing
 - **Ammo**: Limited (20 missiles total)
-- **Characteristics**: Reliable damage, harder to intercept than torpedoes
+- **Characteristics**:
+  - Reliable damage, harder to intercept than torpedoes
+  - Fires volleys from the side of the ship facing the target
+  - Faster than torpedoes but less damage per hit
+  - Good for harassing and overwhelming point defense
 
 ### Targeting System
 
@@ -808,8 +818,8 @@ WEAPONS:
 Rail Gun 1        [Group: 1▼]  Heat: 15  Cooldown: Ready  Arc: 360°
 Rail Gun 2        [Group: 1▼]  Heat: 15  Cooldown: Ready  Arc: 360°
 Newtonian Cannon  [Group: 2▼]  Heat: 30  Cooldown: Ready  Arc: 60°
-Torpedo Launcher  [Group: 3▼]  Heat: 25  Cooldown: 2T     Arc: 30°   Ammo: 5/6
-Missile Battery 1 [Group: 4▼]  Heat: 10  Cooldown: Ready  Arc: 360°  Ammo: 18/20
+Torpedo Launcher  [Group: 3▼]  Heat: 25  Cooldown: 2T     Arc: 360° (Broadside)  Ammo: 5/6
+Missile Battery 1 [Group: 4▼]  Heat: 20  Cooldown: Ready  Arc: 360° (Broadside)  Ammo: 18/20
 Missile Battery 2 [Group: 4▼]  Heat: 10  Cooldown: 1T     Arc: 360°  Ammo: 18/20
 ```
 

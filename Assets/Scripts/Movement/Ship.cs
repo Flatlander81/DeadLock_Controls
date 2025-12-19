@@ -878,7 +878,7 @@ public class Ship : MonoBehaviour
     /// </summary>
     public void Die()
     {
-        Debug.LogError($"{gameObject.name} has been destroyed!");
+        Debug.LogWarning($"{gameObject.name} has been destroyed!");
         // TODO: Add death effects, animations, etc.
         // For now, just disable the ship
         gameObject.SetActive(false);

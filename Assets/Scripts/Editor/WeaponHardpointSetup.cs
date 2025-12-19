@@ -7,7 +7,7 @@ using UnityEditor;
 /// </summary>
 public class WeaponHardpointSetup : EditorWindow
 {
-    [MenuItem("Tools/Setup Weapon Hardpoints")]
+    [MenuItem("Hephaestus/Setup/Setup Weapon Hardpoints")]
     public static void SetupHardpoints()
     {
         // Find the ship prefab in the scene

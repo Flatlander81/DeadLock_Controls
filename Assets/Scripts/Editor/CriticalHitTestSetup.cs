@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 /// </summary>
 public class CriticalHitTestSetup
 {
-    [MenuItem("Deadlock/Test Scenes/Create Critical Hit Test Scene")]
+    [MenuItem("Hephaestus/Testing/Create Critical Hit Test Scene")]
     public static void CreateCriticalHitTestScene()
     {
         // Create new scene

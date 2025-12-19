@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ProjectileTestSceneSetup : EditorWindow
 {
-    [MenuItem("Tools/Setup Projectile Test Scene")]
+    [MenuItem("Hephaestus/Testing/Setup Projectile Test Scene")]
     public static void CreateProjectileTestScene()
     {
         // Ask user if they want to save current scene

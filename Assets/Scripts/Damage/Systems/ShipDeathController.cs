@@ -251,7 +251,7 @@ public class ShipDeathController : MonoBehaviour
         isDestroyed = true;
         deathCause = cause;
 
-        Debug.LogError($"[ShipDeathController] SHIP DESTROYED! Cause: {cause}");
+        Debug.LogWarning($"[ShipDeathController] SHIP DESTROYED! Cause: {cause}");
 
         OnShipDestroyed?.Invoke(ship, cause);
         OnShipStateChanged?.Invoke(ship, isDestroyed, isDisabled);

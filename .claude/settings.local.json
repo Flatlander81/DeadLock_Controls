@@ -46,7 +46,11 @@
       "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_Phase3Integration2.log\")",
       "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_Phase3Integration3.log\")",
       "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_Phase3Final.log\")",
-      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -testResults \"H:\\Repo\\DeadLock_Controls\\TestResults_Phase3Final.xml\" -testPlatform PlayMode -logFile \"H:\\Repo\\DeadLock_Controls\\TestLog_Phase3Final.txt\")"
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -runTests -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -testResults \"H:\\Repo\\DeadLock_Controls\\TestResults_Phase3Final.xml\" -testPlatform PlayMode -logFile \"H:\\Repo\\DeadLock_Controls\\TestLog_Phase3Final.txt\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_SlotSizeFix.log\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_MenuConsolidation.log\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_OverflowToCore.log\")",
+      "Bash(\"C:/Program Files/Unity/Hub/Editor/6000.2.10f1/Editor/Unity.exe\" -batchmode -projectPath \"H:\\Repo\\DeadLock_Controls\" -executeMethod UnityEditor.SyncVS.SyncSolution -quit -logFile \"H:\\Repo\\DeadLock_Controls\\CompileCheck_Warnings.log\")"
     ],
     "deny": [],
     "ask": []

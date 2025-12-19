@@ -11,7 +11,7 @@ public static class SectionSetupEditor
     /// Adds a complete section setup to the selected ship GameObject.
     /// Creates SectionManager and all 7 sections with colliders.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Setup Sections on Selected Ship")]
+    [MenuItem("Hephaestus/Setup/Setup Sections on Selected Ship")]
     public static void SetupSectionsOnSelectedShip()
     {
         GameObject selected = Selection.activeGameObject;
@@ -100,7 +100,7 @@ public static class SectionSetupEditor
     /// <summary>
     /// Removes all section components from the selected ship.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Remove Sections from Selected Ship")]
+    [MenuItem("Hephaestus/Setup/Remove Sections from Selected Ship")]
     public static void RemoveSectionsFromSelectedShip()
     {
         GameObject selected = Selection.activeGameObject;
@@ -141,7 +141,7 @@ public static class SectionSetupEditor
     /// <summary>
     /// Validates that a ship is selected for setup.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Setup Sections on Selected Ship", true)]
+    [MenuItem("Hephaestus/Setup/Setup Sections on Selected Ship", true)]
     public static bool ValidateSetupSections()
     {
         return Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<Ship>() != null;
@@ -150,7 +150,7 @@ public static class SectionSetupEditor
     /// <summary>
     /// Validates that a ship is selected for removal.
     /// </summary>
-    [MenuItem("Deadlock/Damage System/Remove Sections from Selected Ship", true)]
+    [MenuItem("Hephaestus/Setup/Remove Sections from Selected Ship", true)]
     public static bool ValidateRemoveSections()
     {
         return Selection.activeGameObject != null;
