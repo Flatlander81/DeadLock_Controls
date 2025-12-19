@@ -85,21 +85,22 @@ public class Phase1IntegrationTests
 
     /// <summary>
     /// Test 1: Queue ability, verify HeatDisplay shows planned heat.
+    /// Uses Evasive Maneuver (always available) instead of Shield Boost (requires shields depleted).
     /// </summary>
     [UnityTest]
     public IEnumerator Test_AbilityAddsPlannedHeat()
     {
-        SetupAbilitySystemWithAbilities(shieldBoostData);
+        SetupAbilitySystemWithAbilities(evasiveManeuverData);
         yield return null;
 
         float initialPlannedHeat = heatManager.PlannedHeat;
         Assert.AreEqual(0f, initialPlannedHeat, "Planned heat should start at 0");
 
         // Queue ability
-        abilitySystem.TryActivateAbility("Shield Boost");
+        abilitySystem.TryActivateAbility("Evasive Maneuver");
 
         // Verify planned heat increased
-        Assert.AreEqual(15f, heatManager.PlannedHeat, "Planned heat should be 15 after queuing Shield Boost");
+        Assert.AreEqual(10f, heatManager.PlannedHeat, "Planned heat should be 10 after queuing Evasive Maneuver");
         Assert.AreEqual(0f, heatManager.CurrentHeat, "Current heat should still be 0");
     }
 
@@ -129,16 +130,17 @@ public class Phase1IntegrationTests
 
     /// <summary>
     /// Test 3: Queue then cancel, verify planned cleared.
+    /// Uses Evasive Maneuver (always available) instead of Shield Boost (requires shields depleted).
     /// </summary>
     [UnityTest]
     public IEnumerator Test_AbilityCancelClearsPlannedHeat()
     {
-        SetupAbilitySystemWithAbilities(shieldBoostData);
+        SetupAbilitySystemWithAbilities(evasiveManeuverData);
         yield return null;
 
         // Queue ability
-        abilitySystem.TryActivateAbility("Shield Boost");
-        Assert.AreEqual(15f, heatManager.PlannedHeat, "Planned heat should be 15");
+        abilitySystem.TryActivateAbility("Evasive Maneuver");
+        Assert.AreEqual(10f, heatManager.PlannedHeat, "Planned heat should be 10");
 
         // Cancel queue
         abilitySystem.ClearQueue();
@@ -149,12 +151,16 @@ public class Phase1IntegrationTests
 
     /// <summary>
     /// Test 4: Queue 3 abilities, verify total heat correct.
+    /// Note: Shield Boost requires shields to be depleted first.
     /// </summary>
     [UnityTest]
     public IEnumerator Test_MultipleAbilitiesHeatStacking()
     {
         SetupAbilitySystemWithAbilities(emergencyCoolingData, shieldBoostData, evasiveManeuverData);
         yield return null;
+
+        // Deplete shields so Shield Boost can activate
+        ship.CurrentShields = 0f;
 
         // Queue all 3 abilities
         abilitySystem.TryActivateAbility("Emergency Cooling"); // 0 heat
@@ -310,7 +316,8 @@ public class Phase1IntegrationTests
     }
 
     /// <summary>
-    /// Test 10: Verify shield boost works with shield regen system.
+    /// Test 10: Verify shield boost works when shields are depleted.
+    /// GDD: Shield Boost only works when shields are at 0.
     /// </summary>
     [UnityTest]
     public IEnumerator Test_ShieldBoostWithRegen()
@@ -318,21 +325,18 @@ public class Phase1IntegrationTests
         SetupAbilitySystemWithAbilities(shieldBoostData);
         yield return null;
 
-        // Damage shields to 50
-        ship.TakeDamage(150f);
-        Assert.AreEqual(50f, ship.CurrentShields, "Shields should be 50");
+        // Fully deplete shields (Shield Boost only works at 0)
+        ship.CurrentShields = 0f;
+        Assert.AreEqual(0f, ship.CurrentShields, "Shields should be 0");
 
-        // Use Shield Boost (adds 100)
+        // Use Shield Boost (restores 100)
         abilitySystem.TryActivateAbility("Shield Boost");
         yield return abilitySystem.ExecuteQueuedAbilities();
         yield return new WaitForSeconds(0.4f);
 
-        Assert.AreEqual(150f, ship.CurrentShields, "Shields should be 150 after boost");
+        Assert.AreEqual(100f, ship.CurrentShields, "Shields should be 100 after boost");
 
-        // Apply shield regen
-        ship.RegenerateShields();
-
-        // Should be able to regen up to max (200)
-        Assert.AreEqual(170f, ship.CurrentShields, "Shields should be 170 after one regen tick");
+        // Note: GDD specifies no shield regeneration - shields are a single bubble pool
+        // Legacy regen test removed as it no longer applies to the new shield system
     }
 }

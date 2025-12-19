@@ -22,6 +22,9 @@ public abstract class Projectile : MonoBehaviour
     [SerializeField] protected bool isActive = false;
     private bool isBeingDestroyed = false; // Prevents double-destruction from lifetime + collision race
 
+    // Last damage report from hit
+    protected DamageReport lastDamageReport;
+
     // Pre-allocated buffer for SphereCastNonAlloc to avoid GC allocations every frame
     // Buffer size of 16 is sufficient for typical combat scenarios (rarely more than 16 overlapping colliders)
     private const int RaycastBufferSize = 16;
@@ -35,6 +38,7 @@ public abstract class Projectile : MonoBehaviour
     public Ship TargetShip => targetShip;
     public float CurrentAge => currentAge;
     public bool IsActive => isActive;
+    public DamageReport LastDamageReport => lastDamageReport;
 
     /// <summary>
     /// Initialize the projectile with spawn info from weapon.
@@ -92,6 +96,7 @@ public abstract class Projectile : MonoBehaviour
     /// <summary>
     /// Check for collisions with ships using sphere cast.
     /// Uses NonAlloc version to avoid GC allocations every frame.
+    /// Prioritizes SectionHitDetector for proper damage routing.
     /// </summary>
     protected virtual void CheckCollisions()
     {
@@ -106,26 +111,72 @@ public abstract class Projectile : MonoBehaviour
 
         for (int i = 0; i < hitCount; i++)
         {
-            Ship hitShip = hitBuffer[i].collider.GetComponent<Ship>();
-            if (hitShip == null)
+            Collider hitCollider = hitBuffer[i].collider;
+            Vector3 hitPoint = hitBuffer[i].point;
+
+            // Check for SectionHitDetector first (proper damage routing)
+            SectionHitDetector hitDetector = hitCollider.GetComponent<SectionHitDetector>();
+            if (hitDetector != null)
             {
-                hitShip = hitBuffer[i].collider.GetComponentInParent<Ship>();
+                // Verify it's not our own ship
+                Ship hitShip = hitDetector.ParentSection?.ParentShip;
+                if (hitShip != null && hitShip != ownerShip)
+                {
+                    OnSectionHit(hitDetector, hitPoint);
+                    return;
+                }
+                continue;
+            }
+
+            // Fallback: check for Ship directly (legacy behavior)
+            Ship directHitShip = hitCollider.GetComponent<Ship>();
+            if (directHitShip == null)
+            {
+                directHitShip = hitCollider.GetComponentInParent<Ship>();
             }
 
             // Check if we hit a ship (and not the owner)
-            if (hitShip != null && hitShip != ownerShip)
+            if (directHitShip != null && directHitShip != ownerShip)
             {
-                OnHit(hitShip);
-                return; // Projectile destroyed on first hit
+                OnHit(directHitShip, hitPoint);
+                return;
             }
         }
     }
 
     /// <summary>
-    /// Called when projectile hits a ship.
-    /// Apply damage and destroy projectile.
+    /// Called when projectile hits a section (via SectionHitDetector).
+    /// Routes damage through DamageRouter for proper shields → armor → structure flow.
     /// </summary>
-    protected virtual void OnHit(Ship target)
+    /// <param name="hitDetector">The section hit detector that was hit.</param>
+    /// <param name="hitPoint">World position of impact.</param>
+    protected virtual void OnSectionHit(SectionHitDetector hitDetector, Vector3 hitPoint)
+    {
+        // Prevent double-hit from race conditions
+        if (isBeingDestroyed) return;
+        isBeingDestroyed = true;
+
+        Ship target = hitDetector.ParentSection?.ParentShip;
+        if (target == null || target.IsDead)
+        {
+            Debug.LogWarning($"{GetType().Name} target became invalid before hit could apply");
+            OnDestroyed();
+            return;
+        }
+
+        Debug.Log($"{GetType().Name} hit {target.gameObject.name} section {hitDetector.ParentSection.SectionType} for {damage} damage");
+
+        // Let the hit detector handle damage routing and projectile destruction
+        lastDamageReport = hitDetector.HandleProjectileHit(this);
+    }
+
+    /// <summary>
+    /// Called when projectile hits a ship directly (legacy/fallback behavior).
+    /// Uses DamageRouter if available, otherwise falls back to Ship.TakeDamage.
+    /// </summary>
+    /// <param name="target">Ship that was hit.</param>
+    /// <param name="hitPoint">World position of impact (used to determine section).</param>
+    protected virtual void OnHit(Ship target, Vector3 hitPoint)
     {
         // Prevent double-hit from race conditions
         if (isBeingDestroyed) return;
@@ -141,11 +192,28 @@ public abstract class Projectile : MonoBehaviour
 
         Debug.Log($"{GetType().Name} hit {target.gameObject.name} for {damage} damage");
 
-        // Apply damage to target
-        target.TakeDamage(damage);
+        // Try to use DamageRouter for proper damage flow
+        DamageRouter router = target.DamageRouter;
+        if (router != null)
+        {
+            lastDamageReport = router.ProcessDamageAtPoint(damage, hitPoint);
+        }
+        else
+        {
+            // Legacy fallback: apply damage directly to ship
+            target.TakeDamage(damage);
+        }
 
         // Destroy projectile
         OnDestroyed();
+    }
+
+    /// <summary>
+    /// Legacy overload for backwards compatibility.
+    /// </summary>
+    protected virtual void OnHit(Ship target)
+    {
+        OnHit(target, transform.position);
     }
 
     /// <summary>
@@ -183,6 +251,7 @@ public abstract class Projectile : MonoBehaviour
         currentAge = 0f;
         ownerShip = null;
         targetShip = null;
+        lastDamageReport = new DamageReport();
         gameObject.SetActive(false);
     }
 

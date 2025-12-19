@@ -34,7 +34,35 @@ public abstract class AbilityData : ScriptableObject
 
         // Check heat affordability
         float totalHeat = ship.HeatManager.CurrentHeat + ship.HeatManager.PlannedHeat + heatCost;
-        return totalHeat <= ship.HeatManager.MaxHeat * 2f;
+        if (totalHeat > ship.HeatManager.MaxHeat * 2f)
+        {
+            return false;
+        }
+
+        // Check ability-specific activation conditions
+        return CanActivate(ship);
+    }
+
+    /// <summary>
+    /// Check if this ability can be activated (ability-specific conditions).
+    /// Override in subclasses for abilities with special requirements.
+    /// </summary>
+    /// <param name="ship">The ship trying to use this ability</param>
+    /// <returns>True if ability can be activated</returns>
+    public virtual bool CanActivate(Ship ship)
+    {
+        return true;
+    }
+
+    /// <summary>
+    /// Gets the reason why activation is blocked (for UI display).
+    /// Override in subclasses with special requirements.
+    /// </summary>
+    /// <param name="ship">The ship trying to use this ability</param>
+    /// <returns>Reason string, or empty if not blocked</returns>
+    public virtual string GetActivationBlockedReason(Ship ship)
+    {
+        return string.Empty;
     }
 
     /// <summary>

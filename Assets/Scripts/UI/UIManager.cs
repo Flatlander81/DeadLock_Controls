@@ -2,9 +2,9 @@ using UnityEngine;
 
 /// <summary>
 /// Manages UI panel visibility and state transitions.
-/// Coordinates WeaponConfigPanel and WeaponGroupPanel based on ship selection.
+/// Coordinates WeaponConfigPanel, WeaponGroupPanel, and DamageUIManager based on ship selection.
 /// Three states:
-/// - Nothing selected: All panels hidden
+/// - Nothing selected: All panels hidden (damage UI always visible)
 /// - Enemy selected: Show WeaponGroupPanel (firing)
 /// - Player selected: Show WeaponConfigPanel (configuration)
 /// </summary>
@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [Header("Panel References")]
     [SerializeField] private WeaponConfigPanel weaponConfigPanel;
     [SerializeField] private WeaponGroupPanel weaponGroupPanel;
+    [SerializeField] private DamageUIManager damageUIManager;
 
     [Header("Controller References")]
     [SerializeField] private TargetingController targetingController;
@@ -90,6 +91,14 @@ public class UIManager : MonoBehaviour
             groupPanelObj.transform.SetParent(transform);
         }
 
+        // Create DamageUIManager if not assigned
+        if (damageUIManager == null)
+        {
+            GameObject damageUIObj = new GameObject("DamageUIManager");
+            damageUIManager = damageUIObj.AddComponent<DamageUIManager>();
+            damageUIObj.transform.SetParent(transform);
+        }
+
         // Initialize panels
         if (playerShip != null)
         {
@@ -99,6 +108,8 @@ public class UIManager : MonoBehaviour
             {
                 weaponGroupPanel.Initialize(playerShip, targetingController);
             }
+
+            damageUIManager.Initialize(playerShip);
         }
 
         Debug.Log("UIManager: Panels initialized");
@@ -194,5 +205,35 @@ public class UIManager : MonoBehaviour
     public string GetCurrentState()
     {
         return currentState.ToString();
+    }
+
+    /// <summary>
+    /// Get the DamageUIManager.
+    /// </summary>
+    public DamageUIManager GetDamageUIManager()
+    {
+        return damageUIManager;
+    }
+
+    /// <summary>
+    /// Toggle damage UI visibility.
+    /// </summary>
+    public void ToggleDamageUI()
+    {
+        if (damageUIManager != null)
+        {
+            damageUIManager.Toggle();
+        }
+    }
+
+    /// <summary>
+    /// Process a damage report through the damage UI.
+    /// </summary>
+    public void ProcessDamageReport(DamageReport report, string shipName = null)
+    {
+        if (damageUIManager != null)
+        {
+            damageUIManager.ProcessDamageReport(report, shipName);
+        }
     }
 }

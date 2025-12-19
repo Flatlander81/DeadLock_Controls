@@ -111,7 +111,22 @@ public class HomingProjectile : Projectile
             float distanceToTarget = Vector3.Distance(transform.position, targetShip.transform.position);
             if (distanceToTarget <= collisionRadius)
             {
-                OnHit(targetShip);
+                // Try to find nearest section for proper routing
+                SectionManager sectionMgr = targetShip.SectionManager;
+                if (sectionMgr != null)
+                {
+                    // Use ProcessDamageAtPoint to determine closest section
+                    DamageRouter router = targetShip.DamageRouter;
+                    if (router != null)
+                    {
+                        lastDamageReport = router.ProcessDamageAtPoint(damage, transform.position);
+                        OnDestroyed();
+                        return;
+                    }
+                }
+
+                // Fallback to legacy hit behavior
+                OnHit(targetShip, transform.position);
             }
         }
     }

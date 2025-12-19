@@ -22,10 +22,22 @@ public struct DamageResult
     /// <summary>True if the section was already breached before this hit.</summary>
     public bool WasAlreadyBreached;
 
+    /// <summary>Critical hit result if structure was damaged (null if no critical).</summary>
+    public CriticalHitResult? CriticalResult;
+
     /// <summary>
     /// Total damage that was actually applied to the section.
     /// </summary>
     public float TotalDamageApplied => DamageToArmor + DamageToStructure;
+
+    /// <summary>True if a critical hit occurred.</summary>
+    public bool HadCritical => CriticalResult.HasValue;
+
+    /// <summary>True if a system was damaged by the critical hit.</summary>
+    public bool SystemDamaged => CriticalResult.HasValue && CriticalResult.Value.SystemWasDamaged;
+
+    /// <summary>True if a system was destroyed by the critical hit.</summary>
+    public bool SystemDestroyed => CriticalResult.HasValue && CriticalResult.Value.SystemWasDestroyed;
 
     /// <summary>
     /// Creates a new damage result.
@@ -36,7 +48,8 @@ public struct DamageResult
         float overflowDamage = 0f,
         bool armorBroken = false,
         bool sectionBreached = false,
-        bool wasAlreadyBreached = false)
+        bool wasAlreadyBreached = false,
+        CriticalHitResult? criticalResult = null)
     {
         DamageToArmor = damageToArmor;
         DamageToStructure = damageToStructure;
@@ -44,6 +57,7 @@ public struct DamageResult
         ArmorBroken = armorBroken;
         SectionBreached = sectionBreached;
         WasAlreadyBreached = wasAlreadyBreached;
+        CriticalResult = criticalResult;
     }
 
     /// <summary>
@@ -57,13 +71,36 @@ public struct DamageResult
             overflowDamage: incomingDamage,
             armorBroken: false,
             sectionBreached: false,
-            wasAlreadyBreached: true);
+            wasAlreadyBreached: true,
+            criticalResult: null);
     }
 
     public override string ToString()
     {
+        string critStr = "";
+        if (CriticalResult.HasValue)
+        {
+            var crit = CriticalResult.Value;
+            if (crit.WasEmptySlot)
+            {
+                critStr = $", Critical: Miss (slot {crit.RolledSlot})";
+            }
+            else if (crit.SystemWasDestroyed)
+            {
+                critStr = $", Critical: {ShipSystemData.GetName(crit.SystemTypeHit)} DESTROYED!";
+            }
+            else if (crit.SystemWasDamaged)
+            {
+                critStr = $", Critical: {ShipSystemData.GetName(crit.SystemTypeHit)} damaged";
+            }
+            else
+            {
+                critStr = $", Critical: {ShipSystemData.GetName(crit.SystemTypeHit)} (absorbed)";
+            }
+        }
+
         return $"DamageResult[Armor:{DamageToArmor:F1}, Structure:{DamageToStructure:F1}, " +
                $"Overflow:{OverflowDamage:F1}, ArmorBroken:{ArmorBroken}, " +
-               $"Breached:{SectionBreached}, WasBreached:{WasAlreadyBreached}]";
+               $"Breached:{SectionBreached}, WasBreached:{WasAlreadyBreached}{critStr}]";
     }
 }

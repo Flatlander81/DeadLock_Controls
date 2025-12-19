@@ -1002,4 +1002,119 @@ Assets/Scenes/Testing/              # Test scenes (auto-generated)
 - Editor automation follows Phase 3 standards (Undo support, validation)
 - Debug tools provide real-time feedback during development
 
-#### ⏭️ Next: Step 3.2 - Targeted Damage Routing
+---
+
+### Step 3.2 - Shield System and Damage Routing
+
+**Status:** Complete ✅
+
+#### 📁 Files Created
+
+**Core Components:**
+- `Assets/Scripts/Damage/Systems/ShieldSystem.cs` - Single bubble shield pool with no regeneration
+- `Assets/Scripts/Damage/DamageReport.cs` - Struct for detailed damage distribution reporting
+- `Assets/Scripts/Damage/Systems/DamageRouter.cs` - Central damage routing (Shields → Armor → Structure)
+
+**Debug Tools:**
+- `Assets/Scripts/Damage/Debug/ShieldTestController.cs` - Runtime test controller with GUI
+- `Assets/Editor/DamageSystem/ShieldTestSceneSetup.cs` - Menu item to create test scene
+
+**Unit Tests:**
+- `Assets/Tests/PlayModeTests/DamageSystem/ShieldSystemTests.cs` - 12 comprehensive tests
+
+#### 🔧 Modified Files
+- `Assets/Scripts/Combat/Abilities/AbilityData.cs` - Added CanActivate() and GetActivationBlockedReason()
+- `Assets/Scripts/Combat/Abilities/ShieldBoostData.cs` - Now only activates when shields = 0
+- `Assets/Scripts/Combat/Abilities/AbilitySystem.cs` - Displays blocked reason when activation fails
+- `Assets/Scripts/Movement/Ship.cs` - Added ShieldSystem and DamageRouter properties
+- `Assets/Tests/PlayModeTests/Phase1IntegrationTests.cs` - Updated tests for new Shield Boost behavior
+- `Assets/Tests/PlayModeTests/AbilitySystemTests.cs` - Updated tests for new Shield Boost behavior
+
+#### 🎯 Features Implemented
+
+1. **ShieldSystem Component** (ShieldSystem.cs)
+   - Single bubble shield pool (GDD: 200 HP)
+   - NO regeneration (GDD spec)
+   - Properties: maxShields, currentShields, IsShieldActive
+   - Methods: AbsorbDamage(damage) → overflow, CanRestoreShields(), RestoreShields(amount)
+   - Events: OnShieldDamaged, OnShieldDepleted, OnShieldRestored
+   - Shield Boost only works when shields = 0
+
+2. **DamageReport Struct** (DamageReport.cs)
+   - totalIncomingDamage, shieldDamage, armorDamage, structureDamage, overflowDamage
+   - Flags: shieldsDepleted, armorBroken, sectionBreached
+   - References: sectionHit (type), section (reference)
+   - TotalDamageApplied computed property
+   - Factory methods: ShieldsAbsorbed(), NoShields()
+
+3. **DamageRouter Component** (DamageRouter.cs)
+   - Central damage routing on Ship
+   - Auto-finds ShieldSystem, SectionManager
+   - ProcessDamage(damage, targetSection) → DamageReport
+   - ProcessDamageAtPoint(damage, worldPoint) → DamageReport
+   - Damage flow: Shields → Section Armor → Section Structure
+   - GetTotalEffectiveHP(), GetMaxEffectiveHP()
+
+4. **Ability System Enhancements**
+   - AbilityData.CanActivate(Ship) virtual method
+   - AbilityData.GetActivationBlockedReason(Ship) virtual method
+   - ShieldBoostData overrides CanActivate: only when shields = 0
+   - AbilitySystem displays blocked reason on failed activation
+
+5. **Editor Automation**
+   - Menu: `Deadlock/Damage System/Create Shield Test Scene`
+   - Menu: `Deadlock/Damage System/Open Shield Test Scene`
+   - Creates ship with ShieldSystem, sections, DamageRouter
+
+6. **Debug Tools**
+   - ShieldTestController: Shield bar display, damage routing tests
+   - GUI with damage slider and section targeting
+   - Hotkeys: D (damage), S (deplete shields), B (test Shield Boost), R (reset)
+
+#### 🧪 Unit Tests: 12/12 Passing ✅
+
+**Test Suite:** `Assets/Tests/PlayModeTests/DamageSystem/ShieldSystemTests.cs`
+
+1. ✅ Test_ShieldInitialization - Shields initialize with correct values
+2. ✅ Test_ShieldAbsorbsFullDamage - Shields fully absorb small damage
+3. ✅ Test_ShieldOverflow - Damage overflows when exceeding shields
+4. ✅ Test_ShieldDepletedEvent - Event fires when shields reach 0
+5. ✅ Test_ShieldNoRegeneration - Shields do not regenerate over time
+6. ✅ Test_ShieldRestore - Shields can be restored when at 0
+7. ✅ Test_ShieldRestoreBlockedWhenActive - Cannot restore active shields
+8. ✅ Test_ShieldBoostCanActivateCheck - Shield Boost checks activation correctly
+9. ✅ Test_DamageRouterShieldsFirst - DamageRouter sends damage to shields first
+10. ✅ Test_DamageRouterOverflowToSection - Overflow goes to section
+11. ✅ Test_DamageReportAccuracy - DamageReport tracks all values correctly
+12. ✅ Test_ShieldPercentage - Shield percentage calculation is accurate
+
+**All Tests: 128/128 Passing ✅**
+- Heat System Tests: 10/10 ✅
+- Ability System Tests: 13/13 ✅
+- Integration Tests: 10/10 ✅
+- Weapon System Tests: 12/12 ✅
+- Projectile System Tests: 12/12 ✅
+- Targeting System Tests: 12/12 ✅
+- Phase 2.2 Integration Tests: 35/35 ✅
+- Section Tests: 12/12 ✅
+- **Shield System Tests: 12/12 ✅**
+
+#### 📊 GDD Shield Values
+
+| Property | Value |
+|----------|-------|
+| Max Shields | 200 |
+| Regeneration | None |
+| Shield Boost Amount | 100 |
+| Shield Boost Condition | Shields must be at 0 |
+
+#### 📝 Architecture Notes
+
+- Damage flow: Shields (single pool) → Section Armor → Section Structure → Breach
+- ShieldSystem is a separate component from the legacy Ship.CurrentShields
+- DamageRouter coordinates between ShieldSystem and SectionManager
+- Shield Boost ability now requires shields to be fully depleted before activation
+- AbilityData base class now supports custom activation conditions via CanActivate()
+- Tests updated to reflect GDD-specified Shield Boost behavior
+
+#### ⏭️ Next: Step 3.3 - Projectile Damage Integration

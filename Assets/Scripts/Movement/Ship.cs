@@ -46,6 +46,11 @@ public class Ship : MonoBehaviour
 
     // Section/Damage System
     private SectionManager sectionManager;
+    private ShieldSystem shieldSystem;
+    private DamageRouter damageRouter;
+    private SystemDegradationManager degradationManager;
+    private ShipDeathController deathController;
+    private CoreProtectionSystem coreProtection;
 
     // Movement constraint overrides (for abilities like Evasive Maneuver)
     private bool movementConstraintsOverride = false;
@@ -92,6 +97,25 @@ public class Ship : MonoBehaviour
 
     // Section/Damage system properties
     public SectionManager SectionManager => sectionManager;
+    public ShieldSystem ShieldSystem => shieldSystem;
+    public DamageRouter DamageRouter => damageRouter;
+    public SystemDegradationManager DegradationManager => degradationManager;
+    public ShipDeathController DeathController => deathController;
+    public CoreProtectionSystem CoreProtection => coreProtection;
+
+    /// <summary>
+    /// Sets the death controller reference (for testing or manual setup).
+    /// </summary>
+    public void SetDeathController(ShipDeathController controller)
+    {
+        deathController = controller;
+    }
+
+    /// <summary>True if ship is destroyed (cannot continue).</summary>
+    public bool IsDestroyed => deathController != null && deathController.IsDestroyed;
+
+    /// <summary>True if ship is disabled (combat ineffective).</summary>
+    public bool IsDisabled => deathController != null && deathController.IsDisabled;
     public bool MovementConstraintsOverride => movementConstraintsOverride;
     public float WeaponDamageMultiplier
     {
@@ -151,6 +175,41 @@ public class Ship : MonoBehaviour
         {
             sectionManager.SetParentShip(this);
             sectionManager.AutoRegisterChildSections();
+        }
+
+        // Get ShieldSystem component if not assigned
+        shieldSystem = GetComponent<ShieldSystem>();
+        if (shieldSystem == null)
+        {
+            shieldSystem = GetComponentInChildren<ShieldSystem>();
+        }
+
+        // Get DamageRouter component if not assigned
+        damageRouter = GetComponent<DamageRouter>();
+        if (damageRouter == null)
+        {
+            damageRouter = GetComponentInChildren<DamageRouter>();
+        }
+
+        // Get SystemDegradationManager component
+        degradationManager = GetComponent<SystemDegradationManager>();
+        if (degradationManager == null)
+        {
+            degradationManager = GetComponentInChildren<SystemDegradationManager>();
+        }
+
+        // Get ShipDeathController component
+        deathController = GetComponent<ShipDeathController>();
+        if (deathController == null)
+        {
+            deathController = GetComponentInChildren<ShipDeathController>();
+        }
+
+        // Get CoreProtectionSystem component
+        coreProtection = GetComponent<CoreProtectionSystem>();
+        if (coreProtection == null)
+        {
+            coreProtection = GetComponentInChildren<CoreProtectionSystem>();
         }
     }
 
@@ -356,6 +415,13 @@ public class Ship : MonoBehaviour
             HeatManager.HeatPenalties penalties = heatManager.GetPenalties();
             effectiveMaxMoveDistance *= penalties.SpeedMultiplier;
             effectiveMinMoveDistance *= penalties.SpeedMultiplier;
+        }
+
+        // Apply degradation speed penalties from damaged/destroyed engines
+        if (degradationManager != null)
+        {
+            effectiveMaxMoveDistance *= degradationManager.SpeedMultiplier;
+            effectiveMinMoveDistance *= degradationManager.SpeedMultiplier;
         }
 
         // Clamp distance between min and max
@@ -673,6 +739,66 @@ public class Ship : MonoBehaviour
     public GameObject GetProjection()
     {
         return projectionObject;
+    }
+
+    // ==================== DEGRADATION METHODS ====================
+
+    /// <summary>
+    /// Gets effective max move distance accounting for heat and degradation.
+    /// </summary>
+    public float GetEffectiveMaxMoveDistance()
+    {
+        float effective = movementConstraintsOverride ? overrideMaxMoveDistance : maxMoveDistance;
+
+        if (heatManager != null)
+        {
+            effective *= heatManager.GetPenalties().SpeedMultiplier;
+        }
+
+        if (degradationManager != null)
+        {
+            effective *= degradationManager.SpeedMultiplier;
+        }
+
+        return effective;
+    }
+
+    /// <summary>
+    /// Gets effective max turn angle accounting for degradation.
+    /// </summary>
+    public float GetEffectiveMaxTurnAngle()
+    {
+        float effective = movementConstraintsOverride ? overrideMaxTurnAngle : maxTurnAngle;
+
+        if (degradationManager != null)
+        {
+            effective *= degradationManager.TurnRateMultiplier;
+        }
+
+        return effective;
+    }
+
+    /// <summary>
+    /// Checks if the ship can move (at least one engine operational and not destroyed/disabled).
+    /// </summary>
+    public bool CanMove()
+    {
+        // Dead or disabled ships cannot move
+        if (IsDestroyed || IsDisabled) return false;
+
+        if (degradationManager != null)
+        {
+            return degradationManager.CanShipMove();
+        }
+        return true; // No degradation manager = can always move
+    }
+
+    /// <summary>
+    /// Checks if the ship can perform actions (not destroyed).
+    /// </summary>
+    public bool CanAct()
+    {
+        return !IsDestroyed;
     }
 
     // ==================== COMBAT METHODS ====================

@@ -44,6 +44,7 @@ public abstract class WeaponSystem : MonoBehaviour
     // Protected references
     protected Ship ownerShip;
     protected Transform hardpointTransform;
+    protected SystemDegradationManager degradationManager;
 
     // Public properties
     public string WeaponName => weaponName;
@@ -61,6 +62,38 @@ public abstract class WeaponSystem : MonoBehaviour
     public Ship OwnerShip => ownerShip;
 
     /// <summary>
+    /// Gets effective damage accounting for degradation.
+    /// </summary>
+    public float EffectiveDamage
+    {
+        get
+        {
+            float mult = 1f;
+            if (degradationManager != null)
+            {
+                mult = degradationManager.GetWeaponDamageMultiplier(this);
+            }
+            return damage * mult;
+        }
+    }
+
+    /// <summary>
+    /// Gets effective cooldown accounting for degradation.
+    /// </summary>
+    public int EffectiveCooldown
+    {
+        get
+        {
+            float mult = 1f;
+            if (degradationManager != null)
+            {
+                mult = degradationManager.GetWeaponCooldownMultiplier(this);
+            }
+            return Mathf.RoundToInt(maxCooldown * mult);
+        }
+    }
+
+    /// <summary>
     /// Initialize the weapon system.
     /// Called by WeaponManager when ship is created.
     /// </summary>
@@ -70,6 +103,12 @@ public abstract class WeaponSystem : MonoBehaviour
         hardpointTransform = transform;
         currentCooldown = 0;
         currentAmmo = ammoCapacity;
+
+        // Get degradation manager from owner ship
+        if (owner != null)
+        {
+            degradationManager = owner.GetComponent<SystemDegradationManager>();
+        }
 
         Debug.Log($"{weaponName} initialized on {owner.gameObject.name} at hardpoint {hardpointTransform.name}");
     }
@@ -146,6 +185,13 @@ public abstract class WeaponSystem : MonoBehaviour
     /// </summary>
     private bool CanFireInternal(bool logReasons)
     {
+        // Check if weapon is destroyed via degradation system
+        if (degradationManager != null && !degradationManager.CanWeaponFire(this))
+        {
+            LogIfEnabled(logReasons, "Weapon destroyed - cannot fire");
+            return false;
+        }
+
         // Check cooldown
         if (CheckFailCondition(currentCooldown > 0, logReasons,
             $"On cooldown ({currentCooldown} turns remaining)")) return false;
@@ -257,14 +303,14 @@ public abstract class WeaponSystem : MonoBehaviour
     public abstract ProjectileSpawnInfo GetProjectileInfo();
 
     /// <summary>
-    /// Start weapon cooldown.
+    /// Start weapon cooldown. Uses EffectiveCooldown which accounts for degradation.
     /// </summary>
     public void StartCooldown()
     {
-        currentCooldown = maxCooldown;
-        if (maxCooldown > 0)
+        currentCooldown = EffectiveCooldown;
+        if (currentCooldown > 0)
         {
-            Debug.Log($"{weaponName} on cooldown for {maxCooldown} turns");
+            Debug.Log($"{weaponName} on cooldown for {currentCooldown} turns");
         }
     }
 
@@ -319,7 +365,7 @@ public abstract class WeaponSystem : MonoBehaviour
 
     /// <summary>
     /// Create base projectile spawn info with common calculations.
-    /// Handles lead position, damage multiplier, and rotation calculation.
+    /// Handles lead position, damage multiplier (including degradation), and rotation calculation.
     /// Used by ballistic weapons to reduce code duplication.
     /// </summary>
     /// <param name="projectileSpeed">Speed of the projectile</param>
@@ -332,8 +378,8 @@ public abstract class WeaponSystem : MonoBehaviour
         // Calculate lead position for moving target
         Vector3 targetPosition = CalculateLeadPosition(projectileSpeed);
 
-        // Apply damage multiplier from ship (Overcharge ability)
-        float actualDamage = damage;
+        // Use EffectiveDamage (accounts for degradation), then apply ship's damage multiplier (Overcharge ability)
+        float actualDamage = EffectiveDamage;
         if (ownerShip != null)
         {
             actualDamage *= ownerShip.WeaponDamageMultiplier;

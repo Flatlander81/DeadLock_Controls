@@ -135,7 +135,16 @@ public class AbilitySystem : MonoBehaviour
         // Check ship-specific conditions (heat cost, etc.)
         if (!slot.abilityData.CanUse(ship))
         {
-            Debug.LogWarning($"{slot.abilityData.abilityName} cannot be used (insufficient resources or conditions not met)");
+            // Get specific blocked reason if available
+            string blockedReason = slot.abilityData.GetActivationBlockedReason(ship);
+            if (!string.IsNullOrEmpty(blockedReason))
+            {
+                Debug.LogWarning($"{slot.abilityData.abilityName} cannot be used: {blockedReason}");
+            }
+            else
+            {
+                Debug.LogWarning($"{slot.abilityData.abilityName} cannot be used (insufficient resources or conditions not met)");
+            }
             return false;
         }
 

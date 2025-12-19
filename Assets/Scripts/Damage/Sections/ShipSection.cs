@@ -4,6 +4,7 @@ using System;
 /// <summary>
 /// Represents a single section of a ship that can receive damage.
 /// Damage flows through armor first, then structure. Section breaches when structure hits 0.
+/// Structure damage triggers critical hit rolls against mounted systems.
 /// </summary>
 public class ShipSection : MonoBehaviour
 {
@@ -17,8 +18,15 @@ public class ShipSection : MonoBehaviour
     [SerializeField] private float currentStructure;
     [SerializeField] private bool isBreached = false;
 
+    [Header("Critical Hit System")]
+    [SerializeField] private SlotLayout slotLayout;
+    [SerializeField] private CriticalHitSystem criticalHitSystem;
+
     [Header("References")]
     [SerializeField] private Ship parentShip;
+
+    // Last critical hit result for external access
+    private CriticalHitResult lastCriticalResult;
 
     // Events
     /// <summary>Fired when armor takes damage. Parameters: section, damageAmount, remainingArmor.</summary>
@@ -30,6 +38,9 @@ public class ShipSection : MonoBehaviour
     /// <summary>Fired when section becomes breached. Parameters: section.</summary>
     public event Action<ShipSection> OnSectionBreached;
 
+    /// <summary>Fired when a critical hit occurs. Parameters: section, result.</summary>
+    public event Action<ShipSection, CriticalHitResult> OnCriticalHit;
+
     // Public properties
     public SectionType SectionType => sectionType;
     public float MaxArmor => maxArmor;
@@ -38,6 +49,9 @@ public class ShipSection : MonoBehaviour
     public float CurrentStructure => currentStructure;
     public bool IsBreached => isBreached;
     public Ship ParentShip => parentShip;
+    public SlotLayout SlotLayout => slotLayout;
+    public CriticalHitSystem CriticalHitSystem => criticalHitSystem;
+    public CriticalHitResult LastCriticalResult => lastCriticalResult;
 
     /// <summary>
     /// Initialize the section with configuration from SectionDefinitions.
@@ -57,7 +71,10 @@ public class ShipSection : MonoBehaviour
         currentStructure = maxStructure;
         isBreached = false;
 
-        Debug.Log($"[ShipSection] Initialized {sectionType} - Armor: {maxArmor}, Structure: {maxStructure}");
+        // Create slot layout with structure value as total slots
+        slotLayout = new SlotLayout((int)maxStructure, type);
+
+        Debug.Log($"[ShipSection] Initialized {sectionType} - Armor: {maxArmor}, Structure: {maxStructure}, Slots: {(int)maxStructure}");
     }
 
     /// <summary>
@@ -78,7 +95,18 @@ public class ShipSection : MonoBehaviour
         currentStructure = maxStructure;
         isBreached = false;
 
-        Debug.Log($"[ShipSection] Initialized {sectionType} (custom) - Armor: {maxArmor}, Structure: {maxStructure}");
+        // Create slot layout with structure value as total slots
+        slotLayout = new SlotLayout((int)maxStructure, type);
+
+        Debug.Log($"[ShipSection] Initialized {sectionType} (custom) - Armor: {maxArmor}, Structure: {maxStructure}, Slots: {(int)maxStructure}");
+    }
+
+    /// <summary>
+    /// Sets the critical hit system reference.
+    /// </summary>
+    public void SetCriticalHitSystem(CriticalHitSystem system)
+    {
+        criticalHitSystem = system;
     }
 
     /// <summary>
@@ -126,6 +154,9 @@ public class ShipSection : MonoBehaviour
         }
 
         // Apply remaining damage to structure
+        CriticalHitResult critResult = new CriticalHitResult();
+        bool hadCritical = false;
+
         if (remainingDamage > 0f && currentStructure > 0f)
         {
             damageToStructure = Mathf.Min(remainingDamage, currentStructure);
@@ -133,6 +164,24 @@ public class ShipSection : MonoBehaviour
             remainingDamage -= damageToStructure;
 
             OnStructureDamaged?.Invoke(this, damageToStructure, currentStructure);
+
+            // Roll for critical hit when structure takes damage
+            if (damageToStructure > 0f && slotLayout != null)
+            {
+                if (criticalHitSystem != null)
+                {
+                    critResult = criticalHitSystem.RollCritical(this);
+                }
+                else
+                {
+                    // Fallback: create simple critical roll without CriticalHitSystem
+                    critResult = RollCriticalDirect();
+                }
+
+                hadCritical = true;
+                lastCriticalResult = critResult;
+                OnCriticalHit?.Invoke(this, critResult);
+            }
 
             // Check for breach
             if (currentStructure <= 0f)
@@ -154,11 +203,50 @@ public class ShipSection : MonoBehaviour
             overflowDamage: overflowDamage,
             armorBroken: armorBroken,
             sectionBreached: sectionBreached,
-            wasAlreadyBreached: false);
+            wasAlreadyBreached: false,
+            criticalResult: hadCritical ? critResult : (CriticalHitResult?)null);
 
         Debug.Log($"[ShipSection] {sectionType} took {incomingDamage:F1} damage - {result}");
 
         return result;
+    }
+
+    /// <summary>
+    /// Performs a direct critical roll without CriticalHitSystem (fallback).
+    /// </summary>
+    private CriticalHitResult RollCriticalDirect()
+    {
+        if (slotLayout == null || slotLayout.TotalSlots <= 0)
+        {
+            return CriticalHitResult.EmptySlot(0, 0, sectionType);
+        }
+
+        int rolledSlot = UnityEngine.Random.Range(1, slotLayout.TotalSlots + 1);
+        MountedSystem system = slotLayout.GetSystemAtSlot(rolledSlot);
+
+        if (system == null)
+        {
+            return CriticalHitResult.EmptySlot(rolledSlot, slotLayout.TotalSlots, sectionType);
+        }
+
+        SystemState previousState = system.CurrentState;
+        bool stateChanged = system.TakeCriticalHit();
+
+        if (stateChanged)
+        {
+            return CriticalHitResult.SystemHitResult(
+                rolledSlot,
+                slotLayout.TotalSlots,
+                system,
+                previousState,
+                system.CurrentState,
+                sectionType
+            );
+        }
+        else
+        {
+            return CriticalHitResult.DestroyedSystemAbsorbed(rolledSlot, slotLayout.TotalSlots, system, sectionType);
+        }
     }
 
     /// <summary>
@@ -188,13 +276,27 @@ public class ShipSection : MonoBehaviour
     }
 
     /// <summary>
-    /// Resets section to full health.
+    /// Resets section to full health and repairs all systems.
     /// </summary>
     public void Reset()
     {
         currentArmor = maxArmor;
         currentStructure = maxStructure;
         isBreached = false;
+
+        // Repair all mounted systems
+        if (slotLayout != null)
+        {
+            foreach (var system in slotLayout.MountedSystems)
+            {
+                if (system != null)
+                {
+                    system.Repair();
+                }
+            }
+        }
+
+        lastCriticalResult = new CriticalHitResult();
 
         Debug.Log($"[ShipSection] {sectionType} reset to full health");
     }

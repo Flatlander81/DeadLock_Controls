@@ -369,20 +369,21 @@ public class AbilitySystemTests
 
     /// <summary>
     /// Test 11: Heat cost is added as planned heat when queuing ability.
+    /// Uses Evasive Maneuver (always available) instead of Shield Boost (requires shields depleted).
     /// </summary>
     [UnityTest]
     public IEnumerator Test_PlannedHeatOnQueue()
     {
-        SetupAbilitySystemWithAbilities(shieldBoostData);
+        SetupAbilitySystemWithAbilities(evasiveManeuverData);
         yield return null;
 
         float initialPlannedHeat = heatManager.PlannedHeat;
 
-        // Queue ability (costs 15 heat)
-        abilitySystem.TryActivateAbility("Shield Boost");
+        // Queue ability (costs 10 heat)
+        abilitySystem.TryActivateAbility("Evasive Maneuver");
 
         // Verify planned heat increased
-        Assert.AreEqual(initialPlannedHeat + 15, heatManager.PlannedHeat,
+        Assert.AreEqual(initialPlannedHeat + 10, heatManager.PlannedHeat,
             "Planned heat should increase by ability cost");
     }
 

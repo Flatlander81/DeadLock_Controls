@@ -80,6 +80,9 @@ public class HeatManager : MonoBehaviour
     private Dictionary<HeatTier, HeatPenalties> penaltyLookup;
     private Dictionary<HeatTier, Color> colorLookup;
 
+    // Degradation system reference
+    private SystemDegradationManager degradationManager;
+
     // Events
     public event Action<float> OnHeatChanged;
     public event Action<HeatTier> OnHeatTierChanged;
@@ -91,12 +94,66 @@ public class HeatManager : MonoBehaviour
     public float PassiveCooling => passiveCooling;
 
     /// <summary>
+    /// Gets effective max heat accounting for reactor degradation.
+    /// </summary>
+    public float EffectiveMaxHeat
+    {
+        get
+        {
+            float mult = 1f;
+            if (degradationManager != null)
+            {
+                mult = degradationManager.HeatCapacityMultiplier;
+            }
+            return maxHeat * mult;
+        }
+    }
+
+    /// <summary>
+    /// Gets effective passive cooling accounting for radiator degradation.
+    /// </summary>
+    public float EffectivePassiveCooling
+    {
+        get
+        {
+            float mult = 1f;
+            if (degradationManager != null)
+            {
+                mult = degradationManager.CoolingMultiplier;
+            }
+            return passiveCooling * mult;
+        }
+    }
+
+    /// <summary>
+    /// Gets passive heat generation from damaged reactors.
+    /// </summary>
+    public float PassiveHeatGeneration
+    {
+        get
+        {
+            if (degradationManager != null)
+            {
+                return degradationManager.PassiveHeatGeneration;
+            }
+            return 0f;
+        }
+    }
+
+    /// <summary>
     /// Initialize lookup tables on Awake.
     /// </summary>
     private void Awake()
     {
         InitializePenaltyLookup();
         InitializeColorLookup();
+
+        // Get SystemDegradationManager from this object or parent
+        degradationManager = GetComponent<SystemDegradationManager>();
+        if (degradationManager == null)
+        {
+            degradationManager = GetComponentInParent<SystemDegradationManager>();
+        }
     }
 
     /// <summary>
@@ -174,8 +231,8 @@ public class HeatManager : MonoBehaviour
         currentHeat += plannedHeat;
         plannedHeat = 0f;
 
-        // Clamp to max heat (allow overheat up to multiplier)
-        currentHeat = Mathf.Min(currentHeat, maxHeat * overheatMultiplier);
+        // Clamp to effective max heat (allow overheat up to multiplier)
+        currentHeat = Mathf.Min(currentHeat, EffectiveMaxHeat * overheatMultiplier);
 
         UpdateHeatTier();
         OnHeatChanged?.Invoke(currentHeat);
@@ -192,8 +249,8 @@ public class HeatManager : MonoBehaviour
         currentHeat += heatToCommit;
         plannedHeat = Mathf.Max(0f, plannedHeat - heatToCommit);
 
-        // Clamp to max heat (allow overheat up to multiplier)
-        currentHeat = Mathf.Min(currentHeat, maxHeat * overheatMultiplier);
+        // Clamp to effective max heat (allow overheat up to multiplier)
+        currentHeat = Mathf.Min(currentHeat, EffectiveMaxHeat * overheatMultiplier);
 
         UpdateHeatTier();
         OnHeatChanged?.Invoke(currentHeat);
@@ -223,18 +280,33 @@ public class HeatManager : MonoBehaviour
 
     /// <summary>
     /// Applies passive cooling to reduce current heat.
+    /// Accounts for radiator degradation (reduced cooling) and reactor damage (passive heat generation).
     /// Called at the end of each turn.
     /// </summary>
     public void ApplyPassiveCooling()
     {
         float previousHeat = currentHeat;
-        currentHeat = Mathf.Max(0f, currentHeat - passiveCooling);
+
+        // Apply effective cooling (reduced by radiator damage)
+        float effectiveCooling = EffectivePassiveCooling;
+        currentHeat = Mathf.Max(0f, currentHeat - effectiveCooling);
+
+        // Apply passive heat generation from damaged reactors
+        float passiveHeatGen = PassiveHeatGeneration;
+        if (passiveHeatGen > 0f)
+        {
+            currentHeat += passiveHeatGen;
+            Debug.Log($"{gameObject.name} - Damaged reactor generating +{passiveHeatGen:F1} heat");
+        }
+
+        // Clamp to effective max heat
+        currentHeat = Mathf.Min(currentHeat, EffectiveMaxHeat * overheatMultiplier);
 
         if (Mathf.Abs(previousHeat - currentHeat) > 0.01f)
         {
             UpdateHeatTier();
             OnHeatChanged?.Invoke(currentHeat);
-            Debug.Log($"{gameObject.name} - Passive cooling applied. Heat: {previousHeat:F1} → {currentHeat:F1}");
+            Debug.Log($"{gameObject.name} - Passive cooling applied. Heat: {previousHeat:F1} → {currentHeat:F1} (Effective cooling: {effectiveCooling:F1})");
         }
     }
 
