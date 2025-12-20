@@ -323,11 +323,11 @@ public class Phase3IntegrationTests
         Assert.IsFalse(ship.IsDestroyed, "Ship should not start destroyed");
         Assert.AreEqual(SystemState.Operational, reactor.CurrentState, "Reactor should start operational");
 
-        // Expect the error logs from reactor destruction
+        // Expect the logs from reactor destruction
         LogAssert.Expect(LogType.Error, "[MountedReactor] CORE BREACH! Reactor destroyed - Ship lost!");
         LogAssert.Expect(LogType.Error, "[SystemDegradationManager] CORE BREACH! Ship destroyed!");
-        LogAssert.Expect(LogType.Error, "[ShipDeathController] SHIP DESTROYED! Cause: CoreBreach");
-        LogAssert.Expect(LogType.Error, "TestShip has been destroyed!");
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("SHIP DESTROYED"));
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("has been destroyed"));
 
         // Act - Destroy reactor
         reactor.TakeCriticalHit(); // Damaged

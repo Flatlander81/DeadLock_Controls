@@ -388,7 +388,7 @@ public class ProjectileSystemTests
         Assert.IsTrue(projectile.IsHoming, "Should start in homing mode");
 
         // Destroy target
-        UnityEngine.TestTools.LogAssert.Expect(LogType.Error, "TargetShip has been destroyed!");
+        UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, "TargetShip has been destroyed!");
         targetShip.TakeDamage(targetShip.CurrentShields + targetShip.CurrentHull);
 
         // Wait for homing to detect target loss

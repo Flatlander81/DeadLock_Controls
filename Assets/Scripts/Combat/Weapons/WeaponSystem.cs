@@ -46,7 +46,19 @@ public abstract class WeaponSystem : MonoBehaviour
     protected Transform hardpointTransform;
     protected SystemDegradationManager degradationManager;
 
+    // Queue state
+    private bool isQueuedToFire = false;
+
     // Public properties
+
+    /// <summary>
+    /// Whether this weapon is queued to fire in the current turn.
+    /// </summary>
+    public bool IsQueuedToFire
+    {
+        get => isQueuedToFire;
+        set => isQueuedToFire = value;
+    }
     public string WeaponName => weaponName;
     public float Damage => damage;
     public int HeatCost => heatCost;
@@ -215,6 +227,33 @@ public abstract class WeaponSystem : MonoBehaviour
         // Check range
         if (CheckFailCondition(!IsInRange(assignedTarget.transform.position), logReasons,
             "Target out of range")) return false;
+
+        return true;
+    }
+
+    /// <summary>
+    /// Check if weapon can be queued for firing.
+    /// Checks cooldown and ammo, but NOT arc/range (those are validated at execution time).
+    /// </summary>
+    public bool CanQueueFire()
+    {
+        // Check if weapon is destroyed via degradation system
+        if (degradationManager != null && !degradationManager.CanWeaponFire(this))
+        {
+            return false;
+        }
+
+        // Check cooldown
+        if (currentCooldown > 0)
+        {
+            return false;
+        }
+
+        // Check ammo (0 = infinite)
+        if (ammoCapacity > 0 && currentAmmo <= 0)
+        {
+            return false;
+        }
 
         return true;
     }

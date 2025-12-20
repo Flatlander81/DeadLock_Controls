@@ -56,7 +56,7 @@ public class TorpedoTests
 
     /// <summary>
     /// Test 1: Verify TorpedoLauncher default stats match GDD specs.
-    /// damage=80, heat=25, arc=30, range=50, cooldown=3, ammo=6
+    /// damage=80, heat=25, arc=360 (broadside), range=50, cooldown=3, ammo=6
     /// </summary>
     [UnityTest]
     public IEnumerator Test_TorpedoLauncher_DefaultStats()
@@ -66,7 +66,7 @@ public class TorpedoTests
         Assert.AreEqual("Torpedo Launcher", torpedoLauncher.WeaponName, "Name incorrect");
         Assert.AreEqual(80f, torpedoLauncher.Damage, "Damage should be 80");
         Assert.AreEqual(25, torpedoLauncher.HeatCost, "Heat cost should be 25");
-        Assert.AreEqual(30f, torpedoLauncher.FiringArc, "Arc should be 30 degrees");
+        Assert.AreEqual(360f, torpedoLauncher.FiringArc, "Arc should be 360 degrees (broadside weapon)");
         Assert.AreEqual(50f, torpedoLauncher.MaxRange, "Range should be 50 units");
         Assert.AreEqual(3, torpedoLauncher.MaxCooldown, "Cooldown should be 3 turns");
         Assert.AreEqual(6, torpedoLauncher.AmmoCapacity, "Ammo capacity should be 6");
@@ -128,48 +128,40 @@ public class TorpedoTests
     }
 
     /// <summary>
-    /// Test 4: Test IsInArc at various angles for 30-degree arc.
-    /// 0° = in arc, 14° = in arc, 16° = out of arc, 90° = out of arc
+    /// Test 4: Test IsInArc for 360-degree broadside weapon.
+    /// All angles should be in arc for broadside weapons.
     /// </summary>
     [UnityTest]
-    public IEnumerator Test_TorpedoLauncher_NarrowArc()
+    public IEnumerator Test_TorpedoLauncher_BroadsideArc()
     {
         yield return null; // Wait for initialization
 
-        // Hardpoint is at (0, 0, 2) facing forward (+Z)
-        // 30° arc means ±15° from forward (strict less-than, so <15° is in arc)
-        // IsInArc uses Vector3.Angle from hardpoint position to target
-
-        // Get hardpoint position for calculations
-        Vector3 hardpointPos = torpedoHardpoint.transform.position; // (0, 0, 2)
+        // Torpedo launcher has 360° arc - all positions within range should be in arc
 
         // 0° - directly ahead (in arc)
-        // Target at (0, 0, 22) is directly ahead of hardpoint at (0, 0, 2)
         targetObject.transform.position = new Vector3(0f, 0f, 22f);
         Assert.IsTrue(torpedoLauncher.IsInArc(targetObject.transform.position),
-            "Target at 0° should be in 30° arc");
+            "Target at 0° (ahead) should be in 360° arc");
 
-        // ~10° - within arc
-        // At 20 units ahead (z=22 from hardpoint at z=2), 10° offset = 20 * tan(10°) ≈ 3.5
-        targetObject.transform.position = new Vector3(3.5f, 0f, 22f);
+        // ~45° - diagonal (in arc for broadside)
+        targetObject.transform.position = new Vector3(15f, 0f, 17f);
         Assert.IsTrue(torpedoLauncher.IsInArc(targetObject.transform.position),
-            "Target at ~10° should be in 30° arc");
+            "Target at ~45° should be in 360° arc");
 
-        // ~16° - outside arc (>15° half-arc)
-        // At 20 units ahead, 16° offset = 20 * tan(16°) ≈ 5.7
-        targetObject.transform.position = new Vector3(5.8f, 0f, 22f);
-        Assert.IsFalse(torpedoLauncher.IsInArc(targetObject.transform.position),
-            "Target at ~16° should be outside 30° arc");
-
-        // 90° - directly to the side (definitely out of arc)
+        // 90° - directly to the side (in arc for broadside)
         targetObject.transform.position = new Vector3(20f, 0f, 2f);
-        Assert.IsFalse(torpedoLauncher.IsInArc(targetObject.transform.position),
-            "Target at 90° should be outside 30° arc");
+        Assert.IsTrue(torpedoLauncher.IsInArc(targetObject.transform.position),
+            "Target at 90° (side) should be in 360° arc");
 
-        // Behind (180°) - definitely out of arc
+        // 135° - diagonal behind (in arc for broadside)
+        targetObject.transform.position = new Vector3(15f, 0f, -13f);
+        Assert.IsTrue(torpedoLauncher.IsInArc(targetObject.transform.position),
+            "Target at 135° should be in 360° arc");
+
+        // 180° - directly behind (in arc for broadside)
         targetObject.transform.position = new Vector3(0f, 0f, -20f);
-        Assert.IsFalse(torpedoLauncher.IsInArc(targetObject.transform.position),
-            "Target behind should be outside 30° arc");
+        Assert.IsTrue(torpedoLauncher.IsInArc(targetObject.transform.position),
+            "Target at 180° (behind) should be in 360° arc");
     }
 
     /// <summary>

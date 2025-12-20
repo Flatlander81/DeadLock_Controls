@@ -295,8 +295,8 @@ public class HeatSystemTests
     {
         yield return null;
 
-        // Expect the death log error
-        LogAssert.Expect(LogType.Error, new Regex(".*has been destroyed!"));
+        // Expect the death log warning
+        LogAssert.Expect(LogType.Warning, new Regex(".*has been destroyed!"));
 
         // Deal massive damage to kill ship
         float massiveDamage = testShip.MaxShields + testShip.MaxHull + 100f;

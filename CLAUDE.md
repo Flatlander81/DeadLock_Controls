@@ -27,6 +27,15 @@ This document defines coding standards and conventions for Claude Code to follow
 - **SerializedObject wiring**: When creating test scenes via Editor scripts, use SerializedObject/SerializedProperty to wire component references. Never rely on runtime property access (like `ship.DamageRouter`) at edit time - components haven't initialized yet.
 - **Debug visualization**: Gizmos and runtime visualizers for all spatial systems. Color-coded by state.
 - **Unit tests**: Every new system needs comprehensive unit tests. Follow existing test patterns in Assets/Tests/PlayModeTests/.
+- **All tests must pass**: A feature is not complete until ALL unit tests pass (0 failures). Fix any failing tests before marking a step as complete.
+
+### Unified Test Scene Philosophy
+- **Incremental test scenes**: Each phase's test scene EXTENDS the previous phase's unified test. This allows testing all features together.
+- **Phase 3 Unified Test** is the base - it includes full ships with all damage systems, sections, weapons, and UI.
+- **Phase 3.5+ test scenes** must build on Phase 3 Unified by adding new systems (TurnManager, TurnEndProcessor, etc.) to the existing ships.
+- **No standalone test levels**: Never create a test scene with minimal ships that lack damage system, sections, etc. Always start from the unified base.
+- **Test controllers are additive**: New test controllers add tabs/sections to test new features while existing Phase 3 features remain testable.
+- **Menu organization**: `Hephaestus/Testing/Phase X.X - FeatureName/Create Test Scene` for feature-specific scenes, `Hephaestus/Testing/Create Unified Phase X Test Level` for the comprehensive unified level.
 
 ### Folder Structure for Phase 3
 ```
@@ -86,7 +95,18 @@ Assets/Scenes/Testing/              # Test scenes (auto-generated)
 - [x] **Step 3.7** - Damage System UI (SectionStatusPanel, CombatLogPanel, ShieldStatusBar, DamageUIManager)
 - [x] **Step 3.8** - Phase 3 Integration Testing (Phase3IntegrationTests, FullCombatTestController)
 
-🧪 **Total Tests: 188/188 passing** ✅
+🧪 **Phase 3 Tests: 188/188 passing** ✅
+
+### Phase 3.5: Systems Integration
+- [x] **Step 3.5.0** - Phase 3.5 Standards Established
+- [x] **Step 3.5.1** - Turn System Event Infrastructure (TurnPhase, TurnEventSubscriber, CombatCoordinator)
+- [x] **Step 3.5.2** - Weapon Firing Integration (WeaponFireCommand, WeaponFiringQueue)
+- [x] **Step 3.5.3** - Heat and Cooldown Turn Integration (TurnEndProcessor)
+- [x] **Step 3.5.4** - Movement and Weapon Arc Integration (MovementExecutor, WeaponArcValidator)
+- [x] **Step 3.5.5** - Unified Combat Test Level (UnifiedCombatFlowTests - 15 end-to-end tests)
+- [ ] **Step 3.5.6** - Phase 3.5 Final Validation
+
+🧪 **Total Tests: 260/260 passing** ✅
 
 ### Step 3.5 Details - System Degradation
 New files created:
@@ -223,4 +243,242 @@ Assets/Editor/Integration/            # Editor automation
 Assets/Tests/PlayModeTests/Integration/  # Integration tests
 ```
 
+### Step 3.5.3 Details - Heat and Cooldown Turn Integration
+New files created:
+- `TurnEndProcessor.cs` - Central turn-end processing (heat dissipation, cooldown ticking)
+- `HeatCooldownTestSetup.cs` - Editor script for test scene creation
+- `HeatCooldownTestController.cs` - Runtime test controller
+- `HeatCooldownIntegrationTests.cs` - 10 unit tests for heat/cooldown integration
+
+Modified files:
+- `HeatManager.cs` - Added DissipateHeat() method and OnHeatDissipated event, Reset() method
+
+Turn-End Processing:
+- Heat dissipation: Base 10 + radiator bonus (5 per operational radiator)
+- Damaged radiators: Half bonus (2.5)
+- Destroyed radiators: No bonus
+- Weapon cooldowns: Tick down by 1 each turn
+- Ability cooldowns: Tick down by 1 each turn
+- Events: OnHeatDissipated, OnWeaponReady, OnAbilityReady
+
+### Phase 3.5 Unified Test Infrastructure
+New files created:
+- `Phase35UnifiedTestSetup.cs` - Creates unified test level with all Phase 3 + Phase 3.5 features
+- `Phase35UnifiedTestController.cs` - Runtime controller with tabs for all features (10 tabs total)
+
+Modified files:
+- `TurnSystemTestSetup.cs` - Now builds on Phase35UnifiedTestSetup
+- `WeaponFiringTestSetup.cs` - Now builds on Phase35UnifiedTestSetup
+- `HeatCooldownTestSetup.cs` - Now builds on Phase35UnifiedTestSetup
+
+Test Scene Hierarchy:
+- **Phase 3 Unified Test** (`Hephaestus/Testing/Phase 3 - Damage/Create Unified Test Level`)
+  - Full ships with damage system, sections, shields, weapons, degradation, death
+- **Phase 3.5 Unified Test** (`Hephaestus/Testing/Create Unified Phase 3.5 Test Level`)
+  - Extends Phase 3 + TurnManager, CombatCoordinator, WeaponFiringQueue, TurnEndProcessor
+- **Feature-Specific Tests** (`Hephaestus/Testing/Phase 3.5 - Integration/...`)
+  - Turn System Test - Focuses on phase transitions and turn events
+  - Weapon Firing Test - Focuses on firing queue and weapon groups
+  - Heat Cooldown Test - Focuses on dissipation and cooldown ticking
+  - Movement Test - Uses Movement tab in Phase 3.5 Unified Test
+
+### Step 3.5.4 Details - Movement and Weapon Arc Integration
+New files created:
+- `MovementExecutor.cs` - Coordinates ship movement during Simulation phase
+- `WeaponArcValidator.cs` - Validates weapon arcs accounting for ship movement
+- `MovementIntegrationTests.cs` - 15 unit tests for movement and arc validation
+
+Modified files:
+- `Ship.cs` - Added GetPositionAtTime(), GetRotationAtTime(), GetMoveProgress(), IsExecutingMove, SetMoveDuration()
+- `Phase35UnifiedTestController.cs` - Added Movement tab (11th tab)
+- `Phase35UnifiedTestSetup.cs` - Creates MovementExecutor and WeaponArcValidator
+
+Movement Features:
+- Position-at-time queries along Bezier curve for retroactive arc checking
+- Rotation-at-time queries based on curve tangent
+- MovementExecutor subscribes to TurnManager events
+- Automatic movement execution on simulation start
+- Movement progress tracking (0-1 normalized time)
+
+Arc Validation Features:
+- Static arc checking (current positions)
+- Movement-aware arc checking (samples positions during movement)
+- Firing window detection (start/end times when weapon is in arc)
+- Optimal firing time calculation (best angle to target)
+- Cache system for performance
+
 ---
+
+## Manual Testing Guide
+
+Each completed phase/step should be manually tested using the Unity Editor. This section describes how to create and run test scenes for each major system.
+
+### How to Create Test Scenes
+
+1. Open Unity Editor
+2. Go to menu: `Hephaestus/Testing/...`
+3. Select the appropriate test scene creation option
+4. Press Play to enter Play Mode
+5. Use the on-screen controls and keyboard shortcuts
+
+### Phase 3: Damage System Testing
+
+**Create Scene:** `Hephaestus/Testing/Phase 3 - Damage/Create Unified Test Level`
+
+**Keyboard Controls:**
+- `J` - Toggle test panel UI
+- `K` - Cycle target ships
+- `Tab` - Cycle through tabs
+
+**Test Panel Tabs:**
+1. **Combat** - Shield damage, section selection, quick damage buttons
+2. **Sections** - Per-section damage and breach controls
+3. **Systems** - Mounted system damage, degradation multipliers
+4. **Core/Death** - Core protection, attack directions, death conditions
+5. **Projectiles** - Fire ballistic/homing projectiles
+6. **Weapons** - Fire individual weapons
+7. **Status** - All ships overview
+
+**Manual Tests to Verify:**
+- [ ] Hit shields and verify they absorb damage (Combat tab)
+- [ ] Deplete shields and verify damage passes to sections
+- [ ] Apply damage to sections, verify armor depletes before structure
+- [ ] Breach a section, verify it shows red/black
+- [ ] Damage systems (engines, radiators), verify degradation multipliers update
+- [ ] Breach fore section, then attack core - verify core is accessible
+- [ ] Destroy reactor - verify Core Breach death
+
+### Phase 3.5: Systems Integration Testing
+
+**Create Scene:** `Hephaestus/Testing/Create Unified Phase 3.5 Test Level`
+
+**Movement Controls:**
+- `M` - Toggle movement mode
+- Click+Drag on projection to plan move
+- `E` - Elevation adjustment mode (scroll wheel)
+- `R` - Rotation adjustment mode (arrow keys)
+- `Enter/Space` - Confirm move
+- `Escape` - Cancel move / Exit movement mode
+
+**Combat Controls:**
+- `J` - Toggle test panel UI
+- `K` - Cycle target ships
+- `T` - Advance turn (force end current turn)
+- `1,2,3,4` - Fire weapon groups
+- `A` - Alpha Strike (fire all weapons)
+- `Space` - Toggle weapon config panel
+- `R` - Reset all cooldowns (cheat)
+- `L` - Reload all ammo (cheat)
+
+**Test Panel Tabs (extends Phase 3):**
+8. **Turns** - Turn system control, phase transitions, event log
+9. **Heat/CD** - Heat controls, cooldown management, radiator status
+10. **FiringQ** - Weapon firing queue, queue controls
+11. **Movement** - Movement planning, execution, arc validation
+
+### Step 3.5.1: Turn System Testing
+
+**Create Scene:** `Hephaestus/Testing/Phase 3.5 - Integration/Create Turn System Test Scene`
+
+**Manual Tests to Verify:**
+- [ ] Verify turn counter increments after each turn
+- [ ] Verify Command Phase → Simulation Phase → Turn End flow
+- [ ] Use "Start Simulation" button and observe phase change
+- [ ] Press `T` to advance turns, verify event log updates
+- [ ] Verify OnCommandPhaseStart, OnSimulationPhaseStart, OnTurnEnd events fire
+
+### Step 3.5.2: Weapon Firing Queue Testing
+
+**Create Scene:** `Hephaestus/Testing/Phase 3.5 - Integration/Create Weapon Firing Test Scene`
+
+**Manual Tests to Verify:**
+- [ ] Queue individual weapons using Queue button
+- [ ] Queue all ready weapons using "Queue All Ready Weapons"
+- [ ] Clear queue and verify count goes to 0
+- [ ] Execute queue and verify weapons fire
+- [ ] Fire weapon groups (1-4), verify correct weapons fire
+- [ ] Alpha Strike (`A`), verify all weapons fire
+
+### Step 3.5.3: Heat and Cooldown Testing
+
+**Create Scene:** `Hephaestus/Testing/Phase 3.5 - Integration/Create Heat Cooldown Test Scene`
+
+**Manual Tests to Verify:**
+- [ ] Add heat (+25, +50, +100 buttons), verify heat increases
+- [ ] Advance turn (`T`), verify heat dissipates
+- [ ] Check dissipation rate shows base 10 + radiator bonus
+- [ ] Damage radiators (Heat/CD tab), verify dissipation decreases
+- [ ] Set weapon cooldowns (CD=3), advance turns, verify they tick down
+- [ ] Verify OnHeatDissipated events appear in log
+- [ ] Verify OnWeaponReady events when cooldowns reach 0
+
+### Step 3.5.4: Movement and Arc Integration Testing
+
+**Create Scene:** `Hephaestus/Testing/Create Unified Phase 3.5 Test Level`
+(Use Movement tab OR mouse-based movement controls)
+
+**Mouse-Based Movement Planning:**
+- [ ] Press `M` to enter movement mode
+- [ ] Click and drag on ship projection to plan movement
+- [ ] Use scroll wheel with `E` mode for elevation adjustment
+- [ ] Use arrow keys with `R` mode for rotation adjustment
+- [ ] Press `Enter` or `Space` to confirm move
+- [ ] Press `Escape` to cancel
+
+**Movement Tab Manual Tests:**
+- [ ] Check "Can Move" status (should be green if engines operational)
+- [ ] Plan forward move (+10 Forward button), verify "Has Planned Move: True"
+- [ ] Execute move, verify ship moves along Bezier curve
+- [ ] Check arc validation - verify weapons show IN ARC / OUT status
+- [ ] Plan a turning move (Turn Right), check weapons that come into arc
+- [ ] Verify optimal firing time (@t=X.XX) for weapons that will be in arc during movement
+- [ ] Check position queries show interpolated positions along curve
+- [ ] Damage engines, verify max move distance decreases
+
+### Feature-Specific Test Scenes
+
+| Feature | Menu Path | Focus |
+|---------|-----------|-------|
+| Turn System | Phase 3.5 - Integration/Create Turn System Test Scene | Phase transitions, events |
+| Weapon Firing | Phase 3.5 - Integration/Create Weapon Firing Test Scene | Queue, groups, alpha strike |
+| Heat/Cooldown | Phase 3.5 - Integration/Create Heat Cooldown Test Scene | Dissipation, radiators, cooldowns |
+
+### Step 3.5.5 Details - Unified Combat Test Level
+New files created:
+- `UnifiedCombatFlowTests.cs` - 15 end-to-end integration tests for complete combat flow
+
+Test Coverage:
+1. **Complete Turn Cycle** - Command → Simulation → Turn End → Next Command
+2. **Movement During Simulation** - Ship moves along planned path
+3. **Weapon Queue Execution** - Queued weapons fire during simulation
+4. **Heat Dissipation** - Heat dissipates at turn end
+5. **Cooldown Ticking** - Weapon cooldowns tick down each turn
+6. **Shield Absorption** - Shields absorb damage correctly
+7. **Section Damage** - Sections take damage after shields deplete
+8. **Arc Validation** - Weapon arcs validate with movement
+9. **Degradation Effects** - Damaged systems affect combat
+10. **Full Combat Round** - Complete movement + firing + damage
+11. **Multiple Turns** - Several consecutive turns work correctly
+12. **Event Firing Order** - Turn events fire in correct sequence
+13. **Radiator Bonus** - Damaged radiators reduce heat dissipation
+14. **Engine Destruction** - Destroyed engines prevent movement
+15. **Position Queries** - Position-at-time queries work during execution
+
+Modified files:
+- `Phase35UnifiedTestSetup.cs` - Added MovementController and InputManager creation
+- Fixed test setup to register ships with TurnEndProcessor
+
+Key API Patterns Validated:
+- HeatManager: AddPlannedHeat() → CommitPlannedHeat() for heat addition
+- WeaponSystem: StartCooldown() sets cooldown, TickCooldown() decrements
+- TurnEndProcessor: RegisterShip() to track ships for turn-end processing
+- DamageRouter: ProcessDamage() for damage routing
+
+### Quick Validation Checklist
+
+After each step completion, verify:
+1. [ ] All unit tests pass (run via Test Runner or command line)
+2. [ ] Test scene creates without errors
+3. [ ] Play mode starts without console errors
+4. [ ] Basic functionality works per manual tests above
+5. [ ] UI displays correct values

@@ -447,10 +447,12 @@ public class ProjectileDamageIntegrationTests
 
         DamageReport report = foreDetector.HandleProjectileHit(projectile);
 
-        // All damage should overflow (section has no HP left)
-        Assert.AreEqual(0f, report.ArmorDamage, "No armor to damage");
-        Assert.AreEqual(0f, report.StructureDamage, "No structure to damage");
-        Assert.AreEqual(50f, report.OverflowDamage, "All damage should overflow");
+        // Damage overflows from breached section to Core
+        // Core has 0 armor and 30 structure, so 30 goes to Core structure, 20 overflows
+        Assert.AreEqual(0f, report.ArmorDamage, "No armor to damage on breached section");
+        Assert.AreEqual(30f, report.StructureDamage, "Core takes 30 structure damage from overflow");
+        Assert.AreEqual(20f, report.OverflowDamage, "Remaining 20 damage overflows past Core");
+        Assert.IsTrue(report.OverflowedToCore, "Damage should have overflowed to Core");
 
         Object.DestroyImmediate(projectileObj);
     }

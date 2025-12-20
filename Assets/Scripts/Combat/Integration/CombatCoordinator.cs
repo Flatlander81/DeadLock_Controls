@@ -32,6 +32,9 @@ public class CombatCoordinator : TurnEventSubscriber
     private bool isSimulating;
     private Coroutine simulationCoroutine;
 
+    // Reference to weapon firing queue
+    private WeaponFiringQueue weaponFiringQueue;
+
     /// <summary>
     /// Whether combat simulation is currently running.
     /// </summary>
@@ -64,6 +67,16 @@ public class CombatCoordinator : TurnEventSubscriber
             return;
         }
         Instance = this;
+    }
+
+    private void Start()
+    {
+        // Find or wait for WeaponFiringQueue
+        weaponFiringQueue = WeaponFiringQueue.Instance;
+        if (weaponFiringQueue == null)
+        {
+            weaponFiringQueue = FindFirstObjectByType<WeaponFiringQueue>();
+        }
     }
 
     /// <summary>
@@ -189,9 +202,21 @@ public class CombatCoordinator : TurnEventSubscriber
             Debug.Log($"[CombatCoordinator] Stage 2: Weapon Firing ({weaponsDuration:F1}s)");
         }
 
-        // Execute weapon firing queue here (will be implemented in Step 3.5.2)
-        // For now, weapons are fired immediately via TargetingController
-        yield return new WaitForSeconds(weaponsDuration);
+        // Execute weapon firing queue
+        if (weaponFiringQueue != null)
+        {
+            yield return StartCoroutine(weaponFiringQueue.ExecuteQueue());
+        }
+        else
+        {
+            if (logEvents)
+            {
+                Debug.Log("[CombatCoordinator] No WeaponFiringQueue found, skipping weapon execution");
+            }
+        }
+
+        // Wait remaining weapon phase duration
+        yield return new WaitForSeconds(weaponsDuration * 0.5f);
 
         // Stage 3: Projectile Travel
         CurrentStage = SimulationStage.ProjectileTravel;

@@ -86,6 +86,7 @@ public class HeatManager : MonoBehaviour
     // Events
     public event Action<float> OnHeatChanged;
     public event Action<HeatTier> OnHeatTierChanged;
+    public event Action<float> OnHeatDissipated;
 
     // Properties
     public float MaxHeat => maxHeat;
@@ -322,6 +323,37 @@ public class HeatManager : MonoBehaviour
         UpdateHeatTier();
         OnHeatChanged?.Invoke(currentHeat);
         Debug.Log($"{gameObject.name} - Instant cooling: -{amount:F1}. Heat: {previousHeat:F1} → {currentHeat:F1}");
+    }
+
+    /// <summary>
+    /// Dissipates heat at turn end. Fires OnHeatDissipated event.
+    /// Used by TurnEndProcessor for turn-based heat management.
+    /// </summary>
+    /// <param name="amount">Amount of heat to dissipate</param>
+    public void DissipateHeat(float amount)
+    {
+        float previousHeat = currentHeat;
+        float actualDissipation = Mathf.Min(amount, currentHeat);
+        currentHeat = Mathf.Max(0f, currentHeat - amount);
+
+        if (actualDissipation > 0)
+        {
+            UpdateHeatTier();
+            OnHeatChanged?.Invoke(currentHeat);
+            OnHeatDissipated?.Invoke(actualDissipation);
+            Debug.Log($"{gameObject.name} - Heat dissipated: -{actualDissipation:F1}. Heat: {previousHeat:F1} → {currentHeat:F1}");
+        }
+    }
+
+    /// <summary>
+    /// Resets heat to zero. Used for testing.
+    /// </summary>
+    public void Reset()
+    {
+        currentHeat = 0f;
+        plannedHeat = 0f;
+        currentTier = HeatTier.Safe;
+        OnHeatChanged?.Invoke(currentHeat);
     }
 
     /// <summary>

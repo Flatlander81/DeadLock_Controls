@@ -190,8 +190,8 @@ public class WeaponSystemTests
         // Kill target - cannot fire
         targetObject.transform.position = new Vector3(0f, 0f, 10f);
         // Deal enough damage to deplete shields (200) and hull (500) = 700 total
-        // Expect the death error log
-        UnityEngine.TestTools.LogAssert.Expect(LogType.Error, "TargetShip has been destroyed!");
+        // Expect the death warning log
+        UnityEngine.TestTools.LogAssert.Expect(LogType.Warning, "TargetShip has been destroyed!");
         targetShip.TakeDamage(targetShip.CurrentShields + targetShip.CurrentHull);
         Assert.IsTrue(targetShip.IsDead, "Target should be dead");
         Assert.IsFalse(railGun.CanFire(), "Cannot fire at dead target");

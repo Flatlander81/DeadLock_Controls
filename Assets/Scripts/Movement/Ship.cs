@@ -741,6 +741,102 @@ public class Ship : MonoBehaviour
         return projectionObject;
     }
 
+    // ==================== MOVEMENT QUERY METHODS ====================
+
+    /// <summary>
+    /// Gets the ship's position at a specific normalized time (0-1) during its planned movement.
+    /// Used by WeaponArcValidator to check if weapons are in arc at specific times.
+    /// </summary>
+    /// <param name="t">Normalized time (0 = start, 1 = end)</param>
+    /// <returns>Position along the Bezier curve at time t</returns>
+    public Vector3 GetPositionAtTime(float t)
+    {
+        if (!HasPlannedMove)
+        {
+            return transform.position;
+        }
+
+        t = Mathf.Clamp01(t);
+
+        // If we're in the middle of execution, use the actual move start position
+        Vector3 startPos = isExecutingMove ? moveStartPosition : transform.position;
+
+        return CubicBezier(startPos, startControlPoint, arcControlPoint, PlannedPosition, t);
+    }
+
+    /// <summary>
+    /// Gets the ship's rotation (facing direction) at a specific normalized time (0-1) during movement.
+    /// Calculated from the tangent of the Bezier curve.
+    /// </summary>
+    /// <param name="t">Normalized time (0 = start, 1 = end)</param>
+    /// <returns>Rotation (facing direction) at time t</returns>
+    public Quaternion GetRotationAtTime(float t)
+    {
+        if (!HasPlannedMove)
+        {
+            return transform.rotation;
+        }
+
+        t = Mathf.Clamp01(t);
+
+        // If we're in the middle of execution, use the actual move start position
+        Vector3 startPos = isExecutingMove ? moveStartPosition : transform.position;
+
+        // Calculate tangent by looking ahead on the curve
+        Vector3 currentPos = CubicBezier(startPos, startControlPoint, arcControlPoint, PlannedPosition, t);
+        Vector3 futurePos;
+
+        if (t < 0.99f)
+        {
+            futurePos = CubicBezier(startPos, startControlPoint, arcControlPoint, PlannedPosition, Mathf.Min(t + 0.01f, 1f));
+        }
+        else
+        {
+            futurePos = PlannedPosition;
+        }
+
+        Vector3 tangent = (futurePos - currentPos).normalized;
+
+        if (tangent.sqrMagnitude > 0.001f)
+        {
+            return Quaternion.LookRotation(tangent);
+        }
+
+        // Fallback to planned rotation at end
+        return PlannedRotation;
+    }
+
+    /// <summary>
+    /// Gets the current movement progress (0-1) during execution.
+    /// Returns 0 if not executing, 1 if execution complete.
+    /// </summary>
+    public float GetMoveProgress()
+    {
+        if (!isExecutingMove)
+        {
+            return HasPlannedMove ? 0f : 1f;
+        }
+        return Mathf.Clamp01(moveProgress / moveDuration);
+    }
+
+    /// <summary>
+    /// Gets whether the ship is currently executing a move.
+    /// </summary>
+    public bool IsExecutingMove => isExecutingMove;
+
+    /// <summary>
+    /// Gets the move duration for external systems.
+    /// </summary>
+    public float MoveDuration => moveDuration;
+
+    /// <summary>
+    /// Sets the move duration (should match TurnManager.simulationDuration).
+    /// </summary>
+    public void SetMoveDuration(float duration)
+    {
+        moveDuration = duration;
+    }
+
     // ==================== DEGRADATION METHODS ====================
 
     /// <summary>

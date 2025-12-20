@@ -32,6 +32,15 @@ public abstract class TurnEventSubscriber : MonoBehaviour
     }
 
     /// <summary>
+    /// Clean up when destroyed.
+    /// Override in subclasses that need cleanup logic.
+    /// </summary>
+    protected virtual void OnDestroy()
+    {
+        UnsubscribeFromEvents();
+    }
+
+    /// <summary>
     /// Wait for TurnManager to be ready then subscribe.
     /// </summary>
     private System.Collections.IEnumerator SubscribeWhenReady()

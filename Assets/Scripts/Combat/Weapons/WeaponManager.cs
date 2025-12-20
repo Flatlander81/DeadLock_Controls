@@ -290,4 +290,150 @@ public class WeaponManager : MonoBehaviour
 
         Debug.Log($"{gameObject.name} cleared all weapon targets");
     }
+
+    #region Queue Integration
+
+    /// <summary>
+    /// Queue a weapon group to fire at a target.
+    /// Uses WeaponFiringQueue for turn-based combat.
+    /// </summary>
+    public int QueueFireGroup(int groupNumber, Ship target)
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: WeaponFiringQueue not found, falling back to immediate fire");
+            StartCoroutine(FireGroup(groupNumber));
+            return 0;
+        }
+
+        // Set target for all weapons in group first
+        SetGroupTarget(groupNumber, target);
+
+        // Queue via WeaponFiringQueue
+        int queued = WeaponFiringQueue.Instance.QueueGroupFire(this, groupNumber, target);
+
+        // Update queued state on weapons
+        foreach (var weapon in GetWeaponsInGroup(groupNumber))
+        {
+            if (WeaponFiringQueue.Instance.IsWeaponQueued(weapon))
+            {
+                weapon.IsQueuedToFire = true;
+            }
+        }
+
+        return queued;
+    }
+
+    /// <summary>
+    /// Queue an alpha strike at a target.
+    /// Uses WeaponFiringQueue for turn-based combat.
+    /// </summary>
+    public int QueueAlphaStrike(Ship target)
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: WeaponFiringQueue not found, falling back to immediate fire");
+            StartCoroutine(FireAlphaStrike(target));
+            return 0;
+        }
+
+        // Queue via WeaponFiringQueue
+        int queued = WeaponFiringQueue.Instance.QueueAlphaStrike(this, target);
+
+        // Update queued state on weapons
+        foreach (var weapon in weapons)
+        {
+            if (WeaponFiringQueue.Instance.IsWeaponQueued(weapon))
+            {
+                weapon.IsQueuedToFire = true;
+            }
+        }
+
+        return queued;
+    }
+
+    /// <summary>
+    /// Queue a single weapon to fire at a target.
+    /// </summary>
+    public bool QueueWeaponFire(WeaponSystem weapon, Ship target)
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: WeaponFiringQueue not found");
+            return false;
+        }
+
+        if (!weaponSet.Contains(weapon))
+        {
+            Debug.LogWarning($"{gameObject.name}: Weapon {weapon.WeaponName} not found on this ship");
+            return false;
+        }
+
+        bool success = WeaponFiringQueue.Instance.QueueFire(weapon, target);
+        if (success)
+        {
+            weapon.IsQueuedToFire = true;
+        }
+
+        return success;
+    }
+
+    /// <summary>
+    /// Cancel a queued weapon command.
+    /// </summary>
+    public bool CancelQueuedWeapon(WeaponSystem weapon)
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            return false;
+        }
+
+        bool success = WeaponFiringQueue.Instance.CancelQueuedCommand(weapon);
+        if (success)
+        {
+            weapon.IsQueuedToFire = false;
+        }
+
+        return success;
+    }
+
+    /// <summary>
+    /// Get all queued commands for this ship.
+    /// </summary>
+    public List<WeaponFireCommand> GetQueuedCommands()
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            return new List<WeaponFireCommand>();
+        }
+
+        return WeaponFiringQueue.Instance.GetCommandsForShip(ship);
+    }
+
+    /// <summary>
+    /// Get the total heat cost of queued weapons for this ship.
+    /// </summary>
+    public int GetQueuedHeatCost()
+    {
+        if (WeaponFiringQueue.Instance == null)
+        {
+            return 0;
+        }
+
+        return WeaponFiringQueue.Instance.GetQueuedHeatCostForShip(ship);
+    }
+
+    /// <summary>
+    /// Clear the queued state on all weapons.
+    /// Called when queue is cleared or turn ends.
+    /// </summary>
+    public void ClearQueuedState()
+    {
+        foreach (var weapon in weapons)
+        {
+            weapon.IsQueuedToFire = false;
+        }
+    }
+
+    #endregion
 }

@@ -284,9 +284,9 @@ public class CoreProtectionTests
             reportedCause = cause;
         };
 
-        // Expect the error logs from ship destruction
-        LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("SHIP DESTROYED"));
-        LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("has been destroyed"));
+        // Expect the warning logs from ship destruction
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("SHIP DESTROYED"));
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("has been destroyed"));
 
         // Act - Breach Core section
         float damageToBreachCore = coreSection.CurrentArmor + coreSection.CurrentStructure + 10f;
@@ -324,9 +324,9 @@ public class CoreProtectionTests
         // Not destroyed yet because Core is intact
         Assert.IsFalse(destroyedEventFired, "Ship should not be destroyed until all sections including Core are breached");
 
-        // Expect the error logs from ship destruction
-        LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("SHIP DESTROYED"));
-        LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex("has been destroyed"));
+        // Expect the warning logs from ship destruction
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("SHIP DESTROYED"));
+        LogAssert.Expect(LogType.Warning, new System.Text.RegularExpressions.Regex("has been destroyed"));
 
         // Now breach Core
         ShipSection core = sectionManager.GetSection(SectionType.Core);

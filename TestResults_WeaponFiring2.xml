@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="12" result="Passed" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:16Z" duration="5.1161629">
+  <test-suite type="TestSuite" id="1246" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="220" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:16Z" duration="5.116163" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1244" name="PlayModeTests.dll" fullname="H:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="220" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:16Z" duration="5.105933" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3056" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1147" name="WeaponFiringIntegrationTests" fullname="WeaponFiringIntegrationTests" classname="WeaponFiringIntegrationTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:16Z" duration="5.102608" total="12" passed="12" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1157" name="Test_AlphaStrikeQueuesAll" fullname="WeaponFiringIntegrationTests.Test_AlphaStrikeQueuesAll" methodname="Test_AlphaStrikeQueuesAll" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1464324191" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.032185" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued (Alpha): [ALPHA] Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued (Alpha): [ALPHA] Weapon2 -> TargetShip
+[WeaponFiringQueue] Queued (Alpha): [ALPHA] Weapon3 -> TargetShip
+[WeaponFiringQueue] Queued (Alpha): [ALPHA] Weapon4 -> TargetShip
+[WeaponFiringQueue] Alpha Strike: 4 weapons queued
+]]></output>
+        </test-case>
+        <test-case id="1154" name="Test_AmmoBlocksQueue" fullname="WeaponFiringIntegrationTests.Test_AmmoBlocksQueue" methodname="Test_AmmoBlocksQueue" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1995984696" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.005868" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] AmmoWeapon out of ammo
+]]></output>
+        </test-case>
+        <test-case id="1156" name="Test_CancelQueuedWeapon" fullname="WeaponFiringIntegrationTests.Test_CancelQueuedWeapon" methodname="Test_CancelQueuedWeapon" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="920514351" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.005634" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued:  Weapon2 -> TargetShip
+[WeaponFiringQueue] Cancelled:  Weapon1 -> TargetShip
+]]></output>
+        </test-case>
+        <test-case id="1153" name="Test_CooldownBlocksQueue" fullname="WeaponFiringIntegrationTests.Test_CooldownBlocksQueue" methodname="Test_CooldownBlocksQueue" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="265933080" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.005073" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+Weapon1 on cooldown for 1 turns
+[WeaponFiringQueue] Weapon1 on cooldown (1 turns)
+]]></output>
+        </test-case>
+        <test-case id="1158" name="Test_GroupFireQueuesGroup" fullname="WeaponFiringIntegrationTests.Test_GroupFireQueuesGroup" methodname="Test_GroupFireQueuesGroup" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1991955429" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.005672" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued (Group 1): [G1] Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued (Group 1): [G1] Weapon2 -> TargetShip
+[WeaponFiringQueue] Group 1: 2 weapons queued
+]]></output>
+        </test-case>
+        <test-case id="1159" name="Test_MultipleTargetsSupported" fullname="WeaponFiringIntegrationTests.Test_MultipleTargetsSupported" methodname="Test_MultipleTargetsSupported" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="41015953" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:11Z" duration="0.005555" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+Target2: No AbilitySystem component found. Abilities will not be available.
+Target2: No WeaponManager component found. Weapons will not be available.
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued:  Weapon2 -> Target2
+]]></output>
+        </test-case>
+        <test-case id="1151" name="Test_OutOfArcSkipped" fullname="WeaponFiringIntegrationTests.Test_OutOfArcSkipped" methodname="Test_OutOfArcSkipped" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1238205584" result="Passed" start-time="2025-12-20 01:54:11Z" end-time="2025-12-20 01:54:13Z" duration="2.004465" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+[WeaponFiringQueue] Simulation Phase - 1 weapons queued
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+[CombatCoordinator] Stage 2: Weapon Firing (0.6s)
+[WeaponFiringQueue] Executing 1 commands...
+[WeaponFiringQueue] Firing weapons with spin-up 0.00s (1 weapons)
+[WeaponFiringQueue] Weapon1: Target out of arc after movement
+[WeaponFiringQueue] Skipped (invalid):  Weapon1 -> TargetShip
+[WeaponFiringQueue] Execution complete
+[CombatCoordinator] Stage 3: Projectile Travel (1.5s)
+]]></output>
+        </test-case>
+        <test-case id="1155" name="Test_QueueClearedOnTurnEnd" fullname="WeaponFiringIntegrationTests.Test_QueueClearedOnTurnEnd" methodname="Test_QueueClearedOnTurnEnd" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="301488176" result="Passed" start-time="2025-12-20 01:54:13Z" end-time="2025-12-20 01:54:13Z" duration="0.008497" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued:  Weapon2 -> TargetShip
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+[WeaponFiringQueue] Simulation Phase - 2 weapons queued
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+[WeaponFiringQueue] Queue cleared (2 commands)
+[WeaponFiringQueue] Turn 1 ended - queue cleared
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+]]></output>
+        </test-case>
+        <test-case id="1150" name="Test_QueuedHeatPreview" fullname="WeaponFiringIntegrationTests.Test_QueuedHeatPreview" methodname="Test_QueuedHeatPreview" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1698162480" result="Passed" start-time="2025-12-20 01:54:13Z" end-time="2025-12-20 01:54:13Z" duration="0.004988" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+[WeaponFiringQueue] Queued:  Weapon3 -> TargetShip
+]]></output>
+        </test-case>
+        <test-case id="1152" name="Test_SpinUpTimingRespected" fullname="WeaponFiringIntegrationTests.Test_SpinUpTimingRespected" methodname="Test_SpinUpTimingRespected" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1284595835" result="Passed" start-time="2025-12-20 01:54:13Z" end-time="2025-12-20 01:54:15Z" duration="1.504724" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon3 -> TargetShip
+[WeaponFiringQueue] Queued:  Weapon4 -> TargetShip
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+[WeaponFiringQueue] Simulation Phase - 2 weapons queued
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+[CombatCoordinator] Stage 2: Weapon Firing (0.6s)
+[WeaponFiringQueue] Executing 2 commands...
+[WeaponFiringQueue] Firing weapons with spin-up 0.20s (1 weapons)
+Weapon3 targeting TargetShip
+[WeaponFiringQueue] Executing:  Weapon3 -> TargetShip
+Weapon3 spinning up for 0.2s...
+Weapon3 fired!
+PlayerShip - Planned heat: 20.0 (Total with current: 20.0)
+PlayerShip - Heat committed. Current: 20.0, Tier: Safe
+Weapon3 on cooldown for 1 turns
+[WeaponFiringQueue] Firing weapons with spin-up 0.30s (1 weapons)
+Weapon4 targeting TargetShip
+[WeaponFiringQueue] Executing:  Weapon4 -> TargetShip
+Weapon4 spinning up for 0.3s...
+]]></output>
+        </test-case>
+        <test-case id="1149" name="Test_WeaponExecutesDuringSimulation" fullname="WeaponFiringIntegrationTests.Test_WeaponExecutesDuringSimulation" methodname="Test_WeaponExecutesDuringSimulation" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="1880285060" result="Passed" start-time="2025-12-20 01:54:15Z" end-time="2025-12-20 01:54:16Z" duration="1.504845" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+[WeaponFiringQueue] Simulation Phase - 1 weapons queued
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+[CombatCoordinator] Stage 2: Weapon Firing (0.6s)
+[WeaponFiringQueue] Executing 1 commands...
+[WeaponFiringQueue] Firing weapons with spin-up 0.00s (1 weapons)
+Weapon1 targeting TargetShip
+[WeaponFiringQueue] Executing:  Weapon1 -> TargetShip
+Weapon1 fired!
+PlayerShip - Planned heat: 10.0 (Total with current: 10.0)
+PlayerShip - Heat committed. Current: 10.0, Tier: Safe
+Weapon1 on cooldown for 1 turns
+[WeaponFiringQueue] Execution complete
+[CombatCoordinator] Stage 3: Projectile Travel (1.5s)
+]]></output>
+        </test-case>
+        <test-case id="1148" name="Test_WeaponQueuesDuringCommand" fullname="WeaponFiringIntegrationTests.Test_WeaponQueuesDuringCommand" methodname="Test_WeaponQueuesDuringCommand" classname="WeaponFiringIntegrationTests" runstate="Runnable" seed="661946868" result="Passed" start-time="2025-12-20 01:54:16Z" end-time="2025-12-20 01:54:16Z" duration="0.005490" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[Initialized ballistic projectile pool with 20 objects
+Initialized homing projectile pool with 20 objects
+Initialized instant hit effect pool with 20 objects
+TargetShip: No AbilitySystem component found. Abilities will not be available.
+TargetShip: No WeaponManager component found. Weapons will not be available.
+PlayerShip: No AbilitySystem component found. Abilities will not be available.
+Weapon1 initialized on PlayerShip at hardpoint Weapon1
+  Discovered weapon: Weapon1 on hardpoint Weapon1
+Weapon2 initialized on PlayerShip at hardpoint Weapon2
+  Discovered weapon: Weapon2 on hardpoint Weapon2
+Weapon3 initialized on PlayerShip at hardpoint Weapon3
+  Discovered weapon: Weapon3 on hardpoint Weapon3
+Weapon4 initialized on PlayerShip at hardpoint Weapon4
+  Discovered weapon: Weapon4 on hardpoint Weapon4
+WeaponManager initialized on PlayerShip. Found 4 weapons.
+TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+[WeaponFiringQueue] Command Phase - ready for weapon orders
+[WeaponFiringQueue] Queued:  Weapon1 -> TargetShip
+Saving results to: H:\Repo\DeadLock_Controls\TestResults_WeaponFiring2.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
