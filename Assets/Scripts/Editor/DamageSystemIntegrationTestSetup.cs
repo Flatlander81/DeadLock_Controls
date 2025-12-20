@@ -8,7 +8,7 @@ using UnityEditor;
 /// </summary>
 public class DamageSystemIntegrationTestSetup : Editor
 {
-    [MenuItem("Hephaestus/Testing/Create Damage System Integration Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Damage System Integration Test Scene")]
     public static void CreateIntegrationTestScene()
     {
         Debug.Log("=== Creating Damage System Integration Test Scene ===");

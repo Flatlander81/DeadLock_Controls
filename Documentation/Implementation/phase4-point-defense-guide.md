@@ -6,11 +6,32 @@
 
 **Phase 4** implements the Point Defense system - automated turrets that intercept incoming missiles and torpedoes, creating tactical depth around saturation attacks and arc exploitation.
 
-**Prerequisites**: Phase 3 Complete (188 tests passing)
+**Prerequisites**: Phase 3.5 Complete (250 tests passing)
 
 **Estimated Time**: 20-28 hours
 
-**New Tests**: ~50 automated tests
+**New Tests**: ~56 automated tests
+
+---
+
+## Phase 3.5 Integration Dependencies
+
+Phase 4 builds on the integrated combat loop from Phase 3.5:
+
+- **TurnManager Events**: PD subscribes to `OnSimulationPhaseStart` to begin interception
+- **CombatCoordinator**: PD interception happens AFTER movement, BEFORE damage resolution
+- **WeaponFiringQueue**: Missiles/torpedoes are queued weapons that PD can intercept
+- **Projectile Timing**: PD intercepts during projectile travel phase of simulation
+
+**Combat Flow with PD:**
+```
+Simulation Phase:
+  1. Ships move (0-1s)
+  2. Weapons fire, projectiles spawn (1-2s)
+  3. PD INTERCEPTS incoming homing projectiles (2-2.5s)  ← NEW
+  4. Surviving projectiles hit targets (2.5-3s)
+  5. Damage resolves
+```
 
 ---
 
@@ -67,14 +88,14 @@ Incoming Projectile (Homing)
 
 ## Step 4.0: Establish Phase 4 Standards
 
-**Time**: 15 minutes  
-**Prerequisites**: Phase 3 complete
+**Time**: 15 minutes
+**Prerequisites**: Phase 3.5 complete (250 tests passing)
 
 ### CLAUDE CODE PROMPT 4.0
 
 ```
 CONTEXT:
-Phase 3 complete with 188 tests passing. Beginning Phase 4: Point Defense System.
+Phase 3.5 complete with 250 tests passing. Beginning Phase 4: Point Defense System.
 
 OBJECTIVE:
 Add Phase 4 standards section to CLAUDE.md.
@@ -142,8 +163,8 @@ After completion, note in IMPLEMENTATION_STATUS.md:
 
 ## Step 4.1: PD Turret Infrastructure
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 4.0 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 4.0 complete (250 tests passing)
 
 ### CLAUDE CODE PROMPT 4.1
 
@@ -264,7 +285,7 @@ STATUS UPDATE:
 - ✅ Step 4.1 Complete - PD Turret Infrastructure
 - List new/modified files
 - 🧪 Unit Tests: 12/12 passing
-- 🧪 Total Tests: 200/200 passing
+- 🧪 Total Tests: 262/262 passing
 - ⏭️ Next: Step 4.2 - Threat Detection System
 ```
 
@@ -284,8 +305,8 @@ STATUS UPDATE:
 
 ## Step 4.2: Threat Detection System
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 4.1 complete (200 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 4.1 complete (262 tests passing)
 
 ### CLAUDE CODE PROMPT 4.2
 
@@ -397,7 +418,7 @@ STATUS UPDATE:
 - ✅ Step 4.2 Complete - Threat Detection System
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 210/210 passing
+- 🧪 Total Tests: 272/272 passing
 - ⏭️ Next: Step 4.3 - Interception Mechanics
 ```
 
@@ -417,8 +438,8 @@ STATUS UPDATE:
 
 ## Step 4.3: Interception Mechanics
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 4.2 complete (210 tests passing)
+**Time**: 4-5 hours
+**Prerequisites**: Step 4.2 complete (272 tests passing)
 
 ### CLAUDE CODE PROMPT 4.3
 
@@ -538,7 +559,7 @@ STATUS UPDATE:
 - ✅ Step 4.3 Complete - Interception Mechanics
 - List new/modified files
 - 🧪 Unit Tests: 12/12 passing
-- 🧪 Total Tests: 222/222 passing
+- 🧪 Total Tests: 284/284 passing
 - ⏭️ Next: Step 4.4 - PD Override Ability Integration
 ```
 
@@ -559,8 +580,8 @@ STATUS UPDATE:
 
 ## Step 4.4: PD Override Ability Integration
 
-**Time**: 2-3 hours  
-**Prerequisites**: Step 4.3 complete (222 tests passing)
+**Time**: 2-3 hours
+**Prerequisites**: Step 4.3 complete (284 tests passing)
 
 ### CLAUDE CODE PROMPT 4.4
 
@@ -639,7 +660,7 @@ STATUS UPDATE:
 - ✅ Step 4.4 Complete - PD Override Ability Integration
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 230/230 passing
+- 🧪 Total Tests: 292/292 passing
 - ⏭️ Next: Step 4.5 - PD Damage Integration
 ```
 
@@ -659,8 +680,8 @@ STATUS UPDATE:
 
 ## Step 4.5: PD Damage Integration
 
-**Time**: 2-3 hours  
-**Prerequisites**: Step 4.4 complete (230 tests passing)
+**Time**: 2-3 hours
+**Prerequisites**: Step 4.4 complete (292 tests passing)
 
 ### CLAUDE CODE PROMPT 4.5
 
@@ -746,7 +767,7 @@ STATUS UPDATE:
 - ✅ Step 4.5 Complete - PD Damage Integration
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 238/238 passing
+- 🧪 Total Tests: 300/300 passing
 - ⏭️ Next: Step 4.6 - PD UI and Feedback
 ```
 
@@ -766,8 +787,8 @@ STATUS UPDATE:
 
 ## Step 4.6: PD UI and Feedback
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 4.5 complete (238 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 4.5 complete (300 tests passing)
 
 ### CLAUDE CODE PROMPT 4.6
 
@@ -857,7 +878,7 @@ STATUS UPDATE:
 - ✅ Step 4.6 Complete - PD UI and Feedback
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 246/246 passing
+- 🧪 Total Tests: 308/308 passing
 - ⏭️ Next: Step 4.7 - Phase 4 Integration Testing
 ```
 
@@ -878,8 +899,8 @@ STATUS UPDATE:
 
 ## Step 4.7: Phase 4 Integration Testing
 
-**Time**: 2-3 hours  
-**Prerequisites**: Step 4.6 complete (246 tests passing)
+**Time**: 2-3 hours
+**Prerequisites**: Step 4.6 complete (308 tests passing)
 
 ### CLAUDE CODE PROMPT 4.7
 
@@ -968,7 +989,7 @@ STATUS UPDATE:
 - ✅ PHASE 4 COMPLETE
 - List new/modified files
 - 🧪 Integration Tests: 10/10 passing
-- 🧪 Total Tests: 256/256 passing
+- 🧪 Total Tests: 318/318 passing
 - 📊 Phase 4 Summary: [List all major systems implemented]
 - ⏭️ Next Phase: Phase 5 - Enemy AI
 ```
@@ -1027,13 +1048,14 @@ STATUS UPDATE:
 ### Test Coverage
 | Step | Tests Added | Running Total |
 |------|-------------|---------------|
-| 4.1 Turrets | 12 | 200 |
-| 4.2 Detection | 10 | 210 |
-| 4.3 Interception | 12 | 222 |
-| 4.4 Override | 8 | 230 |
-| 4.5 Damage | 8 | 238 |
-| 4.6 UI | 8 | 246 |
-| 4.7 Integration | 10 | 256 |
+| Phase 3.5 (Integration) | 52 | 250 |
+| 4.1 Turrets | 12 | 262 |
+| 4.2 Detection | 10 | 272 |
+| 4.3 Interception | 12 | 284 |
+| 4.4 Override | 8 | 292 |
+| 4.5 Damage | 8 | 300 |
+| 4.6 UI | 8 | 308 |
+| 4.7 Integration | 10 | 318 |
 
 ### Files Created
 - ~15 new script files

@@ -7,7 +7,7 @@ using UnityEditor;
 /// </summary>
 public class DamageUITestSetup : Editor
 {
-    [MenuItem("Hephaestus/Testing/Create Damage UI Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Damage UI Test Scene")]
     public static void CreateDamageUITestScene()
     {
         Debug.Log("=== Creating Damage UI Test Scene ===");

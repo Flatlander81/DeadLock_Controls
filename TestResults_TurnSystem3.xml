@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Failed(Child)" total="10" passed="5" failed="5" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.0775617">
+  <test-suite type="TestSuite" id="1233" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="208" result="Failed" site="Child" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.077562" total="10" passed="5" failed="5" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1231" name="PlayModeTests.dll" fullname="H:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="208" result="Failed" site="Child" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.068850" total="10" passed="5" failed="5" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="26936" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestFixture" id="1136" name="TurnSystemIntegrationTests" fullname="TurnSystemIntegrationTests" classname="TurnSystemIntegrationTests" runstate="Runnable" testcasecount="10" result="Failed" site="Child" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.065698" total="10" passed="5" failed="5" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-case id="1144" name="Test_CombatCoordinatorOrchestrates" fullname="TurnSystemIntegrationTests.Test_CombatCoordinatorOrchestrates" methodname="Test_CombatCoordinatorOrchestrates" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1699704185" result="Passed" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.026393" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1138" name="Test_CommandPhaseEventFires" fullname="TurnSystemIntegrationTests.Test_CommandPhaseEventFires" methodname="Test_CommandPhaseEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="542466041" result="Failed" label="Error" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.004907" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[UnityEngine.MissingReferenceException : The object of type 'TurnManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object. Parameter name: obj]]></message>
+            <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x0006a] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException (System.Object obj, System.String parameterName) [0x00010] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.IsObjectMonoBehaviour (UnityEngine.Object obj) [0x00015] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.StartCoroutine (System.Collections.IEnumerator routine) [0x00014] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at TurnManager.EndCommandPhase () [0x000c7] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:200 
+  at TurnManager.StartSimulation () [0x00001] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:210 
+  at TurnSystemIntegrationTests+<Test_CommandPhaseEventFires>d__9.MoveNext () [0x000b2] in H:\Repo\DeadLock_Controls\Assets\Tests\PlayModeTests\Integration\TurnSystemIntegrationTests.cs:92 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in .\Library\PackageCache\com.unity.test-framework@d97b7cd61ded\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+CheckCollisions called but no ships registered
+]]></output>
+        </test-case>
+        <test-case id="1146" name="Test_MultipleSubscribers" fullname="TurnSystemIntegrationTests.Test_MultipleSubscribers" methodname="Test_MultipleSubscribers" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1227176797" result="Passed" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.003932" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1142" name="Test_PhaseTransitionOrder" fullname="TurnSystemIntegrationTests.Test_PhaseTransitionOrder" methodname="Test_PhaseTransitionOrder" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1714987689" result="Failed" label="Error" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.002237" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[UnityEngine.MissingReferenceException : The object of type 'TurnManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object. Parameter name: obj]]></message>
+            <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x0006a] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException (System.Object obj, System.String parameterName) [0x00010] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.IsObjectMonoBehaviour (UnityEngine.Object obj) [0x00015] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.StartCoroutine (System.Collections.IEnumerator routine) [0x00014] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at TurnManager.EndCommandPhase () [0x000c7] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:200 
+  at TurnManager.StartSimulation () [0x00001] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:210 
+  at TurnSystemIntegrationTests+<Test_PhaseTransitionOrder>d__13.MoveNext () [0x00124] in H:\Repo\DeadLock_Controls\Assets\Tests\PlayModeTests\Integration\TurnSystemIntegrationTests.cs:172 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in .\Library\PackageCache\com.unity.test-framework@d97b7cd61ded\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+CheckCollisions called but no ships registered
+]]></output>
+        </test-case>
+        <test-case id="1139" name="Test_SimulationPhaseEventFires" fullname="TurnSystemIntegrationTests.Test_SimulationPhaseEventFires" methodname="Test_SimulationPhaseEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1451805681" result="Passed" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.003976" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1145" name="Test_SimulationProgressUpdates" fullname="TurnSystemIntegrationTests.Test_SimulationProgressUpdates" methodname="Test_SimulationProgressUpdates" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="552046646" result="Failed" label="Error" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.002017" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[UnityEngine.MissingReferenceException : The object of type 'TurnManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object. Parameter name: obj]]></message>
+            <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x0006a] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException (System.Object obj, System.String parameterName) [0x00010] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.IsObjectMonoBehaviour (UnityEngine.Object obj) [0x00015] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.StartCoroutine (System.Collections.IEnumerator routine) [0x00014] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at TurnManager.EndCommandPhase () [0x000c7] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:200 
+  at TurnManager.StartSimulation () [0x00001] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:210 
+  at TurnSystemIntegrationTests+<Test_SimulationProgressUpdates>d__16.MoveNext () [0x0008e] in H:\Repo\DeadLock_Controls\Assets\Tests\PlayModeTests\Integration\TurnSystemIntegrationTests.cs:244 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in .\Library\PackageCache\com.unity.test-framework@d97b7cd61ded\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+CheckCollisions called but no ships registered
+]]></output>
+        </test-case>
+        <test-case id="1143" name="Test_SubscriberReceivesEvents" fullname="TurnSystemIntegrationTests.Test_SubscriberReceivesEvents" methodname="Test_SubscriberReceivesEvents" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="2031866090" result="Passed" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.003110" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1141" name="Test_TurnCounterIncrements" fullname="TurnSystemIntegrationTests.Test_TurnCounterIncrements" methodname="Test_TurnCounterIncrements" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1959766105" result="Failed" label="Error" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.002575" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[UnityEngine.MissingReferenceException : The object of type 'TurnManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object. Parameter name: obj]]></message>
+            <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x0006a] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException (System.Object obj, System.String parameterName) [0x00010] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.IsObjectMonoBehaviour (UnityEngine.Object obj) [0x00015] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.StartCoroutine (System.Collections.IEnumerator routine) [0x00014] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at TurnManager.EndCommandPhase () [0x000c7] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:200 
+  at TurnManager.StartSimulation () [0x00001] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:210 
+  at TurnSystemIntegrationTests+<Test_TurnCounterIncrements>d__12.MoveNext () [0x00079] in H:\Repo\DeadLock_Controls\Assets\Tests\PlayModeTests\Integration\TurnSystemIntegrationTests.cs:147 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in .\Library\PackageCache\com.unity.test-framework@d97b7cd61ded\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+CheckCollisions called but no ships registered
+]]></output>
+        </test-case>
+        <test-case id="1140" name="Test_TurnEndEventFires" fullname="TurnSystemIntegrationTests.Test_TurnEndEventFires" methodname="Test_TurnEndEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1248867654" result="Passed" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.004765" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TurnManager initialized. Found 2 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+]]></output>
+        </test-case>
+        <test-case id="1137" name="Test_TurnManagerEventsExist" fullname="TurnSystemIntegrationTests.Test_TurnManagerEventsExist" methodname="Test_TurnManagerEventsExist" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1887575793" result="Failed" label="Error" start-time="2025-12-20 01:32:31Z" end-time="2025-12-20 01:32:31Z" duration="0.002181" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <failure>
+            <message><![CDATA[UnityEngine.MissingReferenceException : The object of type 'TurnManager' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object. Parameter name: obj]]></message>
+            <stack-trace><![CDATA[  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x0006a] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.Bindings.ThrowHelper.ThrowArgumentNullException (System.Object obj, System.String parameterName) [0x00010] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.IsObjectMonoBehaviour (UnityEngine.Object obj) [0x00015] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at UnityEngine.MonoBehaviour.StartCoroutine (System.Collections.IEnumerator routine) [0x00014] in <3209c419f8514dc7af6f7bbce69cabc6>:0 
+  at TurnManager.EndCommandPhase () [0x000c7] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:200 
+  at TurnManager.StartSimulation () [0x00001] in H:\Repo\DeadLock_Controls\Assets\Scripts\Movement\TurnManager.cs:210 
+  at TurnSystemIntegrationTests+<Test_TurnManagerEventsExist>d__8.MoveNext () [0x0013f] in H:\Repo\DeadLock_Controls\Assets\Tests\PlayModeTests\Integration\TurnSystemIntegrationTests.cs:69 
+  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0004e] in .\Library\PackageCache\com.unity.test-framework@d97b7cd61ded\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44 ]]></stack-trace>
+          </failure>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+Turn 1: Ending Command Phase...
+Checking for collisions...
+CheckCollisions called but no ships registered
+Saving results to: H:\Repo\DeadLock_Controls\TestResults_TurnSystem3.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

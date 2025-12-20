@@ -1,7 +1,7 @@
 # Hephaestus - Implementation Status
 
-## Current Phase: 2.1 - Weapon Systems (All Tracks Complete ✅)
-## Last Updated: 2025-11-20
+## Current Phase: 3.5 - Systems Integration
+## Last Updated: 2025-12-19
 
 ### Completed Steps
 - Phase 0: Foundation ✅
@@ -1118,3 +1118,68 @@ Assets/Scenes/Testing/              # Test scenes (auto-generated)
 - Tests updated to reflect GDD-specified Shield Boost behavior
 
 #### ⏭️ Next: Step 3.3 - Projectile Damage Integration
+
+---
+
+## Phase 3.5: Systems Integration
+
+### Step 3.5.0 - Phase 3.5 Standards Established
+
+**Status:** Complete ✅
+
+#### 📁 Files Modified
+- `CLAUDE.md` - Added Phase 3.5 standards section with architecture principles, event flow, integration points, and key classes
+
+#### 📁 Folder Structure Created
+```
+Assets/Scripts/Combat/Integration/    # Integration coordinator scripts
+Assets/Editor/Integration/            # Editor automation
+Assets/Tests/PlayModeTests/Integration/  # Integration tests
+```
+
+#### 📋 Standards Documented
+- **Architecture Principles**: TurnManager as central coordinator, event-based system communication
+- **Event Flow**: Command Phase → Simulation Phase → Turn End cycle
+- **Integration Points**: Ship, WeaponManager, HeatManager, WeaponSystem, AbilitySystem, ProjectileManager
+- **Key Classes**: CombatCoordinator, WeaponFiringQueue, TurnEndProcessor
+
+#### ⏭️ Next: Step 3.5.1 - Turn System Event Infrastructure
+
+---
+
+### Step 3.5.1 - Turn System Event Infrastructure
+
+**Status:** Complete ✅
+
+#### 📁 Files Created
+- `Assets/Scripts/Combat/Integration/TurnPhase.cs` - TurnPhase enum (Command, Simulation, TurnEnd)
+- `Assets/Scripts/Combat/Integration/TurnEventSubscriber.cs` - Base class for event subscribers
+- `Assets/Scripts/Combat/Integration/CombatCoordinator.cs` - Orchestrates combat simulation flow
+- `Assets/Scripts/Combat/Integration/TurnSystemTestController.cs` - Runtime test controller with GUI
+- `Assets/Editor/Integration/TurnSystemTestSetup.cs` - Editor menu for creating test scenes
+- `Assets/Tests/PlayModeTests/Integration/TurnSystemIntegrationTests.cs` - 10 unit tests
+
+#### 📁 Files Modified
+- `Assets/Scripts/Movement/TurnManager.cs` - Enhanced with events and properties:
+  - Events: OnTurnStart, OnCommandPhaseStart, OnSimulationPhaseStart, OnSimulationPhaseEnd, OnTurnEnd, OnSimulationProgress
+  - Properties: CurrentTurn, CurrentPhase (TurnPhase), SimulationProgress, IsCommandPhase, IsSimulationPhase
+  - Methods: StartSimulation(), ForceEndTurn(), RegisterShip(), UnregisterShip()
+- `Assets/Scripts/Input/InputManager.cs` - Updated to use TurnPhase enum
+- `Assets/Scripts/Movement/MovementController.cs` - Updated to use TurnPhase enum
+- `Assets/Scripts/UI/DebugUI.cs` - Updated to use TurnPhase enum
+
+#### 🧪 Tests Added: 10
+- Test_TurnManagerEventsExist
+- Test_CommandPhaseEventFires
+- Test_SimulationPhaseEventFires
+- Test_TurnEndEventFires
+- Test_TurnCounterIncrements
+- Test_PhaseTransitionOrder
+- Test_SubscriberReceivesEvents
+- Test_CombatCoordinatorOrchestrates
+- Test_SimulationProgressUpdates
+- Test_MultipleSubscribers
+
+#### 🧪 Test Results: 208 total (199 passing, 9 pre-existing failures)
+
+#### ⏭️ Next: Step 3.5.2 - Weapon Firing Integration

@@ -132,7 +132,7 @@ public class MovementController : MonoBehaviour
     private void Update()
     {
         // Only process input during Command phase
-        if (TurnManager.Instance == null || TurnManager.Instance.CurrentPhase != TurnManager.Phase.Command)
+        if (TurnManager.Instance == null || TurnManager.Instance.CurrentPhase != TurnPhase.Command)
         {
             return;
         }

@@ -11,7 +11,7 @@ public static class ProjectileDamageTestSetup
     /// <summary>
     /// Creates a new test scene for projectile damage integration testing.
     /// </summary>
-    [MenuItem("Hephaestus/Testing/Create Projectile Damage Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Projectile Damage Test Scene")]
     public static void CreateProjectileDamageTestScene()
     {
         // Create new scene
@@ -182,7 +182,7 @@ public static class ProjectileDamageTestSetup
     /// <summary>
     /// Opens the projectile damage test scene if it exists.
     /// </summary>
-    [MenuItem("Hephaestus/Testing/Open Projectile Damage Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Open Projectile Damage Test Scene")]
     public static void OpenProjectileDamageTestScene()
     {
         string scenePath = "Assets/Scenes/Testing/ProjectileDamageTestScene.unity";

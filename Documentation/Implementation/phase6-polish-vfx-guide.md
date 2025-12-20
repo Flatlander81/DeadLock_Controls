@@ -6,11 +6,11 @@
 
 **Phase 6** adds visual effects, audio, and polish to transform the functional prototype into an engaging experience.
 
-**Prerequisites**: Phase 5 Complete (342 tests passing)
+**Prerequisites**: Phase 5 Complete (404 tests passing)
 
 **Estimated Time**: 25-35 hours
 
-**New Tests**: ~35 automated tests
+**New Tests**: ~54 automated tests
 
 ---
 
@@ -62,7 +62,7 @@
 
 ```
 CONTEXT:
-Phase 5 complete with 342 tests passing. Beginning Phase 6: Polish & VFX.
+Phase 5 complete with 404 tests passing. Beginning Phase 6: Polish & VFX.
 
 OBJECTIVE:
 Add Phase 6 standards section to CLAUDE.md.
@@ -148,8 +148,8 @@ STATUS UPDATE:
 
 ## Step 6.1: Weapon Visual Effects
 
-**Time**: 5-6 hours  
-**Prerequisites**: Step 6.0 complete
+**Time**: 5-6 hours
+**Prerequisites**: Step 6.0 complete (404 tests passing)
 
 ### CLAUDE CODE PROMPT 6.1
 
@@ -263,7 +263,7 @@ STATUS UPDATE:
 - List new/modified files
 - 📁 Created: VFX prefabs for 4 weapon types
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 350/350 passing
+- 🧪 Total Tests: 412/412 passing
 - ⏭️ Next: Step 6.2 - Damage Visual Effects
 ```
 
@@ -271,7 +271,7 @@ STATUS UPDATE:
 
 1. **Run Setup**: Menu → Hephaestus → Setup → Create Weapon VFX Prefabs
 2. **Run Setup**: Menu → Hephaestus → Testing → Create Weapon VFX Test Scene
-3. **Run Tests**: Verify 350/350 passing
+3. **Run Tests**: Verify 412/412 passing
 4. **Play Mode Verification**:
    - [ ] Rail Gun: Blue flash, fast tracer, spark impact
    - [ ] Cannon: Orange charge, visible shell, explosion
@@ -284,8 +284,8 @@ STATUS UPDATE:
 
 ## Step 6.2: Damage Visual Effects
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 6.1 complete (350 tests passing)
+**Time**: 4-5 hours
+**Prerequisites**: Step 6.1 complete (412 tests passing)
 
 ### CLAUDE CODE PROMPT 6.2
 
@@ -410,14 +410,14 @@ STATUS UPDATE:
 - ✅ Step 6.2 Complete - Damage Visual Effects
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 358/358 passing
+- 🧪 Total Tests: 420/420 passing
 - ⏭️ Next: Step 6.3 - Heat Visualization
 ```
 
 ### VERIFICATION 6.2
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Damage VFX Test Scene
-2. **Run Tests**: Verify 358/358 passing
+2. **Run Tests**: Verify 420/420 passing
 3. **Play Mode Verification**:
    - [ ] Shield hit shows blue ripple
    - [ ] Shield collapse is dramatic
@@ -431,8 +431,8 @@ STATUS UPDATE:
 
 ## Step 6.3: Heat Visualization
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 6.2 complete (358 tests passing)
+**Time**: 4-5 hours
+**Prerequisites**: Step 6.2 complete (420 tests passing)
 
 ### CLAUDE CODE PROMPT 6.3
 
@@ -560,14 +560,14 @@ STATUS UPDATE:
 - ✅ Step 6.3 Complete - Heat Visualization
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 366/366 passing
+- 🧪 Total Tests: 428/428 passing
 - ⏭️ Next: Step 6.4 - Audio System
 ```
 
 ### VERIFICATION 6.3
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Heat VFX Test Scene
-2. **Run Tests**: Verify 366/366 passing
+2. **Run Tests**: Verify 428/428 passing
 3. **Play Mode Verification**:
    - [ ] Normal (0-59): Ship looks normal
    - [ ] Minor (60-79): Yellow glow on vents
@@ -580,8 +580,8 @@ STATUS UPDATE:
 
 ## Step 6.4: Audio System
 
-**Time**: 5-6 hours  
-**Prerequisites**: Step 6.3 complete (366 tests passing)
+**Time**: 5-6 hours
+**Prerequisites**: Step 6.3 complete (428 tests passing)
 
 ### CLAUDE CODE PROMPT 6.4
 
@@ -710,7 +710,7 @@ STATUS UPDATE:
 - ✅ Step 6.4 Complete - Audio System
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 374/374 passing
+- 🧪 Total Tests: 436/436 passing
 - ⏭️ Next: Step 6.5 - Screen Effects
 ```
 
@@ -718,7 +718,7 @@ STATUS UPDATE:
 
 1. **Run Setup**: Menu → Hephaestus → Setup → Create Audio Manager
 2. **Run Setup**: Menu → Hephaestus → Testing → Create Audio Test Scene
-3. **Run Tests**: Verify 374/374 passing
+3. **Run Tests**: Verify 436/436 passing
 4. **Play Mode Verification**:
    - [ ] Weapon sounds play (distinct per type)
    - [ ] Impact sounds vary by damage type
@@ -731,8 +731,8 @@ STATUS UPDATE:
 
 ## Step 6.5: Screen Effects
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 6.4 complete (374 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 6.4 complete (436 tests passing)
 
 ### CLAUDE CODE PROMPT 6.5
 
@@ -847,14 +847,14 @@ STATUS UPDATE:
 - ✅ Step 6.5 Complete - Screen Effects
 - List new/modified files
 - 🧪 Unit Tests: 8/8 passing
-- 🧪 Total Tests: 382/382 passing
+- 🧪 Total Tests: 444/444 passing
 - ⏭️ Next: Step 6.6 - UI Polish
 ```
 
 ### VERIFICATION 6.5
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Screen Effects Test Scene
-2. **Run Tests**: Verify 382/382 passing
+2. **Run Tests**: Verify 444/444 passing
 3. **Play Mode Verification**:
    - [ ] Camera shake works (various intensities)
    - [ ] Screen flash works (various colors)
@@ -867,8 +867,8 @@ STATUS UPDATE:
 
 ## Step 6.6: UI Polish
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 6.5 complete (382 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 6.5 complete (444 tests passing)
 
 ### CLAUDE CODE PROMPT 6.6
 
@@ -974,14 +974,14 @@ STATUS UPDATE:
 - ✅ Step 6.6 Complete - UI Polish
 - List new/modified files
 - 🧪 Unit Tests: 6/6 passing
-- 🧪 Total Tests: 388/388 passing
+- 🧪 Total Tests: 450/450 passing
 - ⏭️ Next: Step 6.7 - Phase 6 Integration Testing
 ```
 
 ### VERIFICATION 6.6
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create UI Polish Test Scene
-2. **Run Tests**: Verify 388/388 passing
+2. **Run Tests**: Verify 450/450 passing
 3. **Play Mode Verification**:
    - [ ] Panels animate in/out smoothly
    - [ ] Health/shield bars animate to values
@@ -994,8 +994,8 @@ STATUS UPDATE:
 
 ## Step 6.7: Phase 6 Integration Testing
 
-**Time**: 2-3 hours  
-**Prerequisites**: Step 6.6 complete (388 tests passing)
+**Time**: 2-3 hours
+**Prerequisites**: Step 6.6 complete (450 tests passing)
 
 ### CLAUDE CODE PROMPT 6.7
 
@@ -1063,7 +1063,7 @@ STATUS UPDATE:
 - ✅ PHASE 6 COMPLETE
 - List new/modified files
 - 🧪 Integration Tests: 8/8 passing
-- 🧪 Total Tests: 396/396 passing
+- 🧪 Total Tests: 458/458 passing
 - 📊 Phase 6 Summary: [List all systems]
 - ⏭️ Next Phase: Phase 7 - Balance & MVP
 ```
@@ -1071,7 +1071,7 @@ STATUS UPDATE:
 ### VERIFICATION 6.7
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Full Polish Test Scene
-2. **Run All Tests**: Verify 396/396 passing
+2. **Run All Tests**: Verify 458/458 passing
 3. **Manual Combat Playthrough**:
    - [ ] Weapons have full VFX + audio
    - [ ] Damage shows visual + audio feedback
@@ -1100,13 +1100,13 @@ STATUS UPDATE:
 ### Test Coverage
 | Step | Tests Added | Running Total |
 |------|-------------|---------------|
-| 6.1 Weapon VFX | 8 | 350 |
-| 6.2 Damage VFX | 8 | 358 |
-| 6.3 Heat VFX | 8 | 366 |
-| 6.4 Audio | 8 | 374 |
-| 6.5 Screen Effects | 8 | 382 |
-| 6.6 UI Polish | 6 | 388 |
-| 6.7 Integration | 8 | 396 |
+| 6.1 Weapon VFX | 8 | 412 |
+| 6.2 Damage VFX | 8 | 420 |
+| 6.3 Heat VFX | 8 | 428 |
+| 6.4 Audio | 8 | 436 |
+| 6.5 Screen Effects | 8 | 444 |
+| 6.6 UI Polish | 6 | 450 |
+| 6.7 Integration | 8 | 458 |
 
 ### Performance Targets
 - 60 FPS with all effects

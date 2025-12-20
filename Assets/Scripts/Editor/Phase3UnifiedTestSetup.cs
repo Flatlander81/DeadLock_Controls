@@ -9,7 +9,7 @@ using UnityEditor;
 /// </summary>
 public class Phase3UnifiedTestSetup : Editor
 {
-    [MenuItem("Hephaestus/Testing/Create Phase 3 Unified Test Level")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Unified Test Level")]
     public static void CreateUnifiedTestLevel()
     {
         Debug.Log("=== Creating Phase 3 Unified Test Level ===");

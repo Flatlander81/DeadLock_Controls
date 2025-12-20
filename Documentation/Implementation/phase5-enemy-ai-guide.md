@@ -6,11 +6,36 @@
 
 **Phase 5** implements enemy AI that controls ships using the exact same systems as the player. No cheating - AI uses identical heat management, weapons, abilities, and constraints.
 
-**Prerequisites**: Phase 4 Complete (256 tests passing)
+**Prerequisites**: Phase 4 Complete (318 tests passing)
 
 **Estimated Time**: 30-40 hours
 
-**New Tests**: ~60 automated tests
+**New Tests**: ~68 automated tests
+
+---
+
+## Phase 3.5/4 Integration Dependencies
+
+Phase 5 builds heavily on the integrated combat loop:
+
+- **TurnManager Events**: AI subscribes to `OnCommandPhaseStart` to make decisions
+- **WeaponFiringQueue**: AI queues weapons just like player
+- **CombatCoordinator**: AI commits plans before simulation
+- **Heat/Cooldown Integration**: AI manages heat budget using same turn-end processing
+
+**AI Decision Timing:**
+```
+Command Phase Start:
+  1. TurnManager fires OnCommandPhaseStart
+  2. AIController.MakeDecisions() called
+  3. AI evaluates state (AIContext)
+  4. AI plans movement via Ship.PlanMove()
+  5. AI queues weapons via WeaponFiringQueue
+  6. AI commits abilities via AbilitySystem
+  ↓
+End Turn:
+  AI plans execute alongside player plans
+```
 
 ---
 
@@ -64,14 +89,14 @@
 
 ## Step 5.0: Establish Phase 5 Standards
 
-**Time**: 15 minutes  
-**Prerequisites**: Phase 4 complete
+**Time**: 15 minutes
+**Prerequisites**: Phase 4 complete (318 tests passing)
 
 ### CLAUDE CODE PROMPT 5.0
 
 ```
 CONTEXT:
-Phase 4 complete with 256 tests passing. Beginning Phase 5: Enemy AI.
+Phase 4 complete with 318 tests passing. Beginning Phase 5: Enemy AI.
 
 OBJECTIVE:
 Add Phase 5 standards section to CLAUDE.md.
@@ -169,8 +194,8 @@ After completion, note in IMPLEMENTATION_STATUS.md:
 
 ## Step 5.1: AI Controller Foundation
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 5.0 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 5.0 complete (318 tests passing)
 
 ### CLAUDE CODE PROMPT 5.1
 
@@ -305,14 +330,14 @@ STATUS UPDATE:
 - ✅ Step 5.1 Complete - AI Controller Foundation
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 266/266 passing
+- 🧪 Total Tests: 328/328 passing
 - ⏭️ Next: Step 5.2 - Basic AI Behavior
 ```
 
 ### VERIFICATION 5.1
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create AI Controller Test Scene
-2. **Run Tests**: Verify 266/266 passing
+2. **Run Tests**: Verify 328/328 passing
 3. **Play Mode Verification**:
    - [ ] Enemy ship has AIController component
    - [ ] AI targets player ship automatically
@@ -324,8 +349,8 @@ STATUS UPDATE:
 
 ## Step 5.2: Basic AI Behavior
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 5.1 complete (266 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 5.1 complete (328 tests passing)
 
 ### CLAUDE CODE PROMPT 5.2
 
@@ -424,14 +449,14 @@ STATUS UPDATE:
 - ✅ Step 5.2 Complete - Basic AI Behavior
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 276/276 passing
+- 🧪 Total Tests: 338/338 passing
 - ⏭️ Next: Step 5.3 - Intermediate AI Behavior
 ```
 
 ### VERIFICATION 5.2
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Basic AI Test Scene
-2. **Run Tests**: Verify 276/276 passing
+2. **Run Tests**: Verify 338/338 passing
 3. **Play Mode Verification**:
    - [ ] Basic AI moves toward player when far
    - [ ] Basic AI fires all weapons every turn
@@ -444,8 +469,8 @@ STATUS UPDATE:
 
 ## Step 5.3: Intermediate AI Behavior
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 5.2 complete (276 tests passing)
+**Time**: 4-5 hours
+**Prerequisites**: Step 5.2 complete (338 tests passing)
 
 ### CLAUDE CODE PROMPT 5.3
 
@@ -551,14 +576,14 @@ STATUS UPDATE:
 - ✅ Step 5.3 Complete - Intermediate AI Behavior
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 286/286 passing
+- 🧪 Total Tests: 348/348 passing
 - ⏭️ Next: Step 5.4 - Advanced AI Behavior
 ```
 
 ### VERIFICATION 5.3
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Intermediate AI Test Scene
-2. **Run Tests**: Verify 286/286 passing
+2. **Run Tests**: Verify 348/348 passing
 3. **Play Mode Verification**:
    - [ ] Intermediate AI maintains optimal range
    - [ ] Intermediate AI retreats when shields low
@@ -571,8 +596,8 @@ STATUS UPDATE:
 
 ## Step 5.4: Advanced AI Behavior
 
-**Time**: 5-6 hours  
-**Prerequisites**: Step 5.3 complete (286 tests passing)
+**Time**: 5-6 hours
+**Prerequisites**: Step 5.3 complete (348 tests passing)
 
 ### CLAUDE CODE PROMPT 5.4
 
@@ -696,14 +721,14 @@ STATUS UPDATE:
 - ✅ Step 5.4 Complete - Advanced AI Behavior
 - List new/modified files
 - 🧪 Unit Tests: 12/12 passing
-- 🧪 Total Tests: 298/298 passing
+- 🧪 Total Tests: 360/360 passing
 - ⏭️ Next: Step 5.5 - Enemy Ship Spawning
 ```
 
 ### VERIFICATION 5.4
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Advanced AI Test Scene
-2. **Run Tests**: Verify 298/298 passing
+2. **Run Tests**: Verify 360/360 passing
 3. **Play Mode Verification**:
    - [ ] Advanced AI reads player's planned movement
    - [ ] Advanced AI attempts flanking maneuvers
@@ -716,8 +741,8 @@ STATUS UPDATE:
 
 ## Step 5.5: Enemy Ship Spawning
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 5.4 complete (298 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 5.4 complete (360 tests passing)
 
 ### CLAUDE CODE PROMPT 5.5
 
@@ -850,7 +875,7 @@ STATUS UPDATE:
 - List new/modified files
 - 📁 Created: 3 enemy prefabs
 - 🧪 Unit Tests: 12/12 passing
-- 🧪 Total Tests: 310/310 passing
+- 🧪 Total Tests: 372/372 passing
 - ⏭️ Next: Step 5.6 - Victory/Defeat Conditions
 ```
 
@@ -858,7 +883,7 @@ STATUS UPDATE:
 
 1. **Run Setup**: Menu → Hephaestus → Setup → Create Enemy Prefabs
 2. **Run Setup**: Menu → Hephaestus → Testing → Create Enemy Spawn Test Scene
-3. **Run Tests**: Verify 310/310 passing
+3. **Run Tests**: Verify 372/372 passing
 4. **Play Mode Verification**:
    - [ ] Frigate spawns with correct stats
    - [ ] Destroyer spawns with correct stats
@@ -871,8 +896,8 @@ STATUS UPDATE:
 
 ## Step 5.6: Victory/Defeat Conditions
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 5.5 complete (310 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 5.5 complete (372 tests passing)
 
 ### CLAUDE CODE PROMPT 5.6
 
@@ -995,14 +1020,14 @@ STATUS UPDATE:
 - ✅ Step 5.6 Complete - Victory/Defeat Conditions
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 320/320 passing
+- 🧪 Total Tests: 382/382 passing
 - ⏭️ Next: Step 5.7 - AI Coordination (Multi-Ship)
 ```
 
 ### VERIFICATION 5.6
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Victory Defeat Test Scene
-2. **Run Tests**: Verify 320/320 passing
+2. **Run Tests**: Verify 382/382 passing
 3. **Play Mode Verification**:
    - [ ] Destroying all enemies triggers victory
    - [ ] Victory screen appears with stats
@@ -1015,8 +1040,8 @@ STATUS UPDATE:
 
 ## Step 5.7: AI Coordination (Multi-Ship)
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 5.6 complete (320 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 5.6 complete (382 tests passing)
 
 ### CLAUDE CODE PROMPT 5.7
 
@@ -1123,14 +1148,14 @@ STATUS UPDATE:
 - ✅ Step 5.7 Complete - AI Coordination
 - List new/modified files
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 330/330 passing
+- 🧪 Total Tests: 392/392 passing
 - ⏭️ Next: Step 5.8 - Phase 5 Integration Testing
 ```
 
 ### VERIFICATION 5.7
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create AI Coordination Test Scene
-2. **Run Tests**: Verify 330/330 passing
+2. **Run Tests**: Verify 392/392 passing
 3. **Play Mode Verification**:
    - [ ] Multiple AIs register with coordinator
    - [ ] Focus fire mode: All target same section
@@ -1143,8 +1168,8 @@ STATUS UPDATE:
 
 ## Step 5.8: Phase 5 Integration Testing
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 5.7 complete (330 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 5.7 complete (392 tests passing)
 
 ### CLAUDE CODE PROMPT 5.8
 
@@ -1237,7 +1262,7 @@ STATUS UPDATE:
 - ✅ PHASE 5 COMPLETE
 - List new/modified files
 - 🧪 Integration Tests: 12/12 passing
-- 🧪 Total Tests: 342/342 passing
+- 🧪 Total Tests: 404/404 passing
 - 📊 Phase 5 Summary: [List all major systems]
 - ⏭️ Next Phase: Phase 6 - Polish & VFX
 ```
@@ -1245,7 +1270,7 @@ STATUS UPDATE:
 ### VERIFICATION 5.8
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Full Combat Test Scene
-2. **Run All Tests**: Verify 342/342 passing
+2. **Run All Tests**: Verify 404/404 passing
 3. **Manual Combat Scenarios**:
 
    **Tutorial (1 Frigate)**:
@@ -1287,14 +1312,14 @@ STATUS UPDATE:
 ### Test Coverage
 | Step | Tests Added | Running Total |
 |------|-------------|---------------|
-| 5.1 Controller | 10 | 266 |
-| 5.2 Basic AI | 10 | 276 |
-| 5.3 Intermediate | 10 | 286 |
-| 5.4 Advanced | 12 | 298 |
-| 5.5 Spawning | 12 | 310 |
-| 5.6 Victory/Defeat | 10 | 320 |
-| 5.7 Coordination | 10 | 330 |
-| 5.8 Integration | 12 | 342 |
+| 5.1 Controller | 10 | 328 |
+| 5.2 Basic AI | 10 | 338 |
+| 5.3 Intermediate | 10 | 348 |
+| 5.4 Advanced | 12 | 360 |
+| 5.5 Spawning | 12 | 372 |
+| 5.6 Victory/Defeat | 10 | 382 |
+| 5.7 Coordination | 10 | 392 |
+| 5.8 Integration | 12 | 404 |
 
 ### Enemy Ship Summary
 | Type | HP | Shields | Default AI |

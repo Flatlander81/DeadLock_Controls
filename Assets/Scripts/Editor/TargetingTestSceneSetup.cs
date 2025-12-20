@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class TargetingTestSceneSetup : EditorWindow
 {
-    [MenuItem("Hephaestus/Testing/Setup Targeting Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 2 - Weapons/Setup Targeting Test Scene")]
     public static void CreateTargetingTestScene()
     {
         // Ask user if they want to save current scene

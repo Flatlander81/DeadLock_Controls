@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 /// </summary>
 public class DegradationTestSetup
 {
-    [MenuItem("Hephaestus/Testing/Create Degradation Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Degradation Test Scene")]
     public static void CreateDegradationTestScene()
     {
         // Create new scene

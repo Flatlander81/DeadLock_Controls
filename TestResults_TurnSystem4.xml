@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.2825813">
+  <test-suite type="TestSuite" id="1233" name="Deadlock" fullname="Deadlock" runstate="Runnable" testcasecount="208" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.282581" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1231" name="PlayModeTests.dll" fullname="H:/Repo/DeadLock_Controls/Library/ScriptAssemblies/PlayModeTests.dll" runstate="Runnable" testcasecount="208" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.274858" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="29224" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1136" name="TurnSystemIntegrationTests" fullname="TurnSystemIntegrationTests" classname="TurnSystemIntegrationTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.268785" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1144" name="Test_CombatCoordinatorOrchestrates" fullname="TurnSystemIntegrationTests.Test_CombatCoordinatorOrchestrates" methodname="Test_CombatCoordinatorOrchestrates" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1250217525" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.024989" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1138" name="Test_CommandPhaseEventFires" fullname="TurnSystemIntegrationTests.Test_CommandPhaseEventFires" methodname="Test_CommandPhaseEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1005008057" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.005254" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+]]></output>
+        </test-case>
+        <test-case id="1146" name="Test_MultipleSubscribers" fullname="TurnSystemIntegrationTests.Test_MultipleSubscribers" methodname="Test_MultipleSubscribers" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1295402614" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.004028" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1142" name="Test_PhaseTransitionOrder" fullname="TurnSystemIntegrationTests.Test_PhaseTransitionOrder" methodname="Test_PhaseTransitionOrder" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="2103858399" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.004245" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+]]></output>
+        </test-case>
+        <test-case id="1139" name="Test_SimulationPhaseEventFires" fullname="TurnSystemIntegrationTests.Test_SimulationPhaseEventFires" methodname="Test_SimulationPhaseEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="2111394929" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.003125" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1145" name="Test_SimulationProgressUpdates" fullname="TurnSystemIntegrationTests.Test_SimulationProgressUpdates" methodname="Test_SimulationProgressUpdates" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="1279554567" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.203076" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1143" name="Test_SubscriberReceivesEvents" fullname="TurnSystemIntegrationTests.Test_SubscriberReceivesEvents" methodname="Test_SubscriberReceivesEvents" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="609341129" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.003432" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+]]></output>
+        </test-case>
+        <test-case id="1141" name="Test_TurnCounterIncrements" fullname="TurnSystemIntegrationTests.Test_TurnCounterIncrements" methodname="Test_TurnCounterIncrements" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="300852999" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.004072" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+]]></output>
+        </test-case>
+        <test-case id="1140" name="Test_TurnEndEventFires" fullname="TurnSystemIntegrationTests.Test_TurnEndEventFires" methodname="Test_TurnEndEventFires" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="233726770" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.003676" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+]]></output>
+        </test-case>
+        <test-case id="1137" name="Test_TurnManagerEventsExist" fullname="TurnSystemIntegrationTests.Test_TurnManagerEventsExist" methodname="Test_TurnManagerEventsExist" classname="TurnSystemIntegrationTests" runstate="Runnable" seed="707819027" result="Passed" start-time="2025-12-20 01:33:45Z" end-time="2025-12-20 01:33:45Z" duration="0.003715" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[TestShip: No HeatManager component found. Adding one automatically.
+TestShip: No AbilitySystem component found. Abilities will not be available.
+TestShip: No WeaponManager component found. Weapons will not be available.
+TurnManager initialized. Found 1 ships. Starting Turn 1 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Turn 1: Ending Command Phase...
+Checking for collisions...
+[CombatCoordinator] Simulation Phase started - beginning combat sequence
+[CombatCoordinator] === SIMULATION SEQUENCE BEGIN ===
+[CombatCoordinator] Stage 1: Movement (0.9s)
+All abilities executed
+Turn 1: Simulation Phase started. Duration: 3s
+Turn 1: Ending Simulation Phase...
+[CombatCoordinator] Simulation Phase ended - combat complete
+[CombatCoordinator] Turn 1 ended
+Turn 1 complete. Starting Turn 2 in Command Phase.
+[CombatCoordinator] Command Phase started - awaiting orders
+Saving results to: H:\Repo\DeadLock_Controls\TestResults_TurnSystem4.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

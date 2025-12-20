@@ -8,7 +8,7 @@ using UnityEditor.SceneManagement;
 /// </summary>
 public class CoreProtectionTestSetup
 {
-    [MenuItem("Hephaestus/Testing/Create Core Protection Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Core Protection Test Scene")]
     public static void CreateCoreProtectionTestScene()
     {
         // Create new scene

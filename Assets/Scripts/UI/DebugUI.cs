@@ -113,7 +113,7 @@ public class DebugUI : MonoBehaviour
             GUILayout.EndArea();
 
             // End Turn button (only visible during Command phase)
-            if (TurnManager.Instance.CurrentPhase == TurnManager.Phase.Command)
+            if (TurnManager.Instance.CurrentPhase == TurnPhase.Command)
             {
                 GUILayout.BeginArea(new Rect(Screen.width - 160, 80, 150, 50));
                 if (GUILayout.Button("End Turn", GUILayout.Height(40)))
@@ -206,7 +206,7 @@ public class DebugUI : MonoBehaviour
         GUILayout.BeginArea(new Rect(panelX, panelY + 380, panelWidth, 220));
 
         // Check if we're in Command phase for debug buttons
-        bool isCommandPhase = TurnManager.Instance != null && TurnManager.Instance.CurrentPhase == TurnManager.Phase.Command;
+        bool isCommandPhase = TurnManager.Instance != null && TurnManager.Instance.CurrentPhase == TurnPhase.Command;
 
         // Movement mode toggle button - only during Command phase
         if (movementController != null)
@@ -267,7 +267,7 @@ public class DebugUI : MonoBehaviour
         if (abilitySlots.Count == 0) return;
 
         // Check if we're in Command phase
-        bool isCommandPhase = TurnManager.Instance != null && TurnManager.Instance.CurrentPhase == TurnManager.Phase.Command;
+        bool isCommandPhase = TurnManager.Instance != null && TurnManager.Instance.CurrentPhase == TurnPhase.Command;
 
         GUILayout.BeginArea(new Rect(panelX, panelY, 210, 190));
         GUILayout.Box("Abilities (Keys 1-6)");

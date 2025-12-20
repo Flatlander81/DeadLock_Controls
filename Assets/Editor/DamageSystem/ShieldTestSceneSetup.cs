@@ -11,7 +11,7 @@ public static class ShieldTestSceneSetup
     /// <summary>
     /// Creates a new test scene with a ship configured with shields and sections.
     /// </summary>
-    [MenuItem("Hephaestus/Testing/Create Shield Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Create Shield Test Scene")]
     public static void CreateShieldTestScene()
     {
         // Create new scene
@@ -180,7 +180,7 @@ public static class ShieldTestSceneSetup
     /// <summary>
     /// Opens the shield test scene if it exists.
     /// </summary>
-    [MenuItem("Hephaestus/Testing/Open Shield Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 3 - Damage/Open Shield Test Scene")]
     public static void OpenShieldTestScene()
     {
         string scenePath = "Assets/Scenes/Testing/ShieldTestScene.unity";

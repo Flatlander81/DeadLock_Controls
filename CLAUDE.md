@@ -187,3 +187,40 @@ Integration tests validate:
 **Phase 3 Complete!** All damage system components working together end-to-end.
 
 ---
+
+## Phase 3.5: Systems Integration Standards
+
+### Architecture Principles
+- TurnManager is the central coordinator for all phase transitions
+- Systems subscribe to TurnManager events (OnCommandPhaseStart, OnSimulationPhaseStart, OnTurnEnd)
+- No system should independently trigger phase changes
+- All combat actions queue during Command Phase, execute during Simulation Phase
+
+### Event Flow
+1. TurnManager.OnCommandPhaseStart → UI enables planning, weapons show ready status
+2. Player commits plans → TurnManager.StartSimulation()
+3. TurnManager.OnSimulationPhaseStart → Movement executes, weapons fire
+4. Simulation completes → TurnManager.OnTurnEnd → Cooldowns tick, heat dissipates
+5. TurnManager.OnCommandPhaseStart → Next turn begins
+
+### Integration Points
+- Ship.cs: Responds to turn events for movement execution
+- WeaponManager.cs: Queues firing commands, executes on simulation start
+- HeatManager.cs: Dissipates heat on turn end
+- WeaponSystem.cs: Cooldowns tick on turn end
+- AbilitySystem.cs: Cooldowns tick on turn end
+- ProjectileManager.cs: Updates projectiles during simulation
+
+### Key Classes to Create/Modify
+- CombatCoordinator: Orchestrates combat flow during simulation
+- WeaponFiringQueue: Queues weapon fire commands for simulation
+- TurnEndProcessor: Handles all turn-end cleanup
+
+### Folder Structure for Phase 3.5
+```
+Assets/Scripts/Combat/Integration/    # Integration coordinator scripts
+Assets/Editor/Integration/            # Editor automation
+Assets/Tests/PlayModeTests/Integration/  # Integration tests
+```
+
+---

@@ -6,11 +6,11 @@
 
 **Phase 7** focuses on balance tuning, playtesting, bug fixing, and final MVP validation. This is less about new features and more about refinement.
 
-**Prerequisites**: Phase 6 Complete (396 tests passing)
+**Prerequisites**: Phase 6 Complete (458 tests passing)
 
 **Estimated Time**: 20-30 hours
 
-**New Tests**: ~20 automated tests (mostly regression/validation)
+**New Tests**: ~31 automated tests (mostly regression/validation)
 
 ---
 
@@ -55,7 +55,7 @@ The prototype is successful if:
 
 ```
 CONTEXT:
-Phase 6 complete with 396 tests passing. Beginning Phase 7: Balance & MVP.
+Phase 6 complete with 458 tests passing. Beginning Phase 7: Balance & MVP.
 
 OBJECTIVE:
 Add Phase 7 standards section to CLAUDE.md.
@@ -131,8 +131,8 @@ STATUS UPDATE:
 
 ## Step 7.1: Balance Tuning Tools
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 7.0 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 7.0 complete (458 tests passing)
 
 ### CLAUDE CODE PROMPT 7.1
 
@@ -243,14 +243,14 @@ STATUS UPDATE:
 - ✅ Step 7.1 Complete - Balance Tuning Tools
 - List new/modified files
 - 🧪 Unit Tests: 6/6 passing
-- 🧪 Total Tests: 402/402 passing
+- 🧪 Total Tests: 464/464 passing
 - ⏭️ Next: Step 7.2 - Balance Pass: Weapons & Heat
 ```
 
 ### VERIFICATION 7.1
 
 1. **Run Setup**: Menu → Hephaestus → Testing → Create Balance Test Scene
-2. **Run Tests**: Verify 402/402 passing
+2. **Run Tests**: Verify 464/464 passing
 3. **Play Mode Verification**:
    - [ ] BalanceDebugger overlay appears
    - [ ] Changing weapon damage affects combat
@@ -262,8 +262,8 @@ STATUS UPDATE:
 
 ## Step 7.2: Balance Pass - Weapons & Heat
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 7.1 complete (402 tests passing)
+**Time**: 4-5 hours
+**Prerequisites**: Step 7.1 complete (464 tests passing)
 
 ### CLAUDE CODE PROMPT 7.2
 
@@ -375,8 +375,8 @@ STATUS UPDATE:
 
 ## Step 7.3: Balance Pass - Abilities & AI
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 7.2 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 7.2 complete (464 tests passing)
 
 ### CLAUDE CODE PROMPT 7.3
 
@@ -491,8 +491,8 @@ STATUS UPDATE:
 
 ## Step 7.4: Bug Hunting
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 7.3 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 7.3 complete (464 tests passing)
 
 ### CLAUDE CODE PROMPT 7.4
 
@@ -596,7 +596,7 @@ STATUS UPDATE:
 - 📁 Created: EdgeCaseTests.cs
 - 🐛 Bugs Fixed: [Count by severity]
 - 🧪 Unit Tests: 10/10 passing
-- 🧪 Total Tests: 412/412 passing
+- 🧪 Total Tests: 474/474 passing
 - ⏭️ Next: Step 7.5 - Playtest Integration
 ```
 
@@ -618,8 +618,8 @@ STATUS UPDATE:
 
 ## Step 7.5: Playtest Integration
 
-**Time**: 4-5 hours  
-**Prerequisites**: Step 7.4 complete
+**Time**: 4-5 hours
+**Prerequisites**: Step 7.4 complete (474 tests passing)
 
 ### CLAUDE CODE PROMPT 7.5
 
@@ -717,7 +717,7 @@ STATUS UPDATE:
 - ✅ Step 7.5 Complete - Playtest Integration
 - List new/modified files
 - 🧪 Unit Tests: 5/5 passing
-- 🧪 Total Tests: 417/417 passing
+- 🧪 Total Tests: 479/479 passing
 - ⏭️ Next: Step 7.6 - Final MVP Validation
 ```
 
@@ -742,8 +742,8 @@ STATUS UPDATE:
 
 ## Step 7.6: Final MVP Validation
 
-**Time**: 3-4 hours  
-**Prerequisites**: Step 7.5 complete (417 tests passing)
+**Time**: 3-4 hours
+**Prerequisites**: Step 7.5 complete (479 tests passing)
 
 ### CLAUDE CODE PROMPT 7.6
 
@@ -853,7 +853,7 @@ STATUS UPDATE:
 - ✅ PHASE 7 COMPLETE
 - ✅ MVP COMPLETE
 - 🧪 Validation Tests: 10/10 passing
-- 🧪 Total Tests: 427/427 passing
+- 🧪 Total Tests: 489/489 passing
 - 📊 MVP Criteria: [X/Y passed]
 - 📋 Known Issues: [List minor issues]
 ```
@@ -894,12 +894,12 @@ STATUS UPDATE:
 ### Test Coverage
 | Step | Tests Added | Running Total |
 |------|-------------|---------------|
-| 7.1 Balance Tools | 6 | 402 |
-| 7.4 Edge Cases | 10 | 412 |
-| 7.5 Playtest | 5 | 417 |
-| 7.6 Validation | 10 | 427 |
+| 7.1 Balance Tools | 6 | 464 |
+| 7.4 Edge Cases | 10 | 474 |
+| 7.5 Playtest | 5 | 479 |
+| 7.6 Validation | 10 | 489 |
 
-### Final Test Count: 427
+### Final Test Count: 489
 
 ### Balance Documentation
 - WeaponBalanceReport.md
@@ -912,7 +912,7 @@ STATUS UPDATE:
 ## MVP Complete Checklist
 
 ### Must Pass (All Required)
-- [ ] All 427 tests pass
+- [ ] All 489 tests pass
 - [ ] Tutorial win rate ~95%
 - [ ] No critical bugs
 - [ ] No major bugs

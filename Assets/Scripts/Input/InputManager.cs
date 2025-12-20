@@ -80,7 +80,7 @@ public class InputManager : MonoBehaviour
     private bool IsCommandPhase()
     {
         return TurnManager.Instance != null &&
-               TurnManager.Instance.CurrentPhase == TurnManager.Phase.Command;
+               TurnManager.Instance.CurrentPhase == TurnPhase.Command;
     }
 
     /// <summary>

@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class WeaponTestSceneSetup : EditorWindow
 {
-    [MenuItem("Hephaestus/Testing/Setup Weapon Test Scene")]
+    [MenuItem("Hephaestus/Testing/Phase 2 - Weapons/Setup Weapon Test Scene")]
     public static void CreateWeaponTestScene()
     {
         // Ask user if they want to save current scene
